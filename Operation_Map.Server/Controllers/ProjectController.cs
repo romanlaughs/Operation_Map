@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Operation_Map.Server.Helpers;
 using Operation_Map.Server.Models;
-using Operation_Map.Server.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,10 +11,12 @@ namespace Operation_Map.Server.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ProjectController(IProjectRepository projectRepository)
+        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository)
         {
             _projectRepository = projectRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -37,14 +38,29 @@ namespace Operation_Map.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Project>> Create(Project project)
+        public async Task<ActionResult<Project>> Create([FromQuery] string userEmail, [FromBody] Project project)
         {
+            // Create the project
             await _projectRepository.CreateProjectAsync(project);
+
+            // Fetch the user by email
+            var user = await _userRepository.GetUserByEmailAsync(userEmail);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Add the project to the user's list of projects
+            user.Projects.Add(project);
+
+            // Save the updated user
+            await _userRepository.UpdateUserAsync(user);
+
             return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, Project projectIn)
+        public async Task<IActionResult> Update(string id, [FromBody] Project projectIn)
         {
             var project = await _projectRepository.GetProjectByIdAsync(id);
             if (project == null)
