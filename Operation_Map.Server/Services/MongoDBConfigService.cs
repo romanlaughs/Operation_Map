@@ -16,7 +16,7 @@ namespace Operation_Map.Server.Services
             BsonClassMap.RegisterClassMap<Project>(cm =>
             {
                 cm.AutoMap();
-                cm.MapMember(c => c.Id).SetElementName("_id");
+                cm.MapMember(c => c._id).SetElementName("_id");
             });
 
             BsonClassMap.RegisterClassMap<Bid>(cm =>

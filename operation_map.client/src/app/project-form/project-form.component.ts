@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Project } from '../models/project.model';
+import { SharedService } from '../shared.service'
 
 @Component({
   selector: 'app-project-form',
@@ -12,6 +13,7 @@ import { Project } from '../models/project.model';
 export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup;
   projectId: string | null;
+  email: string = SharedService.getEmail();
 
   constructor(
     private fb: FormBuilder,
@@ -26,21 +28,29 @@ export class ProjectFormComponent implements OnInit {
       city: [''],
       state: [''],
       zipCode: [''],
-      startDate: ['', Validators.required],
+      startDate: [new Date()],
       started: [false],
       finished: [false],
-      finishDate: [''],
+      finishDate: [new Date()],
       completionPercentage: [0],
       units: [0],
       projectEmail: [''],
-      projectStatus: [''],
+      projectStatus: [0, Validators.required],
       bathrooms: [0],
       squareFootage: [0],
       bedrooms: [0]
     });
 
+    const projectStatusControl = this.projectForm.get('projectStatus');
+    projectStatusControl?.valueChanges.subscribe(value => {
+      if (value !== null && value !== undefined) {
+        this.projectForm.patchValue({ projectStatus: Number(value) }, { emitEvent: false });
+      }
+    });
+
     this.projectId = null;
   }
+
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id');
@@ -51,19 +61,36 @@ export class ProjectFormComponent implements OnInit {
     }
   }
 
+
   onSubmit(): void {
     if (this.projectForm.valid) {
       if (this.projectId) {
-        this.apiService.updateProject(this.projectId, this.projectForm.value).subscribe(() => {
+        this.apiService.updateProject(this.email, this.projectId, this.projectForm.value).subscribe(() => {
+          console.log('Update Completed');
           this.router.navigate(['/projects']);
         });
       } else {
-        this.apiService.createProject(this.projectForm.value).subscribe(() => {
+        this.apiService.createProject(this.email, this.projectForm.value).subscribe(() => {
+          console.log('Creation Completed');
           this.router.navigate(['/projects']);
         });
       }
     }
+    else
+    {
+      this.alertInvalidForm();
+      console.log('Form is invalid');
+    }
   }
+
+/*  onSubmit() {
+    if (this.projectForm.valid) {
+      // Handle form submission
+      console.log('Form submitted', this.projectForm.value);
+    } else {
+      console.log('Form is invalid');
+    }
+  }*/
 
   onDelete(): void {
     if (this.projectId) {
@@ -71,5 +98,16 @@ export class ProjectFormComponent implements OnInit {
         this.router.navigate(['/projects']);
       });
     }
+  }
+
+  alertInvalidForm() {
+    const invalidControls = [];
+    const controls = this.projectForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalidControls.push(name);
+      }
+    }
+    alert(`The following fields are required: ${invalidControls.join(', ')}`);
   }
 }

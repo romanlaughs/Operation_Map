@@ -23,7 +23,7 @@ namespace Operation_Map.Server.Helpers
 
         public async Task<Project?> GetProjectByIdAsync(string id)
         {
-            return await _projectsCollection.Find(project => project.Id == id).FirstOrDefaultAsync();
+            return await _projectsCollection.Find(project => project._id == id).FirstOrDefaultAsync();
         }
 
         public async Task CreateProjectAsync(Project project)
@@ -33,12 +33,12 @@ namespace Operation_Map.Server.Helpers
 
         public async Task UpdateProjectAsync(Project project)
         {
-            await _projectsCollection.ReplaceOneAsync(p => p.Id == project.Id, project);
+            await _projectsCollection.ReplaceOneAsync(p => p._id == project._id, project);
         }
 
         public async Task DeleteProjectAsync(string id)
         {
-            await _projectsCollection.DeleteOneAsync(project => project.Id == id);
+            await _projectsCollection.DeleteOneAsync(project => project._id == id);
         }
     }
 }

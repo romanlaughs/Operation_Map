@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Operation_Map.Server.Helpers;
 using Operation_Map.Server.Models;
 using System.Collections.Generic;
@@ -37,30 +38,31 @@ namespace Operation_Map.Server.Controllers
             return Ok(project);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<Project>> Create([FromQuery] string userEmail, [FromBody] Project project)
         {
-            // Create the project
-            await _projectRepository.CreateProjectAsync(project);
-
-            // Fetch the user by email
             var user = await _userRepository.GetUserByEmailAsync(userEmail);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            // Add the project to the user's list of projects
+            await _projectRepository.CreateProjectAsync(project);
+
+            if (user.Projects == null)
+            {
+                user.Projects = new List<Project>();
+            }
+
             user.Projects.Add(project);
 
-            // Save the updated user
-            await _userRepository.UpdateUserAsync(user);
+           await _userRepository.UpdateUserAsync(user);
 
-            return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
+            return CreatedAtAction(nameof(Get), new { id = project._id }, project);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Project projectIn)
+        [HttpPut("update")]
+        public async Task<IActionResult> Update([FromQuery] string email, [FromQuery] string id, [FromBody] Project projectIn)
         {
             var project = await _projectRepository.GetProjectByIdAsync(id);
             if (project == null)
@@ -68,10 +70,18 @@ namespace Operation_Map.Server.Controllers
                 return NotFound();
             }
 
-            projectIn.Id = id; // Ensure the id is set on the updated project
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            projectIn._id = id;
             await _projectRepository.UpdateProjectAsync(projectIn);
+
             return NoContent();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)

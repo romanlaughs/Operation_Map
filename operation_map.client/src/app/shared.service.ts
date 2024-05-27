@@ -5,11 +5,16 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-  static email: string | null = null;
+  static email: string = '';
   static profileComplete: boolean;
 
-  static getEmail(): string | null {
-    return this.email;
+  static getEmail(): string {
+    if (this.email) {
+      return this.email;
+    }
+    else {
+      return "nope"
+    }
   }
 
   static setEmail(email: string): void {

@@ -57,6 +57,14 @@ export class AuthNavigationService {
     });
   }
 
+  refreshTokenIfNeeded(): void {
+    this.auth.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.auth.getAccessTokenSilently().subscribe();
+      }
+    });
+  }
+
   canActivate(): Observable<boolean> {
     return this.auth.isAuthenticated$.pipe(
       tap(isAuthenticated => {

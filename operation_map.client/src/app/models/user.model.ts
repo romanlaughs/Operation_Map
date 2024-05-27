@@ -10,4 +10,5 @@ export interface Project {
   id?: string;
   name?: string;
   description?: string;
+  projects?: Array<Project | null>;
 }

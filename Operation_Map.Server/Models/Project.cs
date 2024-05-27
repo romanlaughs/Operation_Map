@@ -10,7 +10,7 @@ namespace Operation_Map.Server.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string? _id { get; set; }
         public string? Name { get; set; }
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
@@ -29,7 +29,7 @@ namespace Operation_Map.Server.Models
         public string? ProjectEmail { get; set; }
         public List<LineItem>? LineItems { get; set; }
         public List<Material>? Materials { get; set; }
-        public string? ProjectStatus { get; set; }
+        public int? ProjectStatus { get; set; }
         public int? Bathrooms { get; set; }
         public int? SquareFootage { get; set; }
         public int? Bedrooms { get; set; }

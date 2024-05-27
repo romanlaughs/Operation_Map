@@ -55,7 +55,7 @@ import { ReactiveFormsModule } from '@angular/forms';
           }
         ]
       },
-      cacheLocation: 'sessionStorage', // This ensures tokens are stored in session storage
+      cacheLocation: 'localstorage', // This ensures tokens are stored in session storage
       useRefreshTokens: true
     })
   ],

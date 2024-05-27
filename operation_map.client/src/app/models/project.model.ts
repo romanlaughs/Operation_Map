@@ -1,5 +1,5 @@
 export interface Project {
-  id?: string;
+  id: string;
   name: string;
   address1?: string;
   address2?: string;
@@ -13,7 +13,7 @@ export interface Project {
   completionPercentage: number;
   units: number;
   projectEmail?: string;
-  projectStatus?: string;
+  projectStatus: number;
   bathrooms?: number;
   squareFootage?: number;
   bedrooms?: number;

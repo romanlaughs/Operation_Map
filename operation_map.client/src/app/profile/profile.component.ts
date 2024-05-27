@@ -16,7 +16,8 @@ export class ProfileComponent implements OnInit {
   user: User = {
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
+    projects: []
   };
 
   constructor(

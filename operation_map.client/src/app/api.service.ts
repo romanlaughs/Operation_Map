@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from './models/user.model';
 import { Project } from './models/project.model';
 
@@ -75,35 +75,45 @@ export class ApiService {
 
   // Method to get all projects
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.apiUrl}/projects`).pipe(
+    return this.http.get<Project[]>(`${this.apiUrl}/project`).pipe(
+      map((projects: any[]) => projects.map(project => ({
+        ...project,
+        id: project._id  // Map _id to id for easier reference
+      }))),
       catchError(this.handleError)
     );
   }
 
   // Method to get a project by ID
   getProject(id: string): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}/projects/${id}`).pipe(
+    return this.http.get<Project>(`${this.apiUrl}/project/${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Method to create a new project
-  createProject(project: Project): Observable<Project> {
-    return this.http.post<Project>(`${this.apiUrl}/projects`, project).pipe(
-      catchError(this.handleError)
-    );
+  createProject(userEmail: string, project: Project): Observable<Project> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    const url = `${this.apiUrl}/project/create?userEmail=${encodeURIComponent(userEmail)}`;
+
+    return this.http.post<Project>(url, project, { headers });
   }
 
-  // Method to update a project by ID
-  updateProject(id: string, project: Project): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/projects/${id}`, project).pipe(
-      catchError(this.handleError)
-    );
+  updateProject(email: string, id: string, project: Project): Observable<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    const url = `${this.apiUrl}/project/update?email=${encodeURIComponent(email)}&id=${encodeURIComponent(id)}`;
+
+    return this.http.put<void>(url, project, { headers });
   }
 
   // Method to delete a project by ID
   deleteProject(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/projects/${id}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/project/${id}`).pipe(
       catchError(this.handleError)
     );
   }

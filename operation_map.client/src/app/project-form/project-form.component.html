@@ -3,6 +3,9 @@
   <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
     <label for="name">Name</label>
     <input id="name" formControlName="name">
+    <div *ngIf="projectForm.get('name')?.touched && projectForm.get('name')?.invalid" class="error">
+      Name is required.
+    </div>
 
     <label for="address1">Address 1</label>
     <input id="address1" formControlName="address1">
@@ -41,7 +44,14 @@
     <input id="projectEmail" formControlName="projectEmail">
 
     <label for="projectStatus">Project Status</label>
-    <input id="projectStatus" formControlName="projectStatus">
+    <select id="projectStatus" formControlName="projectStatus">
+      <option [value]="0">Bidding</option>
+      <option [value]="1">In Progress</option>
+      <option [value]="-1">Archived</option>
+    </select>
+    <div *ngIf="projectForm.get('projectStatus')?.touched && projectForm.get('projectStatus')?.invalid" class="error">
+      Project Status is required.
+    </div>
 
     <label for="bathrooms">Bathrooms</label>
     <input type="number" id="bathrooms" formControlName="bathrooms">
