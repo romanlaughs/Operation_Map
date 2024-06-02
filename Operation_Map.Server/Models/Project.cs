@@ -25,7 +25,8 @@ namespace Operation_Map.Server.Models
         public List<Bid>? Bids { get; set; }
         public List<Document>? Documents { get; set; }
         public int Units { get; set; }
-        public List<Subcontractor>? Contacts { get; set; }
+        public List<Subcontractor>? Subcontractors { get; set; }
+        public List<Contacts>? Contacts { get; set; }
         public string? ProjectEmail { get; set; }
         public List<LineItem>? LineItems { get; set; }
         public List<Material>? Materials { get; set; }

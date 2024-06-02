@@ -1,14 +1,11 @@
+import { Subcontractor } from './subcontractor.model'
+import { Project } from './project.model'
+
 export interface User {
   id?: string;
   firstName?: string;
   lastName?: string;
   email: string;
   projects?: Project[];
-}
-
-export interface Project {
-  id?: string;
-  name?: string;
-  description?: string;
-  projects?: Array<Project | null>;
+  subcontractors?: Subcontractor[];
 }

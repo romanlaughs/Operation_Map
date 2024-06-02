@@ -1,0 +1,113 @@
+<div>
+  <h2>{{ subcontractorId ? 'Edit' : 'Add' }} Subcontractor</h2>
+  <form [formGroup]="subcontractorForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="companyName">Company Name</label>
+      <input id="companyName" formControlName="companyName" required>
+      <div *ngIf="subcontractorForm.get('companyName')?.invalid && subcontractorForm.get('companyName')?.touched">
+        Company Name is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="companyType">Company Type</label>
+      <input id="companyType" formControlName="companyType" required>
+      <div *ngIf="subcontractorForm.get('companyType')?.invalid && subcontractorForm.get('companyType')?.touched">
+        Company Type is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="contactName">Contact Name</label>
+      <input id="contactName" formControlName="contactName" required>
+      <div *ngIf="subcontractorForm.get('contactName')?.invalid && subcontractorForm.get('contactName')?.touched">
+        Contact Name is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="pdfUpload">PDF Upload</label>
+      <input id="pdfUpload" formControlName="pdfUpload">
+    </div>
+
+    <div>
+      <label for="address">Address</label>
+      <input id="address" formControlName="address">
+    </div>
+
+    <div>
+      <label for="contactPhoneNumber">Contact Phone Number</label>
+      <input id="contactPhoneNumber" formControlName="contactPhoneNumber">
+    </div>
+
+    <div>
+      <label for="website">Website</label>
+      <input id="website" formControlName="website">
+    </div>
+
+    <div>
+      <label for="contactEmail">Contact Email</label>
+      <input id="contactEmail" type="email" formControlName="contactEmail" required>
+      <div *ngIf="subcontractorForm.get('contactEmail')?.invalid && subcontractorForm.get('contactEmail')?.touched">
+        A valid Contact Email is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="ubi">UBI</label>
+      <input id="ubi" formControlName="ubi">
+    </div>
+
+    <div>
+      <label for="license">License</label>
+      <input id="license" formControlName="license">
+    </div>
+
+    <div>
+      <label for="taxId">Tax ID</label>
+      <input id="taxId" formControlName="taxId">
+    </div>
+
+    <div>
+      <label for="other">Other</label>
+      <input id="other" formControlName="other">
+    </div>
+
+    <div>
+      <label for="insuranceCompany">Insurance Company</label>
+      <input id="insuranceCompany" formControlName="insuranceCompany">
+    </div>
+
+    <div>
+      <label for="insuranceAgent">Insurance Agent</label>
+      <input id="insuranceAgent" formControlName="insuranceAgent">
+    </div>
+
+    <div>
+      <label for="insurancePhone">Insurance Phone</label>
+      <input id="insurancePhone" formControlName="insurancePhone">
+    </div>
+
+    <div>
+      <label for="insuranceEmail">Insurance Email</label>
+      <input id="insuranceEmail" type="email" formControlName="insuranceEmail">
+    </div>
+
+    <div>
+      <label for="additionalInsured">Additional Insured</label>
+      <input id="additionalInsured" type="checkbox" formControlName="additionalInsured">
+    </div>
+
+    <div>
+      <label for="certificatePDFURL">Certificate PDF URL</label>
+      <input id="certificatePDFURL" formControlName="certificatePDFURL">
+    </div>
+
+    <div>
+      <label for="additionalInsurancePDFURL">Additional Insurance PDF URL</label>
+      <input id="additionalInsurancePDFURL" formControlName="additionalInsurancePDFURL">
+    </div>
+
+    <button type="submit">{{ subcontractorId ? 'Update' : 'Add' }} Subcontractor</button>
+  </form>
+</div>

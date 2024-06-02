@@ -17,7 +17,9 @@ import { ProfileUpdateComponent } from './profileupdate/profileupdate.component'
 import { ProjectFormComponent } from './project-form/project-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
-import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component'; 
+import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component';
+import { SubcontractorsComponent } from './subcontractors/subcontractors.component';
+import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component'; 
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProjectsArchiveComponent } from './projects-archive/projects-archive.co
     NavigationComponent,
     ProjectFormComponent,
     ProjectsBiddingComponent,
-    ProjectsArchiveComponent
+    ProjectsArchiveComponent,
+    SubcontractorsComponent,
+    SubcontractorFormComponent
   ],
   imports: [
     FormsModule,
@@ -45,6 +49,8 @@ import { ProjectsArchiveComponent } from './projects-archive/projects-archive.co
       { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
       { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
       { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
+      { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
+      { path: 'subcontractor-form', component: SubcontractorFormComponent , canActivate: [AuthGuard] },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     ]),
     AuthModule.forRoot({

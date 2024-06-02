@@ -5,6 +5,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from './models/user.model';
 import { Project } from './models/project.model';
+import { Subcontractor } from './models/subcontractor.model';
+import { SubcontractorGroup } from './models/subcontractorgroup.model';
 
 @Injectable({
   providedIn: 'root'
@@ -123,5 +125,41 @@ export class ApiService {
   deleteProject(email: string, id: string): Observable<void> {
     const params = new HttpParams().set('email', email);
     return this.http.delete<void>(`${this.apiUrl}/project/${id}`, { params });
+  }
+
+  getSubcontractors(userEmail: string): Observable<Subcontractor[]> {
+    return this.http.get<Subcontractor[]>(`${this.apiUrl}/subcontractor/${userEmail}/subcontractors`);
+  }
+
+  getSubcontractorById(userEmail: string, subcontractorId: string): Observable<Subcontractor> {
+    const url = `${this.apiUrl}/subcontractor/${userEmail}/subcontractors/${subcontractorId}`;
+    return this.http.get<Subcontractor>(url);
+  }
+
+  createSubcontractor(userEmail: string, subcontractor: Subcontractor): Observable<void> {
+    const url = `${this.apiUrl}/subcontractor/${userEmail}/subcontractors`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<void>(url, subcontractor, { headers });
+  }
+
+  updateSubcontractor(userEmail: string, subcontractorId: string, subcontractor: Subcontractor): Observable<void> {
+    const url = `${this.apiUrl}/subcontractor/${userEmail}/subcontractors/${subcontractorId}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(url, subcontractor, { headers });
+  }
+
+  deleteSubcontractor(userEmail: string, subcontractorId: string): Observable<void> {
+    const url = `${this.apiUrl}/subcontractor/${userEmail}/subcontractors/${subcontractorId}`;
+    return this.http.delete<void>(url);
+  }
+
+  bulkDeleteSubcontractors(userEmail: string, subcontractorIds: string[]): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.request<void>('delete', `${this.apiUrl}/subcontractor/${userEmail}/subcontractors`, { body: subcontractorIds, headers });
+  }
+
+  addToGroup(userEmail: string, group: SubcontractorGroup): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<void>(`${this.apiUrl}/subcontractor/${userEmail}/subcontractorGroups`, group, { headers });
   }
 }
