@@ -17,19 +17,10 @@ namespace Operation_Map.Server.Models
         public double? PercentagePaid { get; set; }
         public string? PdfUpload { get; set; }  // URL to the uploaded PDF
         public string? Address { get; set; }
-        public List<Bid>? Bids { get; set; }
+        public List<SubProject>? Projects { get; set; }
         public string? ContactPhoneNumber { get; set; }
         public string? Website { get; set; }
         public string? ContactEmail { get; set; }
-        public int? NumberOfBids { get; set; }
-        public DateTime PaidDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public bool? Started { get; set; }
-        public bool? Finished { get; set; }
-        public DateTime FinishDate { get; set; }
-        public decimal? BidPrice { get; set; }
-        public decimal? PaidSoFar { get; set; }
-        public decimal? LeftToPay { get; set; }
         public string? Ubi { get; set; }  // Unified Business Identifier
         public string? License { get; set; }
         public string? TaxId { get; set; }
@@ -41,7 +32,6 @@ namespace Operation_Map.Server.Models
         public bool? AdditionalInsured { get; set; }
         public string? CertificatePDFURL { get; set; }
         public string? AdditionalInsurancePDFURL { get; set; }
-        public List<Group>? Groups { get; set; }
     }
 
 }

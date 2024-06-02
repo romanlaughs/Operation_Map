@@ -13,6 +13,8 @@ namespace Operation_Map.Server.Models
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public List<Project>? Projects { get; set; }
+        public List<Subcontractor> Subcontractors { get; set; } = new List<Subcontractor>();
+        public List<SubcontractorGroup>? SubcontractorGroups { get; set; }
     }
 
 
