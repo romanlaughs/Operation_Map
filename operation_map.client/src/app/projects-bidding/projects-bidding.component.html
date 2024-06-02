@@ -1,6 +1,6 @@
 <div>
-  <h2>Projects</h2>
-  <button (click)="addProject()">Add Project</button>
+  <h2>Bidding Projects</h2>
+  <button (click)="addProject()">Add New Bid</button>
   <table>
     <thead>
       <tr>
@@ -20,6 +20,9 @@
         <td>{{ project.completionPercentage }}%</td>
         <td>
           <button (click)="editProject(project.id)">Edit</button>
+        </td>
+        <td>
+          <button (click)="updateProjectStatus(project.id, 1)">Won Bid</button>
         </td>
       </tr>
     </tbody>

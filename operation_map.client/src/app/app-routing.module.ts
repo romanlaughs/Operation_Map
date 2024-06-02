@@ -7,6 +7,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { AuthGuard } from './auth-guard/auth-guard.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
+import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component'; 
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'profile-update', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
   { path: 'project-form', component: ProjectFormComponent, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
+  { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

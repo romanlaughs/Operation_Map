@@ -15,7 +15,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FormsModule } from '@angular/forms';
 import { ProfileUpdateComponent } from './profileupdate/profileupdate.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
+import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component'; 
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     TestComponent,
     ProfileUpdateComponent,
     NavigationComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    ProjectsBiddingComponent,
+    ProjectsArchiveComponent
   ],
   imports: [
     FormsModule,
@@ -39,6 +43,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       { path: 'profile-update', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
       { path: 'project-form', component: ProjectFormComponent, canActivate: [AuthGuard] },
       { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+      { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
+      { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     ]),
     AuthModule.forRoot({

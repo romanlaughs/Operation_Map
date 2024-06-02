@@ -44,7 +44,12 @@ export class ProfileUpdateComponent implements OnInit {
     var putUrl = `${ this.apiUrl }/users/email/${this.user.email}`
     this.http.put(putUrl, this.user)
       .subscribe(response => {
-        console.log('User updated successfully', response);
+        if (confirm("User information has been Updated!")) {
+          this.router.navigate(['/projects'])
+        }
+        else {
+          this.router.navigate(['/projects'])
+        }
       }, error => {
         console.error('There was an error!', error);
       });

@@ -28,6 +28,14 @@ export class NavigationComponent implements OnInit{
     this.router.navigate(['/projects']);
   }
 
+  goToProjectsBidding() {
+    this.router.navigate(['/projects-bidding']);
+  }
+
+  goToProjectsArchive() {
+    this.router.navigate(['/projects-archive']);
+  }
+
   logout() {
     console.log('Logout button clicked');
     this.auth.logout({ logoutParams: { returnTo: window.location.origin, federated: true } });
