@@ -6,11 +6,11 @@ import { Project } from '../models/project.model'; // Adjust the import path
 import { SharedService } from '../shared.service'
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  selector: 'app-projects-bidding',
+  templateUrl: './projects-bidding.component.html',
+  styleUrl: './projects-bidding.component.css'
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsBiddingComponent {
   projects: Project[] = [];
   email: string = SharedService.getEmail();
 
@@ -24,7 +24,7 @@ export class ProjectsComponent implements OnInit {
     this.getAllProjects(this.email);
   }
 
-  getAllProjects(userEmail: string, projectStatus: number = 1) {
+  getAllProjects(userEmail: string, projectStatus: number = 0) {
     this.projectService.getProjects(userEmail, projectStatus).subscribe(
       (projects) => {
         this.projects = projects;
@@ -35,12 +35,20 @@ export class ProjectsComponent implements OnInit {
     );
   }
 
-  addProject() {
-    this.router.navigate(['/project-form', { status: 1 }]);
+  editProject(projectId: string, redirect: string = 'projects-bidding') {
+    this.router.navigate(['/project-form', { id: projectId, redirect: redirect }]);
   }
 
-  editProject(projectId: string, redirect: string = 'projects') {
-    this.router.navigate(['/project-form', { id: projectId, redirect: redirect }]);
+  addProject() {
+    this.router.navigate(['/project-form', { status: 0 }]);
+  }
+
+  updateProjectStatus(projectId: string, status: 1): void {
+    if (projectId) {
+      this.projectService.updateProjectStatus(this.email, projectId, status).subscribe(() => {
+        this.router.navigate(['/projects']);
+      });
+    }
   }
 
   getProjectStatus(status: number): string {
@@ -55,4 +63,5 @@ export class ProjectsComponent implements OnInit {
         return 'Unknown';
     }
   }
+
 }

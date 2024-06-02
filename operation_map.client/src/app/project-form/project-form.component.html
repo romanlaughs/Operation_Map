@@ -63,6 +63,6 @@
     <input type="number" id="bedrooms" formControlName="bedrooms">
 
     <button type="submit">{{ projectId ? 'Update' : 'Create' }} Project</button>
-    <button type="button" (click)="onDelete()" *ngIf="projectId">Delete Project</button>
+    <button type="button" (click)="onArchive()" *ngIf="projectId">Archive Project</button>
   </form>
 </div>

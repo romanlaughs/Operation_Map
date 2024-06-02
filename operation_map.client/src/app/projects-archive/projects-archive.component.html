@@ -1,6 +1,5 @@
 <div>
-  <h2>Projects</h2>
-  <button (click)="addProject()">Add Project</button>
+  <h2>Archive</h2>
   <table>
     <thead>
       <tr>
@@ -19,7 +18,10 @@
         <td>{{ project.startDate | date }}</td>
         <td>{{ project.completionPercentage }}%</td>
         <td>
-          <button (click)="editProject(project.id)">Edit</button>
+          <button (click)="reviveProject(project.id, 1)">Reinstate Project</button>
+        </td>
+        <td>
+          <button (click)="deleteProject(project.id)">Delete Project</button>
         </td>
       </tr>
     </tbody>

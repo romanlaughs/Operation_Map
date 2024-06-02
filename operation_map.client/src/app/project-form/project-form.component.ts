@@ -14,6 +14,8 @@ export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup;
   projectId: string | null;
   email: string = SharedService.getEmail();
+  redirect: string | null | undefined;
+  projectStatus: number | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -54,9 +56,15 @@ export class ProjectFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id');
+    this.redirect = this.route.snapshot.paramMap.get('redirect');
+    this.projectStatus = Number(this.route.snapshot.paramMap.get('status'));
     if (this.projectId) {
-      this.apiService.getProject(this.projectId).subscribe((project) => {
-        this.projectForm.patchValue(project);
+      this.apiService.getProjectById(this.email, this.projectId).subscribe((project) => {
+        if (project) {
+          this.projectForm.patchValue(project);
+        } else {
+          this.projectForm.patchValue({ projectStatus: this.projectStatus })
+        }
       });
     }
   }
@@ -66,8 +74,11 @@ export class ProjectFormComponent implements OnInit {
     if (this.projectForm.valid) {
       if (this.projectId) {
         this.apiService.updateProject(this.email, this.projectId, this.projectForm.value).subscribe(() => {
-          console.log('Update Completed');
-          this.router.navigate(['/projects']);
+          if (this.redirect && this.redirect == 'projects-bidding') {
+            this.router.navigate(['/projects-bidding']);
+          } else {
+            this.router.navigate(['/projects']);
+          }
         });
       } else {
         this.apiService.createProject(this.email, this.projectForm.value).subscribe(() => {
@@ -83,19 +94,11 @@ export class ProjectFormComponent implements OnInit {
     }
   }
 
-/*  onSubmit() {
-    if (this.projectForm.valid) {
-      // Handle form submission
-      console.log('Form submitted', this.projectForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
-  }*/
 
-  onDelete(): void {
+  onArchive(): void {
     if (this.projectId) {
-      this.apiService.deleteProject(this.projectId).subscribe(() => {
-        this.router.navigate(['/projects']);
+      this.apiService.updateProjectStatus(this.email, this.projectId, -1).subscribe(() => {
+        this.router.navigate(['/projects-archive']);
       });
     }
   }
