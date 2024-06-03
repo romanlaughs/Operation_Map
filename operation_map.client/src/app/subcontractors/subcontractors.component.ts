@@ -15,7 +15,7 @@ export class SubcontractorsComponent implements OnInit {
   userEmail: string = SharedService.getEmail();
   selectedSubcontractors: Set<string> = new Set();
   projectId: string = '';
-  bidNumber: number = 0;
+  bidNumber: string[] = [];
 
 
   constructor(
@@ -27,28 +27,20 @@ export class SubcontractorsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getSubcontractors();
-    this.getBidNumber();
+    this.getSubcontractors()
   }
 
   getSubcontractors() {
     this.subcontractorService.getSubcontractors(this.userEmail).subscribe(
       (subcontractors) => {
         this.subcontractors = subcontractors;
-        console.log('Subcontractors fetched:', this.subcontractors);
-        this.cd.detectChanges(); // Ensure change detection runs after data is set
+        console.log('Subcontractors set:', this.subcontractors); // Debug log
+        this.cd.detectChanges();
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching subcontractors:', error);
       }
     );
-  }
-
-  getBidNumber() {
-    this.subcontractors.forEach(sub => {
-      sub.bids = sub.subProjects?.length || 0;
-      this.cd.detectChanges();
-    });
   }
 
   addSubcontractor() {

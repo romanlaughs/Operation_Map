@@ -13,12 +13,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let subcontractor of subcontractors">
+      <tr *ngFor="let subcontractor of subcontractors; let i = index">
         <td>{{ subcontractor.companyName }}</td>
         <td><input type="checkbox" (change)="toggleSubcontractorSelection(subcontractor.id)"></td>
         <td>{{ subcontractor.companyType }}</td>
         <td>{{ subcontractor.contactName }}</td>
-        <td>{{subcontractor.bids}}</td>
+        <td>{{bidNumber[i]}}</td>
         <td>
           <button (click)="editSubcontractor(subcontractor.id)">Edit</button>
           <button (click)="deleteSubcontractor(subcontractor.id)">Delete</button>

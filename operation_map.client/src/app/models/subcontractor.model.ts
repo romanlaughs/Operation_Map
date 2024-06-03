@@ -10,7 +10,7 @@ export interface Subcontractor {
   contactPhoneNumber?: string;
   website?: string;
   contactEmail?: string;
-  subProjects?: [];
+  subProjects?: any[];
   ubi?: string;  // Unified Business Identifier
   license?: string;
   taxId?: string;
@@ -22,8 +22,4 @@ export interface Subcontractor {
   additionalInsured?: boolean;
   certificatePDFURL?: string;
   additionalInsurancePDFURL?: string;
-}
-
-export interface Bid {
-  // Define properties of Bid based on your requirements
 }
