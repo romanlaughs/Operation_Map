@@ -35,6 +35,18 @@ export class SubcontractorsComponent implements OnInit {
       (subcontractors) => {
         this.subcontractors = subcontractors;
         console.log('Subcontractors set:', this.subcontractors); // Debug log
+
+        this.bidNumber = this.subcontractors.map((subcontractor, index) => {
+          if (!subcontractor || subcontractor.bids === undefined) {
+            console.log(`Subcontractor ${index} does not have bids property, setting bidNumber to 0.`);
+            return '0';
+          } else {
+            console.log(`Subcontractor ${index} bids set to ${subcontractor.bids}`);
+            return subcontractor.bids.toString();
+          }
+        });
+
+        console.log('Bid numbers set:', this.bidNumber); // Debug log
         this.cd.detectChanges();
       },
       (error: any) => {
@@ -42,6 +54,7 @@ export class SubcontractorsComponent implements OnInit {
       }
     );
   }
+
 
   addSubcontractor() {
     this.router.navigate(['/subcontractor-form', { userEmail: this.userEmail }]);
