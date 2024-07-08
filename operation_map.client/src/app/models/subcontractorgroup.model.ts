@@ -1,8 +1,10 @@
 import { Subcontractor } from './subcontractor.model'
 export interface SubcontractorGroup {
-  id: string;
-  GroupName?: string;
-  Subcontractors?: Subcontractor[];
-  CreatedDate?: Date;
-  UpdatedDate?: Date;
+  _id: string;
+  groupName: string;
+  groupCity: string;
+  groupType: string;
+  subcontractorIds?: string[];
+  createdDate?: Date;
+  updatedDate?: Date;
 }

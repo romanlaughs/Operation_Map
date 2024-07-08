@@ -1,0 +1,31 @@
+<div *ngIf="group" class="group-details">
+  <h2>{{ group.groupName }}</h2>
+  <div class="group-info">
+    <div><strong>City:</strong> {{ group.groupCity }}</div>
+    <div><strong>Type:</strong> {{ group.groupType }}</div>
+  </div>
+  <h3>Subcontractors</h3>
+  <table class="subcontractors-table">
+    <thead>
+      <tr>
+        <th>Company Name</th>
+        <th>Contact Name</th>
+        <th>Address</th>
+        <th>Contact Phone Number</th>
+        <th>Contact Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcontractorId of group.subcontractorIds">
+        <ng-container *ngIf="subcontractors[subcontractorId] as subcontractor">
+          <td>{{ subcontractor.companyName }}</td>
+          <td>{{ subcontractor.contactName }}</td>
+          <td>{{ subcontractor.address }}</td>
+          <td>{{ subcontractor.contactPhoneNumber }}</td>
+          <td>{{ subcontractor.contactEmail }}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <button mat-button color="warn" (click)="deleteGroup()">Delete Group</button>
+</div>

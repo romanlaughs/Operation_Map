@@ -158,8 +158,27 @@ export class ApiService {
     return this.http.request<void>('delete', `${this.apiUrl}/subcontractor/${userEmail}/subcontractors`, { body: subcontractorIds, headers });
   }
 
-  addToGroup(userEmail: string, group: SubcontractorGroup): Observable<void> {
+  // Subcontractor Groups Methods
+  addSubcontractorsToGroup(userEmail: string, subcontractorIds: string[], groupName: string, groupCity: string, groupType: string): Observable<void> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<void>(`${this.apiUrl}/subcontractor/${userEmail}/subcontractorGroups`, group, { headers });
+    const body = { userEmail, subcontractorIds, groupName, groupCity, groupType };
+    return this.http.post<void>(`${this.apiUrl}/SubcontractorGroups/AddSubcontractors`, body, { headers });
+  }
+
+  getSubcontractorGroups(userEmail: string): Observable<SubcontractorGroup[]> {
+    return this.http.get<SubcontractorGroup[]>(`${this.apiUrl}/SubcontractorGroups/${userEmail}`);
+  }
+
+  getSubcontractorGroupById(userEmail: string, groupId: string): Observable<SubcontractorGroup> {
+    return this.http.get<SubcontractorGroup>(`${this.apiUrl}/SubcontractorGroups/${userEmail}/${groupId}`);
+  }
+
+  deleteSubcontractorGroup(userEmail: string, groupId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/SubcontractorGroups/${userEmail}/groups/${groupId}`);
+  }
+
+  removeMemberFromSubcontractorGroup(userEmail: string, groupId: string, subcontractorId: string): Observable<void> {
+    const params = new HttpParams().set('subcontractorId', subcontractorId);
+    return this.http.delete<void>(`${this.apiUrl}/SubcontractorGroups/${userEmail}/groups/${groupId}/members`, { params });
   }
 }

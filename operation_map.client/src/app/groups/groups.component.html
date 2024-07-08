@@ -1,0 +1,14 @@
+<!-- groups.component.html -->
+<div *ngIf="groups.length">
+  <div *ngFor="let group of groups">
+    <h3>{{ group.groupName }}</h3>
+    <p>Created: {{ group.createdDate | date }}</p>
+    <p>Updated: {{ group.updatedDate | date }}</p>
+    <ul>
+      <li *ngFor="let subcontractorId of group.subcontractorIds">{{ subcontractorId }}</li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="!groups.length">
+  <p>No groups available.</p>
+</div>

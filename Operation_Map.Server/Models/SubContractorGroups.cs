@@ -18,5 +18,7 @@ namespace Operation_Map.Server.Models
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;  // Default to the current time
 
         public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;  // Default to the current time
+        public string GroupCity { get; internal set; }
+        public string GroupType { get; internal set; }
     }
 }

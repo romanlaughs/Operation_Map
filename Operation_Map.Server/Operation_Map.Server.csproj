@@ -10,7 +10,54 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\MongoDbService.cs" />
+    <Compile Remove="Helpers\SubContractorGroupService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\appsettings.Development.json" />
+    <Content Include="bin\Debug\net8.0\appsettings.json" />
+    <Content Include="bin\Debug\net8.0\Operation_Map.Server.deps.json" />
+    <Content Include="bin\Debug\net8.0\Operation_Map.Server.runtimeconfig.json" />
+    <Content Include="bin\Debug\net8.0\spa.proxy.json" />
+    <Content Include="obj\Operation_Map.Server.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\Auth0.AspNetCore.Authentication.dll" />
+    <None Include="bin\Debug\net8.0\AWSSDK.Core.dll" />
+    <None Include="bin\Debug\net8.0\AWSSDK.SecurityToken.dll" />
+    <None Include="bin\Debug\net8.0\DnsClient.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.AspNetCore.SpaProxy.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.OpenApi.dll" />
+    <None Include="bin\Debug\net8.0\MongoDB.Bson.dll" />
+    <None Include="bin\Debug\net8.0\MongoDB.Driver.Core.dll" />
+    <None Include="bin\Debug\net8.0\MongoDB.Driver.dll" />
+    <None Include="bin\Debug\net8.0\MongoDB.Libmongocrypt.dll" />
+    <None Include="bin\Debug\net8.0\Operation_Map.Server.dll" />
+    <None Include="bin\Debug\net8.0\Operation_Map.Server.exe" />
+    <None Include="bin\Debug\net8.0\Operation_Map.Server.pdb" />
+    <None Include="bin\Debug\net8.0\runtimes\linux\native\libmongocrypt.so" />
+    <None Include="bin\Debug\net8.0\runtimes\osx\native\libmongocrypt.dylib" />
+    <None Include="bin\Debug\net8.0\runtimes\win\native\mongocrypt.dll" />
+    <None Include="bin\Debug\net8.0\SharpCompress.dll" />
+    <None Include="bin\Debug\net8.0\Snappier.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll" />
+    <None Include="bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll" />
+    <None Include="bin\Debug\net8.0\ZstdSharp.dll" />
+    <None Include="obj\Operation_Map.Server.csproj.nuget.g.props" />
+    <None Include="obj\Operation_Map.Server.csproj.nuget.g.targets" />
+    <None Include="obj\project.nuget.cache" />
   </ItemGroup>
 
   <ItemGroup>

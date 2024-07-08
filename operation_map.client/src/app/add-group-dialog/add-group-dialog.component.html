@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Add Subcontractor Group</h1>
+<div mat-dialog-content>
+  <form [formGroup]="groupForm" class="form-container">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Group Name</mat-label>
+      <input matInput formControlName="groupName" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Group City</mat-label>
+      <input matInput formControlName="groupCity">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Group Type</mat-label>
+      <mat-select formControlName="groupType" (selectionChange)="onGroupTypeChange($event)">
+        <mat-option *ngFor="let type of groupTypes" [value]="type">{{ type }}</mat-option>
+        <mat-option value="addNewType">Add New Type</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="groupForm.value.groupType === 'addNewType'">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>New Group Type</mat-label>
+        <input matInput formControlName="newGroupType">
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onAddGroup()" [disabled]="groupForm.invalid">Add</button>
+</div>

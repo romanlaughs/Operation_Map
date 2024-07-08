@@ -1,6 +1,7 @@
 <div>
   <h2>Subcontractors</h2>
   <button (click)="addSubcontractor()">Add Subcontractor</button>
+  <button (click)="addToGroup()">Add to Group</button>
   <table>
     <thead>
       <tr>
@@ -18,7 +19,7 @@
         <td><input type="checkbox" (change)="toggleSubcontractorSelection(subcontractor.id)"></td>
         <td>{{ subcontractor.companyType }}</td>
         <td>{{ subcontractor.contactName }}</td>
-        <td>{{bidNumber[i]}}</td>
+        <td>{{ bidNumber[i] }}</td>
         <td>
           <button (click)="editSubcontractor(subcontractor.id)">Edit</button>
           <button (click)="deleteSubcontractor(subcontractor.id)">Delete</button>
@@ -28,3 +29,17 @@
   </table>
   <button (click)="bulkDeleteSubcontractors()">Delete Selected</button>
 </div>
+
+<div>
+  <h2>Subcontractor Groups</h2>
+  <div class="grid-container">
+    <div class="grid-item" *ngFor="let group of subcontractorGroups">
+      <a [routerLink]="['/subcontractor-group-details', group._id]">{{ group.groupName }}</a>
+      <p>Type: {{ group.groupType }}</p>
+      <p>City: {{ group.groupCity }}</p>
+      <button mat-button color="warn" (click)="deleteGroup(group._id)">Delete Group</button>
+    </div>
+  </div>
+</div>
+
+

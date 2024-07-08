@@ -10,7 +10,9 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
 import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component';
 import { SubcontractorsComponent } from './subcontractors/subcontractors.component';
-import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component'; 
+import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component';
+import { GroupsComponent } from './groups/groups.component';
+import { SubcontractorGroupDetailsComponent } from './subcontractor-group-details/subcontractor-group-details.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
   { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
   { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
+  { path: 'sub-groups', component: GroupsComponent, canActivate: [AuthGuard] },
+  { path: 'subcontractor-group-details/:groupId', component: SubcontractorGroupDetailsComponent, canActivate: [AuthGuard] },
   { path: 'subcontractor-form', component: SubcontractorFormComponent, canActivate: [AuthGuard] },
 ];
 

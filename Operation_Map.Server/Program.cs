@@ -4,6 +4,7 @@ using Auth0.AspNetCore.Authentication;
 using Operation_Map.Server.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +31,10 @@ builder.Services.AddAuth0WebAppAuthentication(options => {
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 // Add services to the container.
-
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+builder.Services.AddScoped<ISubcontractorGroupRepository, SubcontractorGroupRepository>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>

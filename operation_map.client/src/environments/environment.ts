@@ -5,5 +5,6 @@ export const environment = {
     clientId: 'Ri0rcA1DDCdI5nBTrTtkm8FV67kHrtNH',
     audience: 'https://operation-map/api'
   },
-  apiUrl: 'https://localhost:7168/api'
+  //apiUrl: 'https://localhost:7168/api' //DEV
+  apiUrl: 'https://operationmap.azurewebsites.net/api' //RELEASE
 };

@@ -3,7 +3,11 @@ import { AuthService } from '@auth0/auth0-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service'; // Adjust the import path
 import { Subcontractor } from '../models/subcontractor.model'; // Adjust the import path
+import { SubcontractorGroup } from '../models/subcontractorgroup.model';
 import { SharedService } from '../shared.service'
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddGroupDialogComponent } from '../add-group-dialog/add-group-dialog.component';
+
 
 @Component({
   selector: 'app-subcontractors',
@@ -14,6 +18,7 @@ export class SubcontractorsComponent implements OnInit {
   subcontractors: Subcontractor[] = [];
   userEmail: string = SharedService.getEmail();
   selectedSubcontractors: Set<string> = new Set();
+  subcontractorGroups: SubcontractorGroup[] = [];
   projectId: string = '';
   bidNumber: string[] = [];
 
@@ -23,11 +28,13 @@ export class SubcontractorsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private subcontractorService: ApiService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getSubcontractors()
+    this.getSubcontractorGroups();
   }
 
   getSubcontractors() {
@@ -51,6 +58,17 @@ export class SubcontractorsComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching subcontractors:', error);
+      }
+    );
+  }
+
+  getSubcontractorGroups() {
+    this.subcontractorService.getSubcontractorGroups(this.userEmail).subscribe(
+      (groups: SubcontractorGroup[]) => {
+        this.subcontractorGroups = groups;
+      },
+      (error: any) => {
+        console.error('Error fetching subcontractor groups:', error);
       }
     );
   }
@@ -97,6 +115,44 @@ export class SubcontractorsComponent implements OnInit {
   }
 
   addToGroup() {
-    // Implement adding selected subcontractors to a group
+    const subcontractorIds = Array.from(this.selectedSubcontractors);
+    if (subcontractorIds.length === 0) {
+      console.error('No subcontractors selected.');
+      return;
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '800px'; // Adjust width as necessary
+    dialogConfig.autoFocus = true;
+    dialogConfig.position = { top: '0px', left:'33%' }; // Adjust as needed
+
+    const dialogRef = this.dialog.open(AddGroupDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.subcontractorService.addSubcontractorsToGroup(this.userEmail, subcontractorIds, result.groupName, result.groupCity, result.groupType).subscribe({
+          next: () => {
+            console.log('Subcontractors added to group successfully.');
+            this.getSubcontractorGroups(); // Optionally refresh groups or perform other actions
+          },
+          error: (error) => {
+            console.error('Error adding subcontractors to group:', error);
+          }
+        });
+      }
+    });
+  }
+
+  deleteGroup(groupId: string) {
+    if (confirm('Are you sure you want to delete this group?')) {
+      this.subcontractorService.deleteSubcontractorGroup(this.userEmail, groupId).subscribe(
+        () => {
+          this.subcontractorGroups = this.subcontractorGroups.filter(group => group._id !== groupId);
+        },
+        (error: any) => {
+          console.error('Error deleting group:', error);
+        }
+      );
+    }
   }
 }

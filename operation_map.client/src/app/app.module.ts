@@ -19,8 +19,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
 import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component';
 import { SubcontractorsComponent } from './subcontractors/subcontractors.component';
-import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component'; 
-
+import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component';
+import { GroupsComponent } from './groups/groups.component';
+import { AddGroupDialogComponent } from './add-group-dialog/add-group-dialog.component';
+import { MaterialModule } from './material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubcontractorGroupDetailsComponent } from './subcontractor-group-details/subcontractor-group-details.component'; // Import this module
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,12 +39,18 @@ import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-f
     ProjectsBiddingComponent,
     ProjectsArchiveComponent,
     SubcontractorsComponent,
-    SubcontractorFormComponent
+    SubcontractorFormComponent,
+    GroupsComponent,
+    AddGroupDialogComponent,
+    SubcontractorGroupDetailsComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatGridListModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
@@ -50,7 +61,9 @@ import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-f
       { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
       { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
       { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
-      { path: 'subcontractor-form', component: SubcontractorFormComponent , canActivate: [AuthGuard] },
+      { path: 'subcontractor-form', component: SubcontractorFormComponent, canActivate: [AuthGuard] },
+      { path: 'subcontractor-group-details/:groupId', component: SubcontractorGroupDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'sub-groups', component: GroupsComponent, canActivate: [AuthGuard] },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     ]),
     AuthModule.forRoot({

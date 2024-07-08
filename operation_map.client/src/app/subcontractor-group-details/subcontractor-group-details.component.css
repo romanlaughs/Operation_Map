@@ -1,0 +1,32 @@
+.group-details {
+  margin: 20px;
+}
+
+.group-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.subcontractors-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+  .subcontractors-table th, .subcontractors-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .subcontractors-table th {
+    background-color: #f2f2f2;
+  }
+
+  .subcontractors-table td {
+    text-align: left;
+    width: 20%;
+  }

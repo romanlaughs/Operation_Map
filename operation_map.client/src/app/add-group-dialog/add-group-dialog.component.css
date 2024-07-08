@@ -1,0 +1,24 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  height: auto; /* Set height to auto to adjust to content */
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  height: 56px; /* Ensure sufficient height for input field */
+  align-items: center;
+}
+
+.mat-input-element {
+  height: auto; /* Set height to auto to adjust to content */
+  padding: 10px 0; /* Adjust padding as needed */
+  box-sizing: border-box;
+}
