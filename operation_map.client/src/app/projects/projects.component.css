@@ -1,0 +1,8 @@
+.clickable-link {
+  cursor: pointer;
+  color: blue;
+  font-size: 15px;
+  text-decoration: underline;
+  padding: 15px; /* Adjust the padding as needed */
+  display: inline-block; /* Makes the padding affect the clickable area */
+}

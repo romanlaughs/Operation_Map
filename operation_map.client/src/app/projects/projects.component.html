@@ -13,7 +13,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let project of projects">
-        <td>{{ project.name }}</td>
+        <td>
+          <a (click)="goToProjectOverview(project.id)" class="clickable-link">
+            {{ project.name }}
+          </a>
+        </td>
         <td>{{ getProjectStatus(project.projectStatus) }}</td>
         <td>{{ project.city }}</td>
         <td>{{ project.startDate | date }}</td>

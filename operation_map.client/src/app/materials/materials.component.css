@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+
+.mat-column-nameDescription, .mat-column-datePurchased, .mat-column-placerPurchased, .mat-column-itemNumber, .mat-column-notes, .mat-column-photoUpload {
+  padding: 8px;
+}
+
+button {
+  margin-bottom: 16px;
+}

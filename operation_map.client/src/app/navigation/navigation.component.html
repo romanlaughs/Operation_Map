@@ -5,18 +5,37 @@
   <button (click)="goToProfileUpdate()">
     My Profile
   </button>
-  <button (click)="goToProjectsBidding()">
-    My Bids
-  </button>
-  <button (click)="goToProjects()">
-    Projects
-  </button>
-  <button (click)="goToSubcontractors()">
-    Sub Contractors
-  </button>
-  <button (click)="goToProjectsArchive()">
-    Archive
-  </button>
+  <!-- Buttons for the Projects page -->
+  <ng-container *ngIf="!isProjectOverviewPage(); else projectOverviewButtons">
+    <button (click)="goToProjectsBidding()">
+      My Bids
+    </button>
+    <button (click)="goToProjects()">
+      Projects
+    </button>
+    <button (click)="goToSubcontractors()">
+      Sub Contractors
+    </button>
+    <button (click)="goToProjectsArchive()">
+      Archive
+    </button>
+  </ng-container>
+
+  <!-- Buttons for the Project Overview page -->
+  <ng-template #projectOverviewButtons>
+    <button (click)="goToProjects()">
+      Projects
+    </button>
+    <button (click)="goToLineItems(projectId)">
+      Line Items
+    </button>
+    <button (click)="goToMaterials(projectId)">
+      Materials
+    </button>
+    <button (click)="goToDocuments(projectId)">
+      Documents
+    </button>
+  </ng-template>
 </ng-container>
 
 <ng-template #loggedOut>

@@ -26,6 +26,14 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubcontractorGroupDetailsComponent } from './subcontractor-group-details/subcontractor-group-details.component'; // Import this module
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MaterialsComponent } from './materials/materials.component';
+import { AddMaterialDialogComponent } from './add-material-dialog/add-material-dialog.component';
+import { ProjectsOverviewComponent } from './projects-overview/projects-overview.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +50,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     SubcontractorFormComponent,
     GroupsComponent,
     AddGroupDialogComponent,
-    SubcontractorGroupDetailsComponent
+    SubcontractorGroupDetailsComponent,
+    MaterialsComponent,
+    AddMaterialDialogComponent,
+    ProjectsOverviewComponent
   ],
   imports: [
     FormsModule,
@@ -50,16 +61,22 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MatPaginatorModule,
+    MatInputModule,
     MatGridListModule,
+    MatTableModule,
+    MatSortModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: 'materials/:projectId', component: MaterialsComponent, canActivate: [AuthGuard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'profile-update', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
       { path: 'project-form', component: ProjectFormComponent, canActivate: [AuthGuard] },
       { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
       { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
       { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
+      { path: 'projects-overview/:projectId', component: ProjectsOverviewComponent, canActivate: [AuthGuard] },
       { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
       { path: 'subcontractor-form', component: SubcontractorFormComponent, canActivate: [AuthGuard] },
       { path: 'subcontractor-group-details/:groupId', component: SubcontractorGroupDetailsComponent, canActivate: [AuthGuard] },

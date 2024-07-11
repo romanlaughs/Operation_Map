@@ -17,4 +17,11 @@ export interface Project {
   bathrooms?: number;
   squareFootage?: number;
   bedrooms?: number;
+  contacts?: Contact[];
+}
+
+export interface Contact {
+  name: string;
+  number: string;
+  email: string;
 }

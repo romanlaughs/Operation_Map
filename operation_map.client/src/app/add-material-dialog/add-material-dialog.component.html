@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Add New Material</h1>
+<div mat-dialog-content>
+  <form [formGroup]="materialForm">
+    <mat-form-field>
+      <mat-label>Name/Description</mat-label>
+      <input matInput formControlName="nameDescription" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date Purchased</mat-label>
+      <input matInput formControlName="datePurchased" type="date">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Place Purchased</mat-label>
+      <input matInput formControlName="placePurchased">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Item Number</mat-label>
+      <input matInput formControlName="itemNumber">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Photo Upload URL</mat-label>
+      <input matInput formControlName="photoUploadUrl">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!materialForm.valid" (click)="onSaveClick()">Save</button>
+</div>

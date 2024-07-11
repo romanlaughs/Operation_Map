@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, RouterLink } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileUpdateComponent } from './profileupdate/profileupdate.component';
@@ -13,6 +13,9 @@ import { SubcontractorsComponent } from './subcontractors/subcontractors.compone
 import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component';
 import { GroupsComponent } from './groups/groups.component';
 import { SubcontractorGroupDetailsComponent } from './subcontractor-group-details/subcontractor-group-details.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { AddMaterialDialogComponent } from './add-material-dialog/add-material-dialog.component';
+import { ProjectsOverviewComponent } from './projects-overview/projects-overview.component'; // Adjust the import path
 
 
 const routes: Routes = [
@@ -24,6 +27,9 @@ const routes: Routes = [
   { path: 'projects-bidding', component: ProjectsBiddingComponent, canActivate: [AuthGuard] },
   { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
   { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
+  { path: 'materials/:projectId', component: MaterialsComponent, canActivate: [AuthGuard] },
+  { path: 'add-material', component: AddMaterialDialogComponent, canActivate: [AuthGuard] },
+  { path: 'projects-overview/:projectId', component: ProjectsOverviewComponent, canActivate: [AuthGuard] },
   { path: 'sub-groups', component: GroupsComponent, canActivate: [AuthGuard] },
   { path: 'subcontractor-group-details/:groupId', component: SubcontractorGroupDetailsComponent, canActivate: [AuthGuard] },
   { path: 'subcontractor-form', component: SubcontractorFormComponent, canActivate: [AuthGuard] },

@@ -33,6 +33,8 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 // Add services to the container.
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
+builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+
 builder.Services.AddScoped<ISubcontractorGroupRepository, SubcontractorGroupRepository>();
 
 builder.Services.AddControllers();

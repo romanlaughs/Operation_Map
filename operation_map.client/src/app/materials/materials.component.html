@@ -1,0 +1,40 @@
+<div>
+  <h2>Materials</h2>
+  <button mat-button (click)="openAddMaterialDialog()">Add Material</button>
+  <table mat-table [dataSource]="materials" class="mat-elevation-z8">
+    <ng-container matColumnDef="nameDescription">
+      <th mat-header-cell *matHeaderCellDef> Name/Description </th>
+      <td mat-cell *matCellDef="let material"> {{material.nameDescription}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="datePurchased">
+      <th mat-header-cell *matHeaderCellDef> Date Purchased </th>
+      <td mat-cell *matCellDef="let material"> {{material.datePurchased | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="placePurchased">
+      <th mat-header-cell *matHeaderCellDef> Place Purchased </th>
+      <td mat-cell *matCellDef="let material"> {{material.placePurchased}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="itemNumber">
+      <th mat-header-cell *matHeaderCellDef> Item Number </th>
+      <td mat-cell *matCellDef="let material"> {{material.itemNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef> Notes </th>
+      <td mat-cell *matCellDef="let material"> {{material.notes}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="photoUploadUrl">
+      <th mat-header-cell *matHeaderCellDef> Photo Upload </th>
+      <td mat-cell *matCellDef="let material">
+        <button mat-button>Upload Photo</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

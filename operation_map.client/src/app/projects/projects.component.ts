@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../api.service'   // Adjust the import path
 import { Project } from '../models/project.model'; // Adjust the import path
 import { SharedService } from '../shared.service'
@@ -41,6 +41,11 @@ export class ProjectsComponent implements OnInit {
 
   editProject(projectId: string, redirect: string = 'projects') {
     this.router.navigate(['/project-form', { id: projectId, redirect: redirect }]);
+  }
+
+  goToProjectOverview(projectId: string): void {
+    SharedService.setProjectID(projectId);
+    this.router.navigate(['/projects-overview', projectId]);
   }
 
   getProjectStatus(status: number): string {

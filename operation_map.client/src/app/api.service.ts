@@ -7,6 +7,7 @@ import { User } from './models/user.model';
 import { Project } from './models/project.model';
 import { Subcontractor } from './models/subcontractor.model';
 import { SubcontractorGroup } from './models/subcontractorgroup.model';
+import { Material } from './models/material.model'; 
 
 @Injectable({
   providedIn: 'root'
@@ -180,5 +181,30 @@ export class ApiService {
   removeMemberFromSubcontractorGroup(userEmail: string, groupId: string, subcontractorId: string): Observable<void> {
     const params = new HttpParams().set('subcontractorId', subcontractorId);
     return this.http.delete<void>(`${this.apiUrl}/SubcontractorGroups/${userEmail}/groups/${groupId}/members`, { params });
+  }
+
+  getMaterialsByProjectId(userEmail: string, projectId: string): Observable<Material[]> {
+    const params = new HttpParams()
+      .set('userEmail', userEmail)
+      .set('projectId', projectId);
+    return this.http.get<Material[]>(`${this.apiUrl}/Materials/byProjectId`, { params });
+  }
+
+  getMaterialById(id: string): Observable<Material> {
+    return this.http.get<Material>(`${this.apiUrl}/Materials/${id}`);
+  }
+
+  createMaterial(userEmail: string, material: Material): Observable<Material> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Material>(`${this.apiUrl}/Materials?userEmail=${userEmail}`, material, { headers });
+  }
+
+  updateMaterial(userEmail: string, id: string, material: Material): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(`${this.apiUrl}/Materials/${id}?userEmail=${userEmail}`, material, { headers });
+  }
+
+  deleteMaterial(userEmail: string, id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/Materials/${id}?userEmail=${userEmail}`);
   }
 }

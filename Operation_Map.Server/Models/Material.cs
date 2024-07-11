@@ -10,12 +10,13 @@ namespace Operation_Map.Server.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-        public string? Name_Description { get; set; }
+        public string? NameDescription { get; set; }
         public DateTime? DatePurchased { get; set; }
-        public string? PlacerPurchased { get; set; }
+        public string? PlacePurchased { get; set; }
         public string? Notes { get; set; }
         public string? ItemNumber { get; set; }
         public string? PhotoUploadUrl { get; set; }
+        public List<string>? ProjectIDs { get; set; }
     }
 
 }

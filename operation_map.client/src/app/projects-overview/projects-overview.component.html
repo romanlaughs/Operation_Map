@@ -1,0 +1,64 @@
+<div>
+  <h1>Project Overview: {{ project.name }}</h1>
+
+  <h2>Project Details</h2>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef> Owner </th>
+      <td mat-cell *matCellDef="let project"> {{ project.owner }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="units">
+      <th mat-header-cell *matHeaderCellDef> Units </th>
+      <td mat-cell *matCellDef="let project"> {{ project.units }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contacts">
+      <th mat-header-cell *matHeaderCellDef> Contacts </th>
+      <td mat-cell *matCellDef="let project">
+        <div *ngFor="let contact of project.contacts">
+          {{ contact.name }} - {{ contact.number }} - {{ contact.email }}
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['owner', 'units', 'contacts']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['owner', 'units', 'contacts'];"></tr>
+  </table>
+
+<!--  <h2>Line Items</h2>
+  <table mat-table [dataSource]="lineItems" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.startDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef> End Date </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.endDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="myBidBudget">
+      <th mat-header-cell *matHeaderCellDef> My Bid/Budget </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.myBidBudget | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subcontractorCost">
+      <th mat-header-cell *matHeaderCellDef> Subcontractor Cost </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.subcontractorCost | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="profitMargin">
+      <th mat-header-cell *matHeaderCellDef> Profit Margin </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ calculateProfitMargin(lineItem) | currency }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'startDate', 'endDate', 'myBidBudget', 'subcontractorCost', 'profitMargin']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'startDate', 'endDate', 'myBidBudget', 'subcontractorCost', 'profitMargin'];"></tr>
+  </table>-->
+</div>
