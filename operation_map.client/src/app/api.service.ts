@@ -7,7 +7,9 @@ import { User } from './models/user.model';
 import { Project } from './models/project.model';
 import { Subcontractor } from './models/subcontractor.model';
 import { SubcontractorGroup } from './models/subcontractorgroup.model';
-import { Material } from './models/material.model'; 
+import { Material } from './models/material.model';
+import { LineItem } from './models/lineitem.model';
+import { Invoice } from './models/invoice.model'; 
 
 @Injectable({
   providedIn: 'root'
@@ -206,5 +208,79 @@ export class ApiService {
 
   deleteMaterial(userEmail: string, id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/Materials/${id}?userEmail=${userEmail}`);
+  }
+
+  // Line Item Methods
+  getLineItems(userEmail: string, projectId: string): Observable<LineItem[]> {
+    return this.http.get<LineItem[]>(`${this.apiUrl}/lineitems?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`);
+  }
+
+  getLineItemById(userEmail: string, projectId: string, lineItemId: string): Observable<LineItem> {
+    const url = `${this.apiUrl}/lineitems/${lineItemId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    return this.http.get<LineItem>(url);
+  }
+
+  createLineItem(userEmail: string, projectId: string, lineItem: LineItem): Observable<LineItem> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const url = `${this.apiUrl}/lineitems?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    return this.http.post<LineItem>(url, lineItem, { headers });
+  }
+
+  updateLineItem(userEmail: string, projectId: string, lineItemId: string, lineItem: LineItem): Observable<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const url = `${this.apiUrl}/lineitems/${lineItemId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    return this.http.put<void>(url, lineItem, { headers });
+  }
+
+  updateLineItemSubs(userEmail: string, projectId: string, lineItemId: string, subcontractor: Subcontractor): Observable<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const url = `${this.apiUrl}/lineitems/sub/${lineItemId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    return this.http.put<void>(url, subcontractor, { headers });
+  }
+
+  deleteLineItem(userEmail: string, projectId: string, lineItemId: string): Observable<void> {
+    const url = `${this.apiUrl}/lineitems/${lineItemId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    return this.http.delete<void>(url);
+  }
+
+  deleteLineItemSubs(userEmail: string, projectId: string, lineItemId: string, subcontractor: Subcontractor): Observable<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const url = `${this.apiUrl}/lineitems/sub/${lineItemId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}`;
+    const options = {
+      headers: headers,
+      body: subcontractor
+    };
+    return this.http.delete<void>(url, options);
+  }
+
+
+  getInvoices(userEmail: string, projectId: string, lineItemId: string): Observable<Invoice[]> {
+    const url = `${this.apiUrl}/invoices?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}&lineItemId=${encodeURIComponent(lineItemId)}`;
+    return this.http.get<Invoice[]>(url).pipe(catchError(this.handleError));
+  }
+
+  createInvoice(userEmail: string, projectId: string, lineItemId: string, invoice: Invoice): Observable<Invoice> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.apiUrl}/invoices?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}&lineItemId=${encodeURIComponent(lineItemId)}`;
+    return this.http.post<Invoice>(url, invoice, { headers }).pipe(catchError(this.handleError));
+  }
+
+  updateInvoice(userEmail: string, projectId: string, lineItemId: string, invoiceId: string, invoice: Invoice): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.apiUrl}/invoices/${invoiceId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}&lineItemId=${encodeURIComponent(lineItemId)}`;
+    return this.http.put<void>(url, invoice, { headers }).pipe(catchError(this.handleError));
+  }
+
+  deleteInvoice(userEmail: string, projectId: string, lineItemId: string, invoiceId: string): Observable<void> {
+    const url = `${this.apiUrl}/invoices/${invoiceId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}&lineItemId=${encodeURIComponent(lineItemId)}`;
+    return this.http.delete<void>(url).pipe(catchError(this.handleError));
   }
 }

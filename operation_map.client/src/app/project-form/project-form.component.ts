@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Project } from '../models/project.model';
 import { SharedService } from '../shared.service'
+import { LineItemOption } from '../models/line-item-option.model';
+
 
 @Component({
   selector: 'app-project-form',
@@ -16,12 +18,64 @@ export class ProjectFormComponent implements OnInit {
   email: string = SharedService.getEmail();
   redirect: string | null | undefined;
   projectStatus: number | undefined;
+  defaultLineItems = [
+    { name: 'Clearing', selected: true },
+    { name: 'Demolition', selected: true },
+    { name: 'Excavation', selected: true },
+    { name: 'Foundation', selected: true },
+    { name: 'Drainage', selected: true },
+    { name: 'Electrical Underground', selected: true },
+    { name: 'Water Line Connection', selected: true },
+    { name: 'Side Sewer Connection', selected: true },
+    { name: 'Framing', selected: true },
+    { name: 'Roofing', selected: true },
+    { name: 'Windows', selected: true },
+    { name: 'Decking', selected: true },
+    { name: 'Garage Door', selected: true },
+    { name: 'Gutters', selected: true },
+    { name: 'Flashing', selected: true },
+    { name: 'Waterproofing', selected: true },
+    { name: 'Siding', selected: true },
+    { name: 'Concrete Flat Work', selected: true },
+    { name: 'Painting Outside', selected: true },
+    { name: 'Painting Inside', selected: true },
+    { name: 'Electrical', selected: true },
+    { name: 'Plumbing', selected: true },
+    { name: 'Heating / AC', selected: true },
+    { name: 'Fire Sprinkler', selected: true },
+    { name: 'Low voltage', selected: true },
+    { name: 'Insulation', selected: true },
+    { name: 'Drywall', selected: true },
+    { name: 'Hardwood Flooring', selected: true },
+    { name: 'Carpet', selected: true },
+    { name: 'Tile', selected: true },
+    { name: 'Outside Stone/tile', selected: true },
+    { name: 'Kitchen Cabinet Install', selected: true },
+    { name: 'Countertop Install', selected: true },
+    { name: 'Hardware Install', selected: true },
+    { name: 'Mirrors', selected: true },
+    { name: 'Shower Glass Door', selected: true },
+    { name: 'Closet Install', selected: true },
+    { name: 'Millwork Doors and Trim', selected: true },
+    { name: 'Grading', selected: true },
+    { name: 'Landscaping', selected: true },
+    { name: 'Fencing', selected: true },
+    { name: 'Driveway Paving', selected: true },
+    { name: 'Driveway Concrete', selected: true },
+    { name: 'Cleaning', selected: true },
+    { name: 'Tool / Equipment Rental', selected: true },
+    { name: 'Day Labor Help', selected: true }
+  ];
+
+  newLineItem: string = '';
+  selectedItems: LineItemOption[] = [];
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.projectForm = this.fb.group({
       name: ['', Validators.required],
@@ -42,6 +96,7 @@ export class ProjectFormComponent implements OnInit {
       squareFootage: [0],
       bedrooms: [0]
     });
+
 
     const projectStatusControl = this.projectForm.get('projectStatus');
     projectStatusControl?.valueChanges.subscribe(value => {
@@ -72,25 +127,31 @@ export class ProjectFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.projectForm.valid) {
-      if (this.projectId) {
-        this.apiService.updateProject(this.email, this.projectId, this.projectForm.value).subscribe(() => {
-          if (this.redirect && this.redirect == 'projects-bidding') {
-            this.router.navigate(['/projects-bidding']);
-          } else {
+      if (this.projectForm.valid) {
+        const selectedLineItems = this.defaultLineItems.filter(item => item.selected);
+        const formData = {
+          ...this.projectForm.value,
+          lineItemOptions: selectedLineItems
+        };
+        if (this.projectId) {
+          this.apiService.updateProject(this.email, this.projectId, formData).subscribe(() => {
+            if (this.redirect && this.redirect == 'projects-bidding') {
+              this.router.navigate(['/projects-bidding']);
+            } else {
+              this.router.navigate(['/projects']);
+            }
+          });
+        } else {
+          this.apiService.createProject(this.email, formData).subscribe(() => {
+            console.log('Creation Completed');
             this.router.navigate(['/projects']);
-          }
-        });
-      } else {
-        this.apiService.createProject(this.email, this.projectForm.value).subscribe(() => {
-          console.log('Creation Completed');
-          this.router.navigate(['/projects']);
-        });
+          });
+        }
       }
-    }
-    else
-    {
-      this.alertInvalidForm();
-      console.log('Form is invalid');
+      else {
+        this.alertInvalidForm();
+        console.log('Form is invalid');
+      }
     }
   }
 
@@ -101,6 +162,27 @@ export class ProjectFormComponent implements OnInit {
         this.router.navigate(['/projects-archive']);
       });
     }
+  }
+
+  onCheckboxChange(event: any, item: { name: string, selected: boolean }) {
+    console.log('Target', event)
+    item.selected = event.checked;
+  }
+
+  addNewItem() {
+    if (this.newLineItem.trim()) {
+      this.defaultLineItems.push({ name: this.newLineItem.trim(), selected: true });
+      this.newLineItem = '';
+      this.cdr.detectChanges();
+    }
+  }
+
+  selectAll() {
+    this.defaultLineItems.forEach(item => item.selected = true);
+  }
+
+  clearAll() {
+    this.defaultLineItems.forEach(item => item.selected = false);
   }
 
   alertInvalidForm() {

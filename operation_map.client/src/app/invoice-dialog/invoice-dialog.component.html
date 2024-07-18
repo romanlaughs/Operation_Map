@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Add Invoice</h1>
+<div mat-dialog-content>
+  <form [formGroup]="invoiceForm">
+    <mat-form-field>
+      <mat-label>Subcontractor</mat-label>
+      <mat-select formControlName="subcontractor">
+        <mat-option *ngFor="let subcontractor of subcontractors" [value]="subcontractor.name">
+          {{ subcontractor.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount Paid</mat-label>
+      <input matInput formControlName="amountPaid" type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date Paid</mat-label>
+      <input matInput formControlName="datePaid" type="date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!invoiceForm.valid" (click)="onSaveClick()">Save</button>
+</div>

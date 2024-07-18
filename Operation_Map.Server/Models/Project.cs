@@ -34,6 +34,7 @@ namespace Operation_Map.Server.Models
         public int? Bathrooms { get; set; }
         public int? SquareFootage { get; set; }
         public int? Bedrooms { get; set; }
+        public List<LineItemOptions>? LineItemOptions { get; set;}
     }
 
 

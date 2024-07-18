@@ -15,13 +15,10 @@ namespace Operation_Map.Server.Models
         public int? Budget { get; set; }
         public List<Subcontractor>? Subcontractors { get; set; }
         public int? SubcontractorCost { get; set; }
-        public int? MaterialCost { get; set; }
-        public int? TotalCost { get; set; }
-        public bool? SelectedBid { get; set; }
         public string? Notes { get; set; }
-        public DateTime? DateStarted { get; set; }
-        public DateTime? DateFinished { get; set; }
-        public List<string>? PaidInvoices { get; set; }
+        public Boolean? BidSelected { get; set; }
+        public List<Invoice>? Invoices { get; set; }
+
     }
 
 }

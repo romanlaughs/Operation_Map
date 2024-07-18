@@ -104,6 +104,7 @@ namespace Operation_Map.Server.Controllers
             project.Bathrooms = projectIn.Bathrooms;
             project.SquareFootage = projectIn.SquareFootage;
             project.Bedrooms = projectIn.Bedrooms;
+            project.LineItemOptions = projectIn.LineItemOptions;
 
             // Update the user in the repository
             await _userRepository.UpdateUserAsync(user);

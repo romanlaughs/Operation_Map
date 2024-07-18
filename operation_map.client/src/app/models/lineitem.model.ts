@@ -7,11 +7,7 @@ export interface LineItem {
   budget?: number;
   subcontractors?: Subcontractor[];
   subcontractorCost?: number;
-  materialCost?: number;
-  totalCost?: number;
-  selectedBid?: boolean;
   notes?: string;
-  dateStarted?: Date;
-  dateFinished?: Date;
-  paidInvoices?: string[];
+  bidSelected?: boolean;
+  invoices?: [];
 }

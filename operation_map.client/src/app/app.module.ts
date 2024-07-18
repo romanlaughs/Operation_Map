@@ -33,6 +33,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { LineItemsComponent } from './line-items/line-items.component';
+import { LineItemDialogComponent } from './line-item-dialog/line-item-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LineItemOverviewComponent } from './line-item-overview/line-item-overview.component';
+import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.component';
+import { SubcontractorDialogComponent } from './subcontractor-dialog/subcontractor-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -53,7 +66,12 @@ import { MatInputModule } from '@angular/material/input';
     SubcontractorGroupDetailsComponent,
     MaterialsComponent,
     AddMaterialDialogComponent,
-    ProjectsOverviewComponent
+    ProjectsOverviewComponent,
+    LineItemsComponent,
+    LineItemDialogComponent,
+    LineItemOverviewComponent,
+    InvoiceDialogComponent,
+    SubcontractorDialogComponent
   ],
   imports: [
     FormsModule,
@@ -66,10 +84,21 @@ import { MatInputModule } from '@angular/material/input';
     MatGridListModule,
     MatTableModule,
     MatSortModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatSelectModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
       { path: 'materials/:projectId', component: MaterialsComponent, canActivate: [AuthGuard] },
+      { path: 'line-items/:projectId', component: LineItemsComponent, canActivate: [AuthGuard] },
+      { path: 'line-item-dialog', component: LineItemDialogComponent, canActivate: [AuthGuard] },
+      { path: 'line-item-overview/:id', component: LineItemOverviewComponent },
+      { path: 'invoice-dialog', component: InvoiceDialogComponent },
+      { path: 'subcontractor-dialog', component: SubcontractorDialogComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'profile-update', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
       { path: 'project-form', component: ProjectFormComponent, canActivate: [AuthGuard] },

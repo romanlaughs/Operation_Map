@@ -14,6 +14,7 @@ export class SubcontractorFormComponent implements OnInit {
   subcontractorForm: FormGroup;
   subcontractorId: string | null;
   email: string = SharedService.getEmail();
+  fromLineItemOverview: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +24,6 @@ export class SubcontractorFormComponent implements OnInit {
   ) {
     this.subcontractorForm = this.fb.group({
       companyName: ['', Validators.required],
-      companyType: ['', Validators.required],
       contactName: ['', Validators.required],
       pdfUpload: [''],
       address: [''],
@@ -48,6 +48,7 @@ export class SubcontractorFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.subcontractorId = this.route.snapshot.paramMap.get('id');
+    this.fromLineItemOverview = this.route.snapshot.queryParamMap.get('from') === 'line-item-overview';
     if (this.subcontractorId) {
       this.apiService.getSubcontractorById(this.email, this.subcontractorId).subscribe((subcontractor) => {
         if (subcontractor) {
@@ -61,16 +62,24 @@ export class SubcontractorFormComponent implements OnInit {
     if (this.subcontractorForm.valid) {
       if (this.subcontractorId) {
         this.apiService.updateSubcontractor(this.email, this.subcontractorId, this.subcontractorForm.value).subscribe(() => {
-          this.router.navigate(['/subcontractors']);
+          this.navigateAfterSubmit();
         });
       } else {
         this.apiService.createSubcontractor(this.email, this.subcontractorForm.value).subscribe(() => {
-          this.router.navigate(['/subcontractors']);
+          this.navigateAfterSubmit();
         });
       }
     } else {
       this.alertInvalidForm();
       console.log('Form is invalid');
+    }
+  }
+
+  navigateAfterSubmit(): void {
+    if (this.fromLineItemOverview) {
+      this.router.navigate(['/line-item-overview']);
+    } else {
+      this.router.navigate(['/subcontractors']);
     }
   }
 

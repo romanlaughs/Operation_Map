@@ -50,11 +50,23 @@ export class ProjectsOverviewComponent implements OnInit {
   }
 
   loadLineItems(): void {
-    // Implement this method to load line items for the project
-    // This will need to be updated once the line items API is available
+    this.apiService.getLineItems(this.userEmail, this.projectId).subscribe(
+      (lineItems: LineItem[]) => {
+        this.lineItems = lineItems;
+      },
+      (error: any) => {
+        console.error('Error fetching line items:', error);
+      }
+    );
   }
 
-  calculateProfitMargin(lineItem: any): number {
-    return lineItem.myBidBudget - lineItem.subcontractorCost;
+  calculateProfitMargin(lineItem: LineItem): number {
+    let profitMargin = (lineItem.budget ?? 0) - (lineItem.subcontractorCost ?? 0);
+    if (profitMargin) {
+      return profitMargin;
+    }
+    else {
+      return 0;
+    }
   }
 }

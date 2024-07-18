@@ -32,6 +32,17 @@ namespace Operation_Map.Server.Models
         public bool? AdditionalInsured { get; set; }
         public string? CertificatePDFURL { get; set; }
         public string? AdditionalInsurancePDFURL { get; set; }
+        public DateTime? DateStarted { get; set; }
+        public DateTime? DateFinished { get; set; }
+        public List<string>? PaidInvoices { get; set; }
+        public DateTime? BidDate { get; set; }
+        public int? BidPrice { get; set; }
+        public int? Paid { get; set; }
+        public int? LeftToPay { get; set; }
+        public string? BidPDFUrl { get; set; }
+        public int? MaterialCost { get; set; }
+        public int? TotalCost { get; set; }
+        public bool? SelectedBid { get; set; }
     }
 
 }

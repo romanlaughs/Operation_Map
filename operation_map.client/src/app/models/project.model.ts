@@ -1,3 +1,5 @@
+import { LineItemOption } from './line-item-option.model';
+
 export interface Project {
   id: string;
   name: string;
@@ -18,6 +20,7 @@ export interface Project {
   squareFootage?: number;
   bedrooms?: number;
   contacts?: Contact[];
+  lineItemOptions?: LineItemOption[];
 }
 
 export interface Contact {

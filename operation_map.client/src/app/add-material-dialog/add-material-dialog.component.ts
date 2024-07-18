@@ -24,7 +24,6 @@ export class AddMaterialDialogComponent {
       placePurchased: [''],
       notes: [''],
       itemNumber: [''],
-      photoUploadUrl: ['']
     });
   }
 

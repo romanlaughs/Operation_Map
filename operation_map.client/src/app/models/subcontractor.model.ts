@@ -22,4 +22,15 @@ export interface Subcontractor {
   additionalInsured?: boolean;
   certificatePDFURL?: string;
   additionalInsurancePDFURL?: string;
+  dateStarted?: Date;
+  dateFinished?: Date;
+  paidInvoices?: string[];
+  bidDate?: Date;
+  bidPrice?: number;
+  paid?: number;
+  leftToPay?: number;
+  bidPDFUrl?: string;
+  materialCost?: number;
+  totalCost?: number;
+  selectedBid?: boolean;
 }

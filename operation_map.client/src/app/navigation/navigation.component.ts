@@ -65,8 +65,9 @@ export class NavigationComponent implements OnInit{
     let overview = this.router.url.includes('/projects-overview');
     let materials = this.router.url.includes('material');
     let lineItems = this.router.url.includes('/line-items');
+    let lineItemOverview = this.router.url.includes('/line-item-overview');
 
-    return (overview || materials || lineItems);
+    return (overview || materials || lineItems || lineItemOverview);
   }
 
   logout() {

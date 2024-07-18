@@ -1,0 +1,40 @@
+<div>
+  <h2>Line Items for Project</h2>
+  <button mat-button (click)="openDialog()">Add Line Item</button>
+  <table mat-table [dataSource]="lineItems" class="mat-elevation-z8">
+    <ng-container matColumnDef="lineItemName">
+      <th mat-header-cell *matHeaderCellDef> Line Item Name </th>
+      <td mat-cell *matCellDef="let lineItem">
+        <a [routerLink]="['/line-item-overview', lineItem.id]">{{ lineItem.lineItemName }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateStarted">
+      <th mat-header-cell *matHeaderCellDef> Number of Bids </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.numberBids | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateFinished">
+      <th mat-header-cell *matHeaderCellDef> Bid Selected </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.bidSelected }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="myBidBudget">
+      <th mat-header-cell *matHeaderCellDef> My Bid/Budget </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.budget }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subcontractorCost">
+      <th mat-header-cell *matHeaderCellDef> Subcontractor Cost </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.subcontractorCost }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="profitMargin">
+      <th mat-header-cell *matHeaderCellDef> Profit Margin </th>
+      <td mat-cell *matCellDef="let lineItem"> {{ calculateProfitMargin(lineItem) }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -10,14 +10,6 @@
     </div>
 
     <div>
-      <label for="companyType">Company Type</label>
-      <input id="companyType" formControlName="companyType" required>
-      <div *ngIf="subcontractorForm.get('companyType')?.invalid && subcontractorForm.get('companyType')?.touched">
-        Company Type is required.
-      </div>
-    </div>
-
-    <div>
       <label for="contactName">Contact Name</label>
       <input id="contactName" formControlName="contactName" required>
       <div *ngIf="subcontractorForm.get('contactName')?.invalid && subcontractorForm.get('contactName')?.touched">

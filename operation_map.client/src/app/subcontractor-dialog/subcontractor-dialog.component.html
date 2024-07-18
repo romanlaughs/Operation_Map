@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Add Subcontractor</h1>
+<div mat-dialog-content>
+  <form [formGroup]="subcontractorForm">
+    <mat-form-field>
+      <mat-label>Subcontractor</mat-label>
+      <mat-select formControlName="companyName">
+        <mat-option *ngFor="let subcontractor of subcontractors" [value]="subcontractor.companyName">
+          {{ subcontractor.companyName }}
+        </mat-option>
+        <mat-option (click)="addNewSubcontractor()">Add New Subcontractor</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Bid Date</mat-label>
+      <input matInput formControlName="bidDate" type="date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput formControlName="dateStarted" type="date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>End Date</mat-label>
+      <input matInput formControlName="dateFinished" type="date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Bid Price</mat-label>
+      <input matInput formControlName="bidPrice" type="number">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!subcontractorForm.valid" (click)="onSaveClick()">Save</button>
+</div>

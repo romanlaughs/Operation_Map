@@ -64,5 +64,24 @@
 
     <button type="submit">{{ projectId ? 'Update' : 'Create' }} Project</button>
     <button type="button" (click)="onArchive()" *ngIf="projectId">Archive Project</button>
+
+    <label for="lineItems">Line Items</label>
+    <ul>
+      <li *ngFor="let item of defaultLineItems">
+        <mat-checkbox [checked]="item.selected" (change)="onCheckboxChange($event, item)">
+          {{ item.name }}
+        </mat-checkbox>
+      </li>
+    </ul>
+    <br />
+    <button type="button" (click)="selectAll()">Select All</button>
+    <button type="button" (click)="clearAll()">Clear All</button>
+    <br />
+    <h2>Add Custom Line Item</h2>
+    <input [(ngModel)]="newLineItem" [ngModelOptions]="{standalone: true}" placeholder="Enter new item name">
+    <button type="button" (click)="addNewItem()">Add Item</button>
+    <!---->
+    <button type="submit">{{ projectId ? 'Update' : 'Create' }} Project</button>
+    <button type="button" (click)="onArchive()" *ngIf="projectId">Archive Project</button>
   </form>
 </div>

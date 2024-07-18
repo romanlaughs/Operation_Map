@@ -37,6 +37,10 @@ builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 
 builder.Services.AddScoped<ISubcontractorGroupRepository, SubcontractorGroupRepository>();
 
+builder.Services.AddScoped<ILineItemRepository, LineItemRepository>();
+
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>

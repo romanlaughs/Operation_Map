@@ -16,6 +16,9 @@ import { SubcontractorGroupDetailsComponent } from './subcontractor-group-detail
 import { MaterialsComponent } from './materials/materials.component';
 import { AddMaterialDialogComponent } from './add-material-dialog/add-material-dialog.component';
 import { ProjectsOverviewComponent } from './projects-overview/projects-overview.component'; // Adjust the import path
+import { LineItemsComponent } from './line-items/line-items.component';
+import { LineItemDialogComponent } from './line-item-dialog/line-item-dialog.component';
+import { LineItemOverviewComponent } from './line-item-overview/line-item-overview.component';
 
 
 const routes: Routes = [
@@ -28,6 +31,9 @@ const routes: Routes = [
   { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
   { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
   { path: 'materials/:projectId', component: MaterialsComponent, canActivate: [AuthGuard] },
+  { path: 'line-items/:projectId', component: LineItemsComponent, canActivate: [AuthGuard] },
+  { path: 'line-item-dialog', component: LineItemDialogComponent, canActivate: [AuthGuard] },
+  { path: 'line-item-overview/:id', component: LineItemOverviewComponent },
   { path: 'add-material', component: AddMaterialDialogComponent, canActivate: [AuthGuard] },
   { path: 'projects-overview/:projectId', component: ProjectsOverviewComponent, canActivate: [AuthGuard] },
   { path: 'sub-groups', component: GroupsComponent, canActivate: [AuthGuard] },

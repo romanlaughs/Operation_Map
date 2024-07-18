@@ -8,9 +8,10 @@ export class SharedService {
   static email: string = '';
   static profileComplete: boolean;
   static projectID: string = '';
+  static lineItemID: string = '';
 
   static getEmail(): string {
-    if (this.email) {
+    if (this.email.length) {
       return this.email;
     }
     else {
@@ -23,7 +24,7 @@ export class SharedService {
   }
 
   static getProjectId(): string {
-    if (this.projectID) {
+    if (this.projectID.length) {
       return this.projectID;
     }
     else {
@@ -33,5 +34,18 @@ export class SharedService {
 
   static setProjectID(projectID: string): void {
     this.projectID = projectID;
+  }
+
+  static getLineItemId(): string {
+    if (this.lineItemID.length) {
+      return this.lineItemID;
+    }
+    else {
+      return "no Project Id"
+    }
+  }
+
+  static setLineItemId(lineItemID: string): void {
+    this.lineItemID = lineItemID;
   }
 }

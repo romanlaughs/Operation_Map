@@ -26,11 +26,14 @@
     <tr mat-row *matRowDef="let row; columns: ['owner', 'units', 'contacts'];"></tr>
   </table>
 
-<!--  <h2>Line Items</h2>
+  <br />
+  <br />
+
+  <h2>Line Items</h2>
   <table mat-table [dataSource]="lineItems" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.name }} </td>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.lineItemName }} </td>
     </ng-container>
 
     <ng-container matColumnDef="startDate">
@@ -55,10 +58,10 @@
 
     <ng-container matColumnDef="profitMargin">
       <th mat-header-cell *matHeaderCellDef> Profit Margin </th>
-      <td mat-cell *matCellDef="let lineItem"> {{ calculateProfitMargin(lineItem) | currency }} </td>
+      <td mat-cell *matCellDef="let lineItem"> {{ calculateProfitMargin(lineItem) | currency}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['name', 'startDate', 'endDate', 'myBidBudget', 'subcontractorCost', 'profitMargin']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['name', 'startDate', 'endDate', 'myBidBudget', 'subcontractorCost', 'profitMargin'];"></tr>
-  </table>-->
+  </table>
 </div>

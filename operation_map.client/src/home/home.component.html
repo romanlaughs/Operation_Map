@@ -1,4 +1,9 @@
-<div>
+<div class="welcome-container">
   <h1>Welcome to Operation Map</h1>
-  <p>Please Sign Up/Log In to Continue</p>
+  <p id="changing-text" [ngClass]="{'fade-in': true}">{{ currentPhrase }}</p>
+</div>
+
+<div class="loading-overlay" *ngIf="loading">
+  <div class="spinner"></div>
+  <p id="loading-text" [ngClass]="{'fade-in': true}">{{ loadingText }}</p>
 </div>
