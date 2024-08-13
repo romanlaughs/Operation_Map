@@ -4,9 +4,12 @@ using Operation_Map.Server.Models;
 using Operation_Map.Server.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
 
 namespace Operation_Map.Server.Helpers
 {
+
     public class ProjectRepository : IProjectRepository
     {
         private readonly IMongoCollection<Project> _projectsCollection;

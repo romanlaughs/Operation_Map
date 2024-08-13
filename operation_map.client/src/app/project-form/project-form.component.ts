@@ -5,6 +5,8 @@ import { ApiService } from '../api.service';
 import { Project } from '../models/project.model';
 import { SharedService } from '../shared.service'
 import { LineItemOption } from '../models/line-item-option.model';
+import { MatDialog } from '@angular/material/dialog';
+import { BudgetDialogComponent } from '../budget-dialog/budget-dialog.component';
 
 
 @Component({
@@ -13,58 +15,59 @@ import { LineItemOption } from '../models/line-item-option.model';
   styleUrls: ['./project-form.component.css']
 })
 export class ProjectFormComponent implements OnInit {
+  isLoading = false;
   projectForm: FormGroup;
   projectId: string | null;
   email: string = SharedService.getEmail();
   redirect: string | null | undefined;
   projectStatus: number | undefined;
   defaultLineItems = [
-    { name: 'Clearing', selected: true },
-    { name: 'Demolition', selected: true },
-    { name: 'Excavation', selected: true },
-    { name: 'Foundation', selected: true },
-    { name: 'Drainage', selected: true },
-    { name: 'Electrical Underground', selected: true },
-    { name: 'Water Line Connection', selected: true },
-    { name: 'Side Sewer Connection', selected: true },
-    { name: 'Framing', selected: true },
-    { name: 'Roofing', selected: true },
-    { name: 'Windows', selected: true },
-    { name: 'Decking', selected: true },
-    { name: 'Garage Door', selected: true },
-    { name: 'Gutters', selected: true },
-    { name: 'Flashing', selected: true },
-    { name: 'Waterproofing', selected: true },
-    { name: 'Siding', selected: true },
-    { name: 'Concrete Flat Work', selected: true },
-    { name: 'Painting Outside', selected: true },
-    { name: 'Painting Inside', selected: true },
-    { name: 'Electrical', selected: true },
-    { name: 'Plumbing', selected: true },
-    { name: 'Heating / AC', selected: true },
-    { name: 'Fire Sprinkler', selected: true },
-    { name: 'Low voltage', selected: true },
-    { name: 'Insulation', selected: true },
-    { name: 'Drywall', selected: true },
-    { name: 'Hardwood Flooring', selected: true },
-    { name: 'Carpet', selected: true },
-    { name: 'Tile', selected: true },
-    { name: 'Outside Stone/tile', selected: true },
-    { name: 'Kitchen Cabinet Install', selected: true },
-    { name: 'Countertop Install', selected: true },
-    { name: 'Hardware Install', selected: true },
-    { name: 'Mirrors', selected: true },
-    { name: 'Shower Glass Door', selected: true },
-    { name: 'Closet Install', selected: true },
-    { name: 'Millwork Doors and Trim', selected: true },
-    { name: 'Grading', selected: true },
-    { name: 'Landscaping', selected: true },
-    { name: 'Fencing', selected: true },
-    { name: 'Driveway Paving', selected: true },
-    { name: 'Driveway Concrete', selected: true },
-    { name: 'Cleaning', selected: true },
-    { name: 'Tool / Equipment Rental', selected: true },
-    { name: 'Day Labor Help', selected: true }
+    { name: 'Clearing', selected: true, budget: 0 },
+    { name: 'Demolition', selected: true, budget: 0 },
+    { name: 'Excavation', selected: true, budget: 0 },
+    { name: 'Foundation', selected: true, budget: 0 },
+    { name: 'Drainage', selected: true, budget: 0 },
+    { name: 'Electrical Underground', selected: true, budget: 0 },
+    { name: 'Water Line Connection', selected: true, budget: 0 },
+    { name: 'Side Sewer Connection', selected: true, budget: 0 },
+    { name: 'Framing', selected: true, budget: 0 },
+    { name: 'Roofing', selected: true, budget: 0 },
+    { name: 'Windows', selected: true, budget: 0 },
+    { name: 'Decking', selected: true, budget: 0 },
+    { name: 'Garage Door', selected: true, budget: 0 },
+    { name: 'Gutters', selected: true, budget: 0 },
+    { name: 'Flashing', selected: true, budget: 0 },
+    { name: 'Waterproofing', selected: true, budget: 0 },
+    { name: 'Siding', selected: true, budget: 0 },
+    { name: 'Concrete Flat Work', selected: true, budget: 0 },
+    { name: 'Painting Outside', selected: true, budget: 0 },
+    { name: 'Painting Inside', selected: true, budget: 0 },
+    { name: 'Electrical', selected: true, budget: 0 },
+    { name: 'Plumbing', selected: true, budget: 0 },
+    { name: 'Heating / AC', selected: true, budget: 0 },
+    { name: 'Fire Sprinkler', selected: true, budget: 0 },
+    { name: 'Low voltage', selected: true, budget: 0 },
+    { name: 'Insulation', selected: true, budget: 0 },
+    { name: 'Drywall', selected: true, budget: 0 },
+    { name: 'Hardwood Flooring', selected: true, budget: 0 },
+    { name: 'Carpet', selected: true, budget: 0 },
+    { name: 'Tile', selected: true, budget: 0 },
+    { name: 'Outside Stone/tile', selected: true, budget: 0 },
+    { name: 'Kitchen Cabinet Install', selected: true, budget: 0 },
+    { name: 'Countertop Install', selected: true, budget: 0 },
+    { name: 'Hardware Install', selected: true, budget: 0 },
+    { name: 'Mirrors', selected: true, budget: 0 },
+    { name: 'Shower Glass Door', selected: true, budget: 0 },
+    { name: 'Closet Install', selected: true, budget: 0 },
+    { name: 'Millwork Doors and Trim', selected: true, budget: 0 },
+    { name: 'Grading', selected: true, budget: 0 },
+    { name: 'Landscaping', selected: true, budget: 0 },
+    { name: 'Fencing', selected: true, budget: 0 },
+    { name: 'Driveway Paving', selected: true, budget: 0 },
+    { name: 'Driveway Concrete', selected: true, budget: 0 },
+    { name: 'Cleaning', selected: true, budget: 0 },
+    { name: 'Tool / Equipment Rental', selected: true, budget: 0 },
+    { name: 'Day Labor Help', selected: true, budget: 0 }
   ];
 
   newLineItem: string = '';
@@ -75,7 +78,8 @@ export class ProjectFormComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {
     this.projectForm = this.fb.group({
       name: ['', Validators.required],
@@ -127,33 +131,53 @@ export class ProjectFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.projectForm.valid) {
-      if (this.projectForm.valid) {
-        const selectedLineItems = this.defaultLineItems.filter(item => item.selected);
-        const formData = {
-          ...this.projectForm.value,
-          lineItemOptions: selectedLineItems
-        };
-        if (this.projectId) {
-          this.apiService.updateProject(this.email, this.projectId, formData).subscribe(() => {
-            if (this.redirect && this.redirect == 'projects-bidding') {
-              this.router.navigate(['/projects-bidding']);
-            } else {
-              this.router.navigate(['/projects']);
-            }
-          });
-        } else {
-          this.apiService.createProject(this.email, formData).subscribe(() => {
-            console.log('Creation Completed');
-            this.router.navigate(['/projects']);
-          });
+      const selectedLineItems = this.defaultLineItems.filter(item => item.selected);
+
+      // Open the budget dialog
+      const dialogRef = this.dialog.open(BudgetDialogComponent, {
+        width: '500px',
+        data: { items: selectedLineItems }
+      });
+
+      // Handle the dialog close event
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // result contains the selected items with their budgets
+          const formData = {
+            ...this.projectForm.value,
+            lineItemOptions: result
+          }
+          if (this.projectId) {
+            this.isLoading = true;
+            this.apiService.updateProject(this.email, this.projectId, formData).subscribe(() => {
+              if (this.redirect && this.redirect == 'projects-bidding') {
+                this.router.navigate(['/projects-bidding']);
+                this.isLoading = false;
+              } else {
+                this.router.navigate(['/projects']);
+                this.isLoading = false;
+              }
+            });
+          } else {
+            this.isLoading = true;
+            this.apiService.createProject(this.email, formData).subscribe(() => {
+              if (this.redirect && this.redirect == 'projects-bidding') {
+                this.router.navigate(['/projects-bidding']);
+                this.isLoading = false;
+              } else {
+                this.router.navigate(['/projects']);
+                this.isLoading = false;
+              }
+            });
+          }
         }
+        })
       }
       else {
         this.alertInvalidForm();
         console.log('Form is invalid');
       }
     }
-  }
 
 
   onArchive(): void {
@@ -171,7 +195,7 @@ export class ProjectFormComponent implements OnInit {
 
   addNewItem() {
     if (this.newLineItem.trim()) {
-      this.defaultLineItems.push({ name: this.newLineItem.trim(), selected: true });
+      this.defaultLineItems.push({ name: this.newLineItem.trim(), selected: true, budget: 0 });
       this.newLineItem = '';
       this.cdr.detectChanges();
     }

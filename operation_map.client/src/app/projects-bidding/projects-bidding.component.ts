@@ -51,6 +51,11 @@ export class ProjectsBiddingComponent {
     }
   }
 
+  goToProjectOverview(projectId: string): void {
+    SharedService.setProjectID(projectId);
+    this.router.navigate(['/projects-overview', projectId]);
+  }
+
   getProjectStatus(status: number): string {
     switch (status) {
       case 0:

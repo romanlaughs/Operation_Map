@@ -1,5 +1,8 @@
 <div>
   <h2>{{ projectId ? 'Edit' : 'Create' }} Project</h2>
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+  </div>
   <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
     <label for="name">Name</label>
     <input id="name" formControlName="name">

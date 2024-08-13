@@ -1,0 +1,19 @@
+.drag-drop-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Ensures there's space below for the buttons */
+}
+
+.drag-drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 40px;
+  text-align: center;
+  width: 75%; /* Ensures it takes up full width */
+  min-height: 100px; /* Gives a reasonable height for the drag area */
+}
+
+  .drag-drop-area:hover {
+    border-color: #007bff;
+  }

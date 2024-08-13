@@ -44,6 +44,12 @@ import { SubcontractorDialogComponent } from './subcontractor-dialog/subcontract
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BudgetDialogComponent } from './budget-dialog/budget-dialog.component';
+import { DocumentsComponent } from './documents/documents.component';
 
 
 
@@ -71,7 +77,10 @@ import { MatButtonModule } from '@angular/material/button';
     LineItemDialogComponent,
     LineItemOverviewComponent,
     InvoiceDialogComponent,
-    SubcontractorDialogComponent
+    SubcontractorDialogComponent,
+    FileUploadComponent,
+    BudgetDialogComponent,
+    DocumentsComponent
   ],
   imports: [
     FormsModule,
@@ -90,6 +99,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatOptionModule,
     MatButtonModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
@@ -97,6 +109,8 @@ import { MatButtonModule } from '@angular/material/button';
       { path: 'line-items/:projectId', component: LineItemsComponent, canActivate: [AuthGuard] },
       { path: 'line-item-dialog', component: LineItemDialogComponent, canActivate: [AuthGuard] },
       { path: 'line-item-overview/:id', component: LineItemOverviewComponent },
+      { path: 'budget-dialog', component: BudgetDialogComponent },
+      { path: 'file-upload', component: FileUploadComponent },
       { path: 'invoice-dialog', component: InvoiceDialogComponent },
       { path: 'subcontractor-dialog', component: SubcontractorDialogComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },

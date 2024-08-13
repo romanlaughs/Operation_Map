@@ -48,7 +48,7 @@
 
     <ng-container matColumnDef="myBidBudget">
       <th mat-header-cell *matHeaderCellDef> My Bid/Budget </th>
-      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.myBidBudget | currency }} </td>
+      <td mat-cell *matCellDef="let lineItem"> {{ lineItem.budget | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="subcontractorCost">

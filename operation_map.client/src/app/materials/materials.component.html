@@ -30,7 +30,12 @@
     <ng-container matColumnDef="photoUploadUrl">
       <th mat-header-cell *matHeaderCellDef> Photo Upload </th>
       <td mat-cell *matCellDef="let material">
-        <button mat-button>Upload Photo</button>
+        <div *ngIf="materialFiles[material.id] && materialFiles[material.id].length > 0; else uploadButton">
+          <img [src]="materialFiles[material.id][0]" alt="Thumbnail" (click)="openFile(materialFiles[material.id][0])" style="width: 100px; height: 100px; cursor: pointer;" />
+        </div>
+        <ng-template #uploadButton>
+          <button mat-button (click)="openUploadDialog(material.id)">Upload Photo</button>
+        </ng-template>
       </td>
     </ng-container>
 
