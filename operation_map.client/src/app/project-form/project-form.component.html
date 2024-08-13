@@ -1,0 +1,68 @@
+<div>
+  <h2>{{ projectId ? 'Edit' : 'Create' }} Project</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name</label>
+    <input id="name" formControlName="name">
+    <div *ngIf="projectForm.get('name')?.touched && projectForm.get('name')?.invalid" class="error">
+      Name is required.
+    </div>
+
+    <label for="address1">Address 1</label>
+    <input id="address1" formControlName="address1">
+
+    <label for="address2">Address 2</label>
+    <input id="address2" formControlName="address2">
+
+    <label for="city">City</label>
+    <input id="city" formControlName="city">
+
+    <label for="state">State</label>
+    <input id="state" formControlName="state">
+
+    <label for="zipCode">Zip Code</label>
+    <input id="zipCode" formControlName="zipCode">
+
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" formControlName="startDate">
+
+    <label for="started">Started</label>
+    <input type="checkbox" id="started" formControlName="started">
+
+    <label for="finished">Finished</label>
+    <input type="checkbox" id="finished" formControlName="finished">
+
+    <label for="finishDate">Finish Date</label>
+    <input type="date" id="finishDate" formControlName="finishDate">
+
+    <label for="completionPercentage">Completion Percentage</label>
+    <input type="number" id="completionPercentage" formControlName="completionPercentage">
+
+    <label for="units">Units</label>
+    <input type="number" id="units" formControlName="units">
+
+    <label for="projectEmail">Project Email</label>
+    <input id="projectEmail" formControlName="projectEmail">
+
+    <label for="projectStatus">Project Status</label>
+    <select id="projectStatus" formControlName="projectStatus">
+      <option [value]="0">Bidding</option>
+      <option [value]="1">In Progress</option>
+      <option [value]="-1">Archived</option>
+    </select>
+    <div *ngIf="projectForm.get('projectStatus')?.touched && projectForm.get('projectStatus')?.invalid" class="error">
+      Project Status is required.
+    </div>
+
+    <label for="bathrooms">Bathrooms</label>
+    <input type="number" id="bathrooms" formControlName="bathrooms">
+
+    <label for="squareFootage">Square Footage</label>
+    <input type="number" id="squareFootage" formControlName="squareFootage">
+
+    <label for="bedrooms">Bedrooms</label>
+    <input type="number" id="bedrooms" formControlName="bedrooms">
+
+    <button type="submit">{{ projectId ? 'Update' : 'Create' }} Project</button>
+    <button type="button" (click)="onArchive()" *ngIf="projectId">Archive Project</button>
+  </form>
+</div>

@@ -1,0 +1,30 @@
+<div>
+  <h2>My Bids</h2>
+  <button (click)="addProject()">Add New Bid</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>City</th>
+        <th>Date Started</th>
+        <th>Percentage Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.name }}</td>
+        <td>{{ getProjectStatus(project.projectStatus) }}</td>
+        <td>{{ project.city }}</td>
+        <td>{{ project.startDate | date }}</td>
+        <td>{{ project.completionPercentage }}%</td>
+        <td>
+          <button (click)="editProject(project.id)">Edit</button>
+        </td>
+        <td>
+          <button (click)="updateProjectStatus(project.id, 1)">Won Bid</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
