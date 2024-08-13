@@ -13,11 +13,13 @@ namespace Operation_Map.Server.Controllers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILineItemRepository _lineItemRepository;
 
-        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository)
+        public ProjectController(IProjectRepository projectRepository, IUserRepository userRepository, ILineItemRepository lineItemRepository)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
+            _lineItemRepository = lineItemRepository;
         }
 
         [HttpGet]
@@ -68,6 +70,20 @@ namespace Operation_Map.Server.Controllers
             user.Projects.Add(project);
 
            await _userRepository.UpdateUserAsync(user);
+
+            if (project.LineItemOptions != null)
+            {
+                foreach (var lineItemOption in project.LineItemOptions)
+                {
+                    var lineItem = new LineItem
+                    {
+                        LineItemName = lineItemOption.Name,
+                        Budget = lineItemOption.Budget
+                    };
+
+                    await _lineItemRepository.CreateLineItemAsync(userEmail, project._id, lineItem);
+                }
+            }
 
             return CreatedAtAction(nameof(Get), new { id = project._id }, project);
         }

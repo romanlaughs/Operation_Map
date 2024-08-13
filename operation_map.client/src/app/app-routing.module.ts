@@ -19,6 +19,8 @@ import { ProjectsOverviewComponent } from './projects-overview/projects-overview
 import { LineItemsComponent } from './line-items/line-items.component';
 import { LineItemDialogComponent } from './line-item-dialog/line-item-dialog.component';
 import { LineItemOverviewComponent } from './line-item-overview/line-item-overview.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { BudgetDialogComponent } from './budget-dialog/budget-dialog.component';
 
 
 const routes: Routes = [
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: 'materials/:projectId', component: MaterialsComponent, canActivate: [AuthGuard] },
   { path: 'line-items/:projectId', component: LineItemsComponent, canActivate: [AuthGuard] },
   { path: 'line-item-dialog', component: LineItemDialogComponent, canActivate: [AuthGuard] },
+  { path: 'file-upload', component: FileUploadComponent },
+  { path: 'budget-dialog', component: BudgetDialogComponent },
   { path: 'line-item-overview/:id', component: LineItemOverviewComponent },
   { path: 'add-material', component: AddMaterialDialogComponent, canActivate: [AuthGuard] },
   { path: 'projects-overview/:projectId', component: ProjectsOverviewComponent, canActivate: [AuthGuard] },

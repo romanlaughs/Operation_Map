@@ -283,4 +283,52 @@ export class ApiService {
     const url = `${this.apiUrl}/invoices/${invoiceId}?userEmail=${encodeURIComponent(userEmail)}&projectId=${encodeURIComponent(projectId)}&lineItemId=${encodeURIComponent(lineItemId)}`;
     return this.http.delete<void>(url).pipe(catchError(this.handleError));
   }
+
+  // Upload file
+  uploadFile(file: File, containerName: string, blobName: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('containerName', containerName);
+    formData.append('blobName', blobName);
+
+    return this.http.post(`${this.apiUrl}/file/upload`, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Retrieve file
+  getFile(containerName: string, blobName: string): Observable<Blob> {
+    const url = `${this.apiUrl}/file/${containerName}/${blobName}`;
+    return this.http.get(url, { responseType: 'blob' }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Get files by itemId
+  getFilesByItemId(containerName: string, itemId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/file/${containerName}/search/${itemId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+  // Update file
+  updateFile(file: File, containerName: string, blobName: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('containerName', containerName);
+    formData.append('blobName', blobName);
+
+    return this.http.put(`${this.apiUrl}/file/${containerName}/${blobName}`, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Delete file
+  deleteFile(containerName: string, blobName: string): Observable<void> {
+    const url = `${this.apiUrl}/file/${containerName}/${blobName}`;
+    return this.http.delete<void>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

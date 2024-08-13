@@ -4,16 +4,22 @@ using Auth0.AspNetCore.Authentication;
 using Operation_Map.Server.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Register MongoDB class maps
 MongoDBConfigService.RegisterClassMaps();
 
 var configuration = builder.Configuration;
 
-// Add MongoDB service
-// Program.cs
+// Load environment variables into configuration
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+// Add MongoDB service with environment variables
 builder.Services.AddSingleton<MongoDBService>(sp => {
     var configuration = sp.GetRequiredService<IConfiguration>();
     var connectionString = configuration["MongoDB:ConnectionString"];
@@ -21,26 +27,20 @@ builder.Services.AddSingleton<MongoDBService>(sp => {
     return new MongoDBService(connectionString, dbName);
 });
 
-
-// Configure Auth0
+// Configure Auth0 with environment variables
 builder.Services.AddAuth0WebAppAuthentication(options => {
-    options.Domain = builder.Configuration["Auth0:Domain"];
-    options.ClientId = builder.Configuration["Auth0:ClientId"];
-    options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
+    options.Domain = configuration["Auth0:Domain"];
+    options.ClientId = configuration["Auth0:ClientId"];
+    options.ClientSecret = configuration["Auth0:ClientSecret"];
 });
 
+// Add repositories and other services
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
-// Add services to the container.
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
-
 builder.Services.AddScoped<ISubcontractorGroupRepository, SubcontractorGroupRepository>();
-
 builder.Services.AddScoped<ILineItemRepository, LineItemRepository>();
-
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -64,7 +64,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = "https://dev-slgt1t3tb1o228qp.us.auth0.com/";
+    options.Authority = $"https://{configuration["Auth0:Domain"]}/";
     options.Audience = "https://operation-map/api";
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -73,9 +73,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddSingleton<BlobService>();
+
 // Add Authorization Services
 builder.Services.AddAuthorization();
-
 
 var app = builder.Build();
 

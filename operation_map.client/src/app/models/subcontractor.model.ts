@@ -20,6 +20,7 @@ export interface Subcontractor {
   insurancePhone?: string;
   insuranceEmail?: string;
   additionalInsured?: boolean;
+  additionalInsuranceEXP?: Date;
   certificatePDFURL?: string;
   additionalInsurancePDFURL?: string;
   dateStarted?: Date;
@@ -33,4 +34,5 @@ export interface Subcontractor {
   materialCost?: number;
   totalCost?: number;
   selectedBid?: boolean;
+  additionalCosts?: number;
 }
