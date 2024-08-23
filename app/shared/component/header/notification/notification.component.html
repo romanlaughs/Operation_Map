@@ -1,0 +1,68 @@
+<a (click)="notification()" (clickOutside)="clickOutside()">
+  <svg>
+    <use href="assets/svg/iconly-sprite.svg#notification"></use>
+  </svg>
+</a>
+<span class="badge rounded-pill badge-primary">3</span>
+<div
+  class="custom-menu notification-dropdown py-0 overflow-hidden"
+  [class.show]="notifications"
+>
+  <h3 class="title bg-primary-light dropdown-title">
+    Notification <span class="font-primary">View all</span>
+  </h3>
+  <ul class="activity-timeline">
+    <li class="d-flex align-items-start">
+      <div class="activity-line"></div>
+      <div class="activity-dot-primary"></div>
+      <div class="flex-grow-1">
+        <h6 class="f-w-600 font-primary">
+          8/4/2024<span class="circle-dot-primary float-end">
+            <svg class="circle-color">
+              <use href="assets/svg/iconly-sprite.svg#circle"></use>
+            </svg>
+          </span>
+        </h6>
+        <h5>Davorin Savovic</h5>
+        <p class="mb-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </li>
+    <li class="d-flex align-items-start">
+      <div class="activity-dot-secondary"></div>
+      <div class="flex-grow-1">
+        <h6 class="f-w-600 font-secondary">
+          8/12/24<span class="float-end circle-dot-secondary">
+            <svg class="circle-color">
+              <use href="assets/svg/iconly-sprite.svg#circle"></use>
+            </svg>
+          </span>
+        </h6>
+        <h5>Nick</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </li>
+    <li class="d-flex align-items-start">
+      <div class="activity-dot-primary"></div>
+      <div class="flex-grow-1">
+        <h6 class="f-w-600 font-primary">
+          8/8/2024<span class="float-end circle-dot-primary">
+            <svg class="circle-color">
+              <use href="assets/svg/iconly-sprite.svg#circle"></use>
+            </svg>
+          </span>
+        </h6>
+        <h5>Edis Kulaga</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>

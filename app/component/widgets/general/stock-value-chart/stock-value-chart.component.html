@@ -1,0 +1,25 @@
+<div class="card value-chart">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div class="visitor-chart" id="visitor-chart">
+                    <apx-chart [series]="stockChart.series" [chart]="stockChart.chart"
+                        [plotOptions]="stockChart.plotOptions" [grid]="stockChart.grid" [states]="stockChart.states"
+                        [dataLabels]="stockChart.dataLabels" [legend]="stockChart.legend"
+                        [colors]="stockChart.colors" [yaxis]="stockChart.yaxis" [xaxis]="stockChart.xaxis"
+                        [tooltip]="stockChart.tooltip" [responsive]="stockChart.responsive" [fill]="stockChart.fill">
+                    </apx-chart>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="valuechart-detail">
+                    <div class="text-center">
+                        <div class="badge badge-secondary">60%</div>
+                        <h2>$4,26,876 </h2>
+                        <p>Today Stock Value </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

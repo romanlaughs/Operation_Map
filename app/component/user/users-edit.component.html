@@ -1,0 +1,72 @@
+<div class="container-fluid edit-profile">
+  <div class="row">
+    <div class="card">
+      <div class="card-header card-no-border pb-0">
+        <h3 class="card-title mb-0">My Profile</h3>
+        <div class="card-options">
+          <a class="card-options-collapse" href="javascript:void(0)">
+            <i class="fe fe-chevron-up"></i>
+          </a>
+          <a class="card-options-remove" href="javascript:void(0)">
+            <i class="fe fe-x"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+          <div class="row mb-2">
+            <div class="profile-title">
+              <div class="flex-grow-1 mb-2">
+                <input
+                  class="form-control"
+                  type="email"
+                  id="email"
+                  required
+                  [(ngModel)]="user.email"
+                  name="email"
+                  readonly
+                />
+              </div>
+              <div class="flex-grow-1 mb-2">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="firstName"
+                  placeholder="{{ user.firstName || 'First Name' }}"
+                  required
+                  [(ngModel)]="user.firstName"
+                  name="firstName"
+                />
+              </div>
+              <div class="flex-grow-1 mb-2">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="lastName"
+                  placeholder="{{ user.lastName || 'Last Name' }}"
+                  required
+                  [(ngModel)]="user.lastName"
+                  name="lastName"
+                />
+              </div>
+              <div class="flex-grow-1 mb-2">
+                <input
+                  class="form-control"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value="password"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-footer">
+            <button class="btn btn-primary btn-block" type="submit">
+              <app-feather-icon [icon]="'save'"></app-feather-icon> Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

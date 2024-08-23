@@ -1,0 +1,66 @@
+<form [formGroup]="lineItemForm">
+  <div class="card">
+    <div class="card-body">
+      <div class="form theme-form basic-form">
+        <div class="modal-header row mb-3">
+          <h3>Add New Line Item</h3>
+        </div>
+        <ng-container *ngIf="lineItemOptions.length < 1; else dropdownTemplate"
+          ><div class="row mb-1">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Line Item Name"
+              formControlName="lineItemName"
+              required
+            /></div
+        ></ng-container>
+        <ng-template #dropdownTemplate
+          ><div class="row mb-1">
+            <select class="form-select" formControlName="lineItemName" required>
+              <option
+                *ngFor="let option of lineItemOptions"
+                [value]="option.name"
+              >
+                {{ option.name }}
+              </option>
+            </select>
+          </div></ng-template
+        >
+        <div class="row mb-1">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Budget"
+            formControlName="budget"
+            required
+          />
+        </div>
+        <div class="row mb-4">
+          <textarea
+            class="form-control"
+            placeholder="Notes"
+            formControlName="notes"
+          ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary me-3"
+            mat-button
+            (click)="onNoClick()"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            mat-button
+            [disabled]="!lineItemForm.valid"
+            (click)="onSaveClick()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,417 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-end">
+          <a class="btn btn-primary" [routerLink]="['/subcontractors/create']">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Add Subcontractor
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="fs-3 alphabet-nav text-center mb-5">
+          <br /><br />
+          <span
+            *ngFor="let letter of alphabet"
+            [ngClass]="{
+              disabled: !hasSubcontractors[letter]
+            }"
+            (click)="hasSubcontractors[letter] && filterByLetter(letter)"
+            class="alphabet-letter me-3 btn btn-primary"
+          >
+            {{ letter }}
+          </span>
+        </div>
+
+        <!-- Default message -->
+        <div *ngIf="!hasClickedLetter">
+          <h3 class="mb-5 text-center">
+            Please select a letter to view subcontractors starting with that
+            letter.
+          </h3>
+        </div>
+
+        <!-- List of filtered subcontractors -->
+        <div
+          *ngIf="filteredSubcontractors.length > 0"
+          class="table-responsive card-body text-center"
+        >
+          <h3 class="mb-5">
+            Subcontractors starting with "{{ selectedLetter }}"
+          </h3>
+          <table class="table table-borderless mb-3">
+            <thead>
+              <tr>
+                <th class="f-w-300 text-center">
+                  <h4>Subcontractor</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Contact</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Type</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Address</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Total Bids</h4>
+                </th>
+              </tr>
+            </thead>
+            <ng-container
+              *ngFor="
+                let subcontractor of filteredSubcontractors;
+                let i = index
+              "
+            >
+              <tbody>
+                <tr>
+                  <td class="f-w-700 text-center">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="openModal(subcontractor, content)"
+                    >
+                      {{ subcontractor.companyName }}
+                    </a>
+                  </td>
+                  <td class="f-w-300 text-center">
+                    {{ subcontractor.contactName }}
+                  </td>
+                  <td class="f-w-300 text-center">
+                    {{ subcontractor.companyType }}
+                  </td>
+
+                  <td class="f-w-300 text-center">
+                    {{ subcontractor.address }}
+                  </td>
+                  <td class="f-w-300 text-center">
+                    {{ bidNumber[i] }}
+                  </td>
+                </tr>
+              </tbody>
+
+              <ng-template #content let-modal>
+                <div class="modal-xl">
+                  <div class="modal-header">
+                    <h3>{{ subcontractor.companyName }}</h3>
+                  </div>
+                  <div class="modal-body text-start">
+                    <div class="modal-toggle-wrapper">
+                      <div class="row">
+                        <form
+                          [formGroup]="subcontractorForm"
+                          (ngSubmit)="onSubmit(subcontractorId || '', modalRef)"
+                        >
+                          <input
+                            formControlName="subcontractorId"
+                            type="hidden"
+                          />
+                          <div class="form theme-form basic-form">
+                            <div class="col-mm-4">
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label class="f-w-500 form-label" for="ubi"
+                                    >UBI</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="UBI #"
+                                    id="ubi"
+                                    formControlName="ubi"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label class="f-w-500 form-label" for="taxId"
+                                    >Tax ID #</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Tax ID #"
+                                    id="taxId"
+                                    formControlName="taxId"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label class="f-w-500" for="license"
+                                    >License #</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="License #"
+                                    id="license"
+                                    formControlName="license"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-4">
+                                <div class="col-sm-3">
+                                  <label class="f-w-500" for="other"
+                                    >Other</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Other"
+                                    id="other"
+                                    formControlName="other"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-mm-4">
+                              <h4 class="mb-3">Contact Information</h4>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="contactName"
+                                    >Name</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Name"
+                                    id="contactName"
+                                    formControlName="contactName"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="address"
+                                    >Address</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Address"
+                                    id="address"
+                                    formControlName="address"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="contactPhoneNumber"
+                                    >Phone #</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Phone #"
+                                    id="contactPhoneNumber"
+                                    formControlName="contactPhoneNumber"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="contactEmail"
+                                    >Email</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Email"
+                                    id="contactEmail"
+                                    formControlName="contactEmail"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-4">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="website"
+                                    >Url</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Url address"
+                                    id="website"
+                                    formControlName="website"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-mm-4">
+                              <h4 class="mb-3">Insurance Company</h4>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="insuranceCompany"
+                                    >Name</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Name"
+                                    id="insuranceCompany"
+                                    formControlName="insuranceCompany"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="insuranceAgent"
+                                    >Agent</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Agent"
+                                    id="insuranceAgent"
+                                    formControlName="insuranceAgent"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="insurancePhone"
+                                    >Phone #</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Phone #"
+                                    id="insurancePhone"
+                                    formControlName="insurancePhone"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="insuranceEmail"
+                                    >Email</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Email address"
+                                    id="insuranceEmail"
+                                    formControlName="insuranceEmail"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col-sm-3">
+                                  <label
+                                    class="f-w-500 form-label"
+                                    for="additionalInsured"
+                                    >Additional Insurance</label
+                                  >
+                                </div>
+                                <div class="col-sm-9">
+                                  <div class="form-check">
+                                    <input
+                                      class="form-check-input primary"
+                                      id="additionalInsured"
+                                      type="checkbox"
+                                      formControlName="additionalInsured"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">
+                              <app-feather-icon
+                                [icon]="'edit'"
+                              ></app-feather-icon>
+                              Update
+                            </button>
+                            <button
+                              (click)="
+                                deleteSubcontractor(
+                                  subcontractor.id,
+                                  currentModalRef
+                                )
+                              "
+                              class="btn btn-danger"
+                            >
+                              <app-feather-icon
+                                [icon]="'trash-2'"
+                              ></app-feather-icon>
+                              Delete
+                            </button>
+                            <button
+                              class="btn btn-secondary"
+                              type="button"
+                              (click)="closeModal()"
+                            >
+                              <app-feather-icon [icon]="'x'"></app-feather-icon>
+                              Close
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-container>
+          </table>
+        </div>
+
+        <div *ngIf="filteredSubcontractors.length === 0 && selectedLetter">
+          <h3 class="mb-5 text-center">
+            No subcontractors found starting with "{{ selectedLetter }}"
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

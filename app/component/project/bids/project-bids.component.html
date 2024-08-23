@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-end">
+          <a class="btn btn-primary" [routerLink]="['/project/create']">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Create New Bid
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xxl-4 col-md-6" *ngFor="let project of projects">
+              <div class="project-box font-dark">
+                <h5 class="mb-2">
+                  <a
+                    class="fs-2 f-w-700"
+                    [routerLink]="['/project/overview/', project.id]"
+                  >
+                    {{ project.name }}!!!
+                  </a>
+                </h5>
+                <div class="row details mb-4">
+                  <p>Status: {{ getProjectStatus(project.projectStatus) }}</p>
+                  <p>Location: {{ project.city }}</p>
+                  <p>Date: {{ project.startDate | date : 'shortDate' }}</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-end">
+                      <button
+                        (click)="updateProjectStatus(project.id, 1)"
+                        class="btn btn-primary me-3"
+                      >
+                        <app-feather-icon
+                          [icon]="'thumbs-up'"
+                        ></app-feather-icon>
+                        Won Bid
+                      </button>
+                      <button
+                        (click)="editProject(project.id)"
+                        class="btn btn-secondary"
+                      >
+                        <app-feather-icon [icon]="'edit'"></app-feather-icon>
+                        Edit Project
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

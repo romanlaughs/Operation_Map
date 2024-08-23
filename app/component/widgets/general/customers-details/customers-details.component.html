@@ -1,0 +1,56 @@
+<div class="row g-sm-3 height-equal-2 widget-charts">
+    @for(commondetils of commonitem; track commondetils){
+    <div class="col-sm-6">
+        <div class="card small-widget mb-sm-0">
+            <div class="card-body {{commondetils.color}}"><span class="f-light">{{commondetils.title}}</span>
+                <div class="d-flex align-items-end gap-1">
+                    <h4>{{commondetils.amount}}</h4><span class="font-{{commondetils.color}} f-12 f-w-500">
+                        <i class="{{commondetils.icon}}"></i><span>{{commondetils.percentage}}</span></span>
+                </div>
+                <div class="bg-gradient ">
+                    <svg class="stroke-icon svg-fill">
+                        <use attr.xlink:href="assets/svg/icon-sprite.svg#{{commondetils.svgIcon}}"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="col-sm-6">
+        <div class="card widget-1 widget-with-chart mb-xl-0">
+            <div class="card-body">
+                <div>
+                    <h4 class="mb-1">1,80k</h4><span class="f-light">Orders</span>
+                </div>
+                <div class="order-chart">
+                    <div id="orderchart">
+                        <apx-chart [series]="oderchats.series" [chart]="oderchats.chart"
+                            [plotOptions]="oderchats.plotOptions" [grid]="oderchats.grid"
+                            [dataLabels]="oderchats.dataLabels" [legend]="oderchats.legend" [stroke]="oderchats.stroke"
+                            [xaxis]="oderchats.xaxis" [yaxis]="oderchats.yaxis" [responsive]="oderchats.responsive"
+                            [tooltip]="oderchats.tooltip" [colors]="oderchats.colors">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card widget-1 widget-with-chart mb-xl-0">
+            <div class="card-body">
+                <div>
+                    <h4 class="mb-1">6,90k</h4><span class="f-light">Profit</span>
+                </div>
+                <div class="profit-chart">
+                    <div id="profitchart">
+                        <apx-chart [series]="profitcharts.series" [chart]="profitcharts.chart" [grid]="profitcharts.grid"
+                            [dataLabels]="profitcharts.dataLabels" [stroke]="profitcharts.stroke"
+                            [xaxis]="profitcharts.xaxis" [yaxis]="profitcharts.yaxis" [responsive]="profitcharts.responsive"
+                            [tooltip]="profitcharts.tooltip" [colors]="profitcharts.colors">
+                        </apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<header class="page-header row" (clickOutside)="clickOutside()">
+  <div class="logo-wrapper d-flex align-items-center col-auto">
+    <a [routerLink]="['/dashboard/default']">
+      <img
+        class="light-logo img-fluid"
+        src="assets/images/logo/logo1.png"
+        alt="logo"
+      />
+      <img
+        class="dark-logo img-fluid"
+        src="assets/images/logo/logo-dark.png"
+        alt="logo"
+      />
+    </a>
+    <a class="close-btn toggle-sidebar" (click)="openMenu()">
+      <svg class="svg-color">
+        <use href="assets/svg/iconly-sprite.svg#Category"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page-main-header col">
+    <div class="header-left">
+      <form class="form-inline search-full col" [class.open]="show == true">
+        <div class="form-group w-100">
+          <div class="Typeahead Typeahead--twitterUsers">
+            <div class="u-posRelative">
+              <input
+                class="demo-input Typeahead-input form-control-plaintext w-100"
+                type="text"
+                placeholder="Type to Search..."
+                [(ngModel)]="text"
+                (keyup)="searchTerm(text)"
+                name="q"
+                title=""
+                autocomplete="off"
+              />
+              <div class="spinner-border Typeahead-spinner" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <app-feather-icon
+                [icon]="'x'"
+                class="close-search"
+                (click)="closeSearch()"
+              ></app-feather-icon>
+            </div>
+            @if(menuItems.length){
+            <div
+              class="Typeahead-menu custom-scrollbar"
+              [class.is-open]="searchResult"
+              id="search-outer"
+              [class.open]="open"
+            >
+              @for(menuItem of menuItems | slice : 0 : 8; track menuItem){
+              <div class="ProfileCard u-cf">
+                <div class="ProfileCard-details">
+                  <div class="ProfileCard-realName">
+                    <div class="ProfileCard-avatar">
+                      <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
+                    </div>
+                    <a
+                      [routerLink]="menuItem.path"
+                      class="realname"
+                      (click)="removeFix()"
+                      >{{ menuItem.title }}</a
+                    >
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+            }
+            <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
+              <div class="tt-dataset tt-dataset-0">
+                <div class="EmptyMessage">
+                  Opps!! There are no result found.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="form-group-header d-lg-block d-none">
+        <app-search></app-search>
+      </div>
+    </div>
+    <div class="nav-right">
+      <ul class="header-right">
+        <li class="search d-lg-none d-flex">
+          <a (click)="openSearch()">
+            <svg>
+              <use href="assets/svg/iconly-sprite.svg#Search"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <app-theme></app-theme>
+        </li>
+        <li class="custom-dropdown">
+          <app-notification></app-notification>
+        </li>
+        <li>
+          <a class="full-screen" (click)="toggleFullScreen()">
+            <svg>
+              <use href="assets/svg/iconly-sprite.svg#scanfull"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="custom-dropdown">
+          <app-bookmark></app-bookmark>
+        </li>
+        <li class="profile-nav custom-dropdown">
+          <app-profile></app-profile>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

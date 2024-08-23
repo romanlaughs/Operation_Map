@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Check if projects array is empty -->
+          <div *ngIf="projects.length === 0">
+            <p class="text-center">There are no archived items available.</p>
+          </div>
+
+          <!-- If not empty, display the projects -->
+          <div class="row" *ngIf="projects.length > 0">
+            <div class="col-xxl-4 col-md-6" *ngFor="let project of projects">
+              <div class="project-box font-dark">
+                <h5 class="fs-3 f-w-700 text-primary mb-2">
+                  {{ project.name }}
+                </h5>
+                <div class="row details">
+                  <p>
+                    Project Status:
+                    {{ getProjectStatus(project.projectStatus) }}
+                  </p>
+                  <p>City: {{ project.city }}</p>
+                  <p>
+                    Starting Date:
+                    {{ project.startDate | date : 'shortDate' }}
+                  </p>
+                </div>
+                <div class="project-status mt-4 mb-4">
+                  <div class="d-flex align-items-center gap-1 mb-2">
+                    <p>{{ project.completionPercentage }}%</p>
+                    <span>Done</span>
+                  </div>
+                  <div class="progress" style="height: 5px">
+                    <div
+                      class="progress-bar-animated progress-bar-striped"
+                      [ngClass]="{
+                        'bg-danger': !project.finished,
+                        'bg-success': project.finished
+                      }"
+                      role="progressbar"
+                      [style.width]="project.completionPercentage + '%'"
+                    ></div>
+                  </div>
+                </div>
+                <div class="text-end mb-2">
+                  <button
+                    (click)="reviveProject(project.id, 1)"
+                    class="btn btn-primary me-3"
+                  >
+                    <app-feather-icon [icon]="'rotate-ccw'"></app-feather-icon>
+                    Reinstate Project
+                  </button>
+                  <button
+                    (click)="deleteProject(project.id)"
+                    class="btn btn-secondary"
+                  >
+                    <app-feather-icon [icon]="'trash-2'"></app-feather-icon>
+                    Delete Project
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

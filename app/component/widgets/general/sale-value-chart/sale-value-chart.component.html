@@ -1,0 +1,24 @@
+<div class="card value-chart">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div class="sales-chart" id="sales-chart">
+                    <apx-chart [series]="salevalueChart.series" [chart]="salevalueChart.chart" [plotOptions]="salevalueChart.plotOptions"
+                        [grid]="salevalueChart.grid" [states]="salevalueChart.states" [dataLabels]="salevalueChart.dataLabels" [legend]="salevalueChart.legend"
+                        [colors]="salevalueChart.colors" [yaxis]="salevalueChart.yaxis" [xaxis]="salevalueChart.xaxis" [tooltip]="salevalueChart.tooltip"
+                        [responsive]="salevalueChart.responsive" [fill]="salevalueChart.fill">
+                    </apx-chart>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="valuechart-detail">
+                    <div class="text-center">
+                        <div class="badge badge-primary">80%</div>
+                        <h2>$3,76,793</h2>
+                        <p>Our Sale Value</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

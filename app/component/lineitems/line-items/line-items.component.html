@@ -1,0 +1,143 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body text-end">
+        <a class="btn btn-primary" (click)="openDialog(projectId)">
+          <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+          Add Line Item
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row project-cards">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="mb-3">List of Items</h2>
+          <div class="table-responsive">
+            <!-- Check if lineItems array is empty -->
+            <div
+              *ngIf="lineItems.length === 0"
+              role="alert"
+              class="alert alert-light-warning text-center"
+            >
+              There are no "items" available.
+            </div>
+            <table
+              mat-table
+              [dataSource]="lineItems"
+              *ngIf="lineItems.length > 0"
+              class="table table-bordered table-striped"
+            >
+              <ng-container matColumnDef="lineItemName">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  Name
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ lineItem.lineItemName }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="numberBids">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  Bids #
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ lineItem.numberBids }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="bidSelected">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  Considered
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ lineItem.bidSelected }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="budget">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  My Bid/Budget
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ lineItem.budget | currency }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="subcontractorCost">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  Subcontractor Cost
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ lineItem.subcontractorCost | currency }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="profitMargin">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="f-w-300 text-center"
+                >
+                  Profit Margin
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let lineItem"
+                  class="f-w-300 text-center"
+                >
+                  {{ calculateProfitMargin(lineItem) | currency }}
+                </td>
+              </ng-container>
+
+              <!-- Header and Row definitions -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

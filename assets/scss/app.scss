@@ -1,0 +1,49 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// // //rating scss //
+@import '../../../node_modules/ngx-bar-rating/themes/br-default-theme.scss';
+@import '../../../node_modules/ngx-bar-rating/themes/br-horizontal-theme.scss';
+@import '../../../node_modules/ngx-bar-rating/themes/br-movie-theme.scss';
+@import '../../../node_modules/ngx-bar-rating/themes/br-square-theme.scss';
+@import '../../../node_modules/ngx-bar-rating/themes/br-stars-theme.scss';
+@import '../../../node_modules/ngx-bar-rating/themes/br-vertical-theme.scss';
+
+//select2//
+@import '@ng-select/ng-select/themes/default.theme.css';
+
+//gallary//
+@import '../node_modules/@angular/cdk/overlay-prebuilt.css';
+
+// owl-carousel-o sccss//
+
+@import '../../../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.theme.default.scss';
+@import '../../../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel.scss';
+
+// //dropzone//
+@import 'dropzone/dist/min/dropzone.min.css';
+
+//calendar //
+@import '../node_modules/angular-calendar/css/angular-calendar.css';
+@import '../node_modules/flatpickr/dist/flatpickr.css';
+
+//icons//
+@import '../scss/feather-icon.scss';
+@import '../scss/icoicon/icons';
+@import '../scss/fontawesome.scss';
+@import '../scss/themify.scss';
+
+// //charitst chart //
+@import 'chartist/chartist-settings';
+@import 'chartist/chartist';
+
+// //todo//
+@import './vendors/todo.scss';
+
+//leaflet map //
+@import 'leaflet/dist/leaflet.css';
+
+//iconly Icon //
+@import '../scss/iconly-icon/bulk-style';
+@import '../scss/iconly-icon/iconly-icon';
+
+@import '../scss/style.scss';

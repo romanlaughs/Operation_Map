@@ -1,0 +1,104 @@
+<form [formGroup]="materialForm">
+  <div class="card">
+    <div class="card-body">
+      <div class="form theme-form basic-form">
+        <div class="modal-header row mb-3">
+          <h3>Add New Material</h3>
+        </div>
+        <div class="mb-1">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Name/Description"
+            formControlName="nameDescription"
+            required
+          />
+        </div>
+        <div class="mb-1 input-group position-relative">
+          <input
+            class="form-control"
+            type="date"
+            placeholder="Enter purchase date"
+            formControlName="datePurchased"
+            required
+            #purchaseDateInput
+          />
+          <button
+            class="btn btn-primary calendar"
+            type="button"
+            (click)="purchaseDateInput.focus()"
+            style="
+              position: absolute;
+              right: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              pointer-events: none;
+            "
+          >
+            <app-feather-icon [icon]="'calendar'"></app-feather-icon>
+          </button>
+        </div>
+        <div class="mb-1">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Purchase Place"
+            formControlName="placePurchased"
+            required
+          />
+        </div>
+        <div class="mb-1">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Item Number"
+            formControlName="itemNumber"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <textarea
+            class="form-control"
+            placeholder="Notes"
+            formControlName="notes"
+          ></textarea>
+        </div>
+        <ng-container matColumnDef="photoUploadUrl">
+          <th mat-header-cell *matHeaderCellDef>Asset Upload</th>
+          <td mat-cell *matCellDef="let material">
+            <div
+              *ngIf="
+                materialFiles[material.id] &&
+                materialFiles[material.id].length > 0
+              "
+            >
+              <img
+                [src]="materialFiles[material.id][0]"
+                alt="Thumbnail"
+                (click)="openFile(materialFiles[material.id][0])"
+                style="width: 100px; height: 100px; cursor: pointer"
+              />
+            </div>
+          </td>
+        </ng-container>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary me-3"
+            mat-button
+            (click)="onNoClick()"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            mat-button
+            [disabled]="!materialForm.valid"
+            (click)="onSaveClick()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
