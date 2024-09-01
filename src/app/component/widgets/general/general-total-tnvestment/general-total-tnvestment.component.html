@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-header card-no-border pb-0">
+        <div class="header-top">
+            <h3>Total Investment</h3>
+            <div class="dropdown icon-dropdown" (clickOutside)="clickOutside()">
+                <button class="btn" id="userdropdown4" type="button" (click)="open()">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" [class.show]="show">
+                    <a class="dropdown-item" href="javascript:void(0)">Weekly</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Monthly</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Yearly</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body investment-card pt-0">
+        <div id="investment" class="investment">
+            <apx-chart [series]="InvestmentChart.series" [chart]="InvestmentChart.chart"
+                [colors]="InvestmentChart.colors" [plotOptions]="InvestmentChart.plotOptions"
+                [responsive]="InvestmentChart.responsive" [labels]="InvestmentChart.labels"
+                [legend]="InvestmentChart.legend">
+            </apx-chart>
+        </div>
+    </div>
+</div>

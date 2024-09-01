@@ -1,0 +1,203 @@
+<form [formGroup]="subcontractorForm" (ngSubmit)="onSubmit()">
+  <input type="hidden" formControlName="groupId" />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <input formControlName="subcontractorId" type="hidden" />
+            <div class="form theme-form basic-form">
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="companyName"
+                  >Name:</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Enter company name"
+                  id="companyName"
+                  formControlName="companyName"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="ubi">UBI #</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="UBI #"
+                  id="ubi"
+                  formControlName="ubi"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="taxId">Tax ID #</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Tax ID #"
+                  id="taxId"
+                  formControlName="taxId"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500" for="license">License #</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="License #"
+                  id="license"
+                  formControlName="license"
+                />
+              </div>
+              <div class="row mb-4">
+                <label class="f-w-500" for="other">Other</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Other"
+                  id="other"
+                  formControlName="other"
+                />
+              </div>
+
+              <h4 class="mb-3">Contact:</h4>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="contactName">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Name"
+                  id="contactName"
+                  formControlName="contactName"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="address">Address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Address"
+                  id="address"
+                  formControlName="address"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="contactPhoneNumber"
+                  >Phone #</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Phone #"
+                  id="contactPhoneNumber"
+                  formControlName="contactPhoneNumber"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="contactEmail"
+                  >Email</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Email"
+                  id="contactEmail"
+                  formControlName="contactEmail"
+                />
+              </div>
+              <div class="row mb-4">
+                <label class="f-w-500 form-label" for="website">Url</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Url address"
+                  id="website"
+                  formControlName="website"
+                />
+              </div>
+
+              <h4 class="mb-3">Insurance:</h4>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="insuranceCompany"
+                  >Name</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Name"
+                  id="insuranceCompany"
+                  formControlName="insuranceCompany"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="insuranceAgent"
+                  >Agent</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Agent"
+                  id="insuranceAgent"
+                  formControlName="insuranceAgent"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="insurancePhone"
+                  >Phone #</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Phone #"
+                  id="insurancePhone"
+                  formControlName="insurancePhone"
+                />
+              </div>
+              <div class="row mb-1">
+                <label class="f-w-500 form-label" for="insuranceEmail"
+                  >Email</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Email address"
+                  id="insuranceEmail"
+                  formControlName="insuranceEmail"
+                />
+              </div>
+              <div class="row mb-1">
+                <div class="form-check">
+                  <input
+                    class="form-check-input primary"
+                    id="additionalInsured"
+                    type="checkbox"
+                    formControlName="additionalInsured"
+                  /><label class="f-w-500 form-label" for="additionalInsured"
+                    >Additional Insurance</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <!-- Submit and Cancel Buttons -->
+          <div class="row mb-4 me-3">
+            <div class="col">
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary me-3">
+                  <app-feather-icon
+                    [icon]="projectId ? 'edit' : 'edit'"
+                  ></app-feather-icon>
+                  Add Subcontractor
+                </button>
+                <a (click)="goToContractorList()" class="btn btn-secondary"
+                  ><app-feather-icon [icon]="'x'"></app-feather-icon> Cancel</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,36 @@
+<div class="sidebar-pannle-main" (click)="Customizer('layout')">
+  <ul>
+    <li class="cog-click icon-btn btn-primary" id="cog-click">
+      <i class="fa-solid fa-spin fa-cog"></i>
+    </li>
+  </ul>
+</div>
+<section
+  class="setting-sidebar"
+  [ngClass]="{ open: layoutService.customizer != '' }"
+>
+  <div class="customizer-header">
+    <div class="customizer-header">
+      <div class="theme-title">
+        <div>
+          <h3>Support</h3>
+          <p class="mb-0">
+            Create a new ticket <i class="fa-solid fa-thumbs-up fa-fw"></i>
+          </p>
+        </div>
+        <div class="flex-grow-1">
+          <a
+            class="icon-btn btn-outline-light button-effect pull-right cog-close"
+            id="cog-close"
+            (click)="Customizer('')"
+          >
+            <i class="fa-solid fa-xmark fa-fw"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="customizer-body">
+    <div class="form theme-form basic-form"></div>
+  </div>
+</section>

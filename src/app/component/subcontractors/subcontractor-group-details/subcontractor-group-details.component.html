@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-end">
+          <button
+            (click)="openAddNewSubcontractorDialog()"
+            class="btn btn-primary"
+          >
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Add Subcontractor
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-12">
+        <div class="card">
+          <!-- List of filtered subcontractors -->
+          <div *ngIf="group" class="table-responsive card-body text-center">
+            <h3 class="mb-5">{{ group.groupName }}</h3>
+
+            <!-- No subcontractors warning -->
+            <div
+              *ngIf="
+                !group.subcontractorIds || group.subcontractorIds.length === 0
+              "
+              role="alert"
+              class="alert alert-light-warning text-center"
+            >
+              There are currently no subcontractors assigned to this group.
+            </div>
+
+            <!-- Table display condition -->
+            <div
+              *ngIf="
+                group.subcontractorIds && group.subcontractorIds.length > 0
+              "
+              class="table-responsive"
+            >
+              <table class="table table-borderless mb-3">
+                <thead>
+                  <tr>
+                    <th class="f-w-300 text-center"><h4>Company</h4></th>
+                    <th class="f-w-300 text-center"><h4>Contact</h4></th>
+                    <th class="f-w-300 text-center"><h4>Address</h4></th>
+                    <th class="f-w-300 text-center"><h4>Phone #</h4></th>
+                    <th class="f-w-300 text-center"><h4>Email</h4></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let subcontractorId of group.subcontractorIds">
+                    <ng-container
+                      *ngIf="subcontractors[subcontractorId] as subcontractor"
+                    >
+                      <td class="f-w-700 text-center">
+                        <a
+                          href="javascript:void(0)"
+                          (click)="openDialog(subcontractor.id)"
+                        >
+                          {{ subcontractor.companyName }}
+                        </a>
+                      </td>
+                      <td class="f-w-300 text-center">
+                        {{ subcontractor.contactName }}
+                      </td>
+                      <td class="f-w-300 text-center">
+                        {{ subcontractor.address }}
+                      </td>
+                      <td class="f-w-300 text-center">
+                        {{ subcontractor.contactPhoneNumber }}
+                      </td>
+                      <td class="f-w-300 text-center">
+                        {{ subcontractor.contactEmail }}
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body text-end">
+            <button (click)="deleteGroup()" class="btn btn-danger">
+              <app-feather-icon [icon]="'trash-2'"></app-feather-icon>
+              Delete Group
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

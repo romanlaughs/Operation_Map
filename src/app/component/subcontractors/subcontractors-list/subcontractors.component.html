@@ -1,0 +1,120 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-end">
+          <a class="btn btn-primary" [routerLink]="['/subcontractors/create']">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Add Subcontractor
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="fs-3 alphabet-nav text-center mb-5">
+          <br /><br />
+          <span
+            *ngFor="let letter of alphabet"
+            [ngClass]="{
+              disabled: !hasSubcontractors[letter]
+            }"
+            (click)="hasSubcontractors[letter] && filterByLetter(letter)"
+            class="alphabet-letter me-3 btn btn-primary"
+          >
+            {{ letter }}
+          </span>
+        </div>
+
+        <!-- Default message -->
+        <div *ngIf="!hasClickedLetter">
+          <h3 class="mb-5 text-center">
+            Please select a letter to view subcontractors starting with that
+            letter.
+          </h3>
+        </div>
+
+        <!-- List of filtered subcontractors -->
+        <div
+          *ngIf="filteredSubcontractors.length > 0"
+          class="table-responsive card-body text-center"
+        >
+          <h3 class="mb-5">
+            Subcontractors starting with "{{ selectedLetter }}"
+          </h3>
+          <table class="table table-borderless mb-3">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="f-w-300 text-center">
+                  <h4>Subcontractor</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Contact</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Type</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Address</h4>
+                </th>
+                <th class="f-w-300 text-center">
+                  <h4>Total Bids</h4>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let subcontractor of filteredSubcontractors;
+                  let i = index
+                "
+              >
+                <td>
+                  <input
+                    type="checkbox"
+                    class="form-check-input primary"
+                    (change)="toggleSubcontractorSelection(subcontractor.id)"
+                  />
+                </td>
+                <td class="f-w-700 text-center">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="openDialog(subcontractor.id)"
+                  >
+                    {{ subcontractor.companyName }}
+                  </a>
+                </td>
+                <td class="f-w-300 text-center">
+                  {{ subcontractor.contactName }}
+                </td>
+                <td class="f-w-300 text-center">
+                  {{ subcontractor.companyType }}
+                </td>
+                <td class="f-w-300 text-center">
+                  {{ subcontractor.address }}
+                </td>
+                <td class="f-w-300 text-center">
+                  {{ bidNumber[i] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Submit and Cancel Buttons -->
+          <div class="card-body text-end">
+            <button (click)="bulkDeleteSubcontractors()" class="btn btn-danger">
+              <app-feather-icon [icon]="'trash-2'"></app-feather-icon>
+              Delete Selected
+            </button>
+          </div>
+        </div>
+        <div *ngIf="filteredSubcontractors.length === 0 && selectedLetter">
+          <h3 class="mb-5 text-center">
+            No subcontractors found starting with "{{ selectedLetter }}"
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+import{b as t}from"./chunk-ECSSIPO5.js";import"./chunk-7QWU2ZD5.js";import"./chunk-TQY73KEU.js";import"./chunk-R4N7MW4K.js";import"./chunk-GR2IEN4H.js";import"./chunk-NZE57U5H.js";var i=[{path:"",children:[{path:"list",component:t,data:{title:"Material List",breadcrumb:"Material List"}}]}];export{i as Materials};

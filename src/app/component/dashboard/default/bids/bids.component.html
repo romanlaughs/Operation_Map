@@ -1,0 +1,35 @@
+<div class="card height-equal">
+  <div class="card-header card-no-border pb-0">
+    <div class="header-top">
+      <h3 class="fs-4 f-w-700">Outstanding Bids</h3>
+    </div>
+  </div>
+  <div class="card-body news-update">
+    <ul class="mb-4">
+      <!-- Using slice to limit to the latest 4 projects -->
+      @for( project of projects | slice:-4;track project){
+      <li class="d-flex gap-2">
+        <div class="flex-grow-1">
+          <a [routerLink]="['/project/overview/', project.id]">
+            <h6 class="fs-5 f-w-500">{{ project.name }}</h6>
+          </a>
+          <p class="text-truncate">
+            Date: {{ project.startDate | date : 'shortDate' }}
+          </p>
+        </div>
+        <div>
+          <button
+            (click)="updateProjectStatus(project.id, 1)"
+            class="btn btn-primary me-3"
+          >
+            <app-feather-icon [icon]="'thumbs-up'"></app-feather-icon>
+          </button>
+          <button (click)="deleteProject(project.id)" class="btn btn-danger">
+            <app-feather-icon [icon]="'thumbs-down'"></app-feather-icon>
+          </button>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+</div>

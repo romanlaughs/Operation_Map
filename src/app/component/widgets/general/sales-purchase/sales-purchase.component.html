@@ -1,0 +1,28 @@
+<div class="row">
+    @for(item of commonData; track item){
+        <div class="col-sm-6 col-xl-3 box-col-6">
+        <div class="card widget-1">
+            <div class="card-body">
+                <div class="widget-content">
+                    <div class="widget-round {{item.color}}">
+                        <div class="bg-round">
+                            <svg class="svg-fill">
+                                <use attr.xlink:href="assets/svg/icon-sprite.svg#{{item.icon}}"></use>
+                            </svg>
+                            <svg class="half-circle svg-fill">
+                                <use href="assets/svg/icon-sprite.svg#halfcircle"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>{{item.amount}}</h4><span class="f-light">{{item.title}}</span>
+                    </div>
+                </div>
+                <div class="font-{{item.color}} f-w-600"><i
+                        class="icon-{{item.arrow}} icon-rotate me-1"></i><span>{{item.percentage}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

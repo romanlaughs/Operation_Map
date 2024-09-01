@@ -1,0 +1,431 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="form theme-form basic-form">
+              <div class="row">
+                <div class="col-lg-10" style="padding-right: 80px">
+                  <div class="row">
+                    <!-- Project Title -->
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Project Title</h5>
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="Project name *"
+                              id="name"
+                              formControlName="name"
+                            />
+                            <div
+                              *ngIf="
+                                projectForm.get('name')?.touched &&
+                                projectForm.get('name')?.invalid
+                              "
+                              class="error"
+                            >
+                              Project name is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Address Details -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Address</h5>
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="Enter address"
+                              id="address1"
+                              formControlName="address1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Address 2</h5>
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="Enter Suite/Unit/Apt"
+                              id="address2"
+                              formControlName="address2"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">City</h5>
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="Enter city"
+                              id="city"
+                              formControlName="city"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">State</h5>
+                            <select
+                              class="form-select"
+                              id="state"
+                              formControlName="state"
+                            >
+                              <option>Alabama</option>
+                              <option>Alaska</option>
+                              <option>Arizona</option>
+                              <option>Arkansas</option>
+                              <option>California</option>
+                              <option>Colorado</option>
+                              <option>Connecticut</option>
+                              <option>Delaware</option>
+                              <option>Florida</option>
+                              <option>Georgia</option>
+                              <option>Hawaii</option>
+                              <option>Idaho</option>
+                              <option>Illinois</option>
+                              <option>Indiana</option>
+                              <option>Iowa</option>
+                              <option>Kansas</option>
+                              <option>Kentucky</option>
+                              <option>Louisiana</option>
+                              <option>Maine</option>
+                              <option>Maryland</option>
+                              <option>Massachusetts</option>
+                              <option>Michigan</option>
+                              <option>Minnesota</option>
+                              <option>Mississippi</option>
+                              <option>Missouri</option>
+                              <option>Montana</option>
+                              <option>Nebraska</option>
+                              <option>Nevada</option>
+                              <option>New Hampshire</option>
+                              <option>New Jersey</option>
+                              <option>New Mexico</option>
+                              <option>New York</option>
+                              <option>North Carolina</option>
+                              <option>North Dakota</option>
+                              <option>Ohio</option>
+                              <option>Oklahoma</option>
+                              <option>Oregon</option>
+                              <option>Pennsylvania</option>
+                              <option>Rhode Island</option>
+                              <option>South Carolina</option>
+                              <option>South Dakota</option>
+                              <option>Tennessee</option>
+                              <option>Texas</option>
+                              <option>Utah</option>
+                              <option>Vermont</option>
+                              <option>Virginia</option>
+                              <option>Washington</option>
+                              <option>West Virginia</option>
+                              <option>Wisconsin</option>
+                              <option>Wyoming</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Zip Code</h5>
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="Enter zip code"
+                              id="zipCode"
+                              formControlName="zipCode"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Date and Status -->
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Start Date</h5>
+                            <div class="input-group position-relative">
+                              <input
+                                class="form-control"
+                                type="date"
+                                placeholder="Enter project starting date"
+                                id="startDate"
+                                formControlName="startDate"
+                                #startDateInput
+                              />
+                              <button
+                                class="btn btn-primary calendar"
+                                type="button"
+                                (click)="startDateInput.focus()"
+                                style="
+                                  position: absolute;
+                                  right: 10px;
+                                  top: 50%;
+                                  transform: translateY(-50%);
+                                  pointer-events: none;
+                                "
+                              >
+                                <app-feather-icon
+                                  [icon]="'calendar'"
+                                ></app-feather-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <h5 class="f-w-600 mb-2">&nbsp;</h5>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input primary"
+                              id="finished"
+                              type="checkbox"
+                              formControlName="finished"
+                            />
+                            <label class="form-check-label" for="finished"
+                              >Is started?</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Due Date</h5>
+                            <div class="input-group position-relative">
+                              <input
+                                class="form-control"
+                                type="date"
+                                placeholder="Enter project due date"
+                                id="finishDate"
+                                formControlName="finishDate"
+                                #startDateInput
+                              />
+                              <button
+                                class="btn btn-primary calendar"
+                                type="button"
+                                (click)="startDateInput.focus()"
+                                style="
+                                  position: absolute;
+                                  right: 10px;
+                                  top: 50%;
+                                  transform: translateY(-50%);
+                                  pointer-events: none;
+                                "
+                              >
+                                <app-feather-icon
+                                  [icon]="'calendar'"
+                                ></app-feather-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <h5 class="f-w-600 mb-2">&nbsp;</h5>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input primary"
+                              id="started"
+                              type="checkbox"
+                              formControlName="started"
+                            />
+                            <label class="form-check-label" for="started"
+                              >Is finished?</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Completion %</h5>
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="completionPercentage"
+                              formControlName="completionPercentage"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Additional Info -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Project Email</h5>
+                            <input
+                              class="form-control"
+                              type="email"
+                              id="projectEmail"
+                              formControlName="projectEmail"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Project Status</h5>
+                            <select
+                              class="form-select"
+                              id="projectStatus"
+                              formControlName="projectStatus"
+                            >
+                              <option [value]="0">Bidding</option>
+                              <option [value]="1">In Progress</option>
+                              <option [value]="-1">Archived</option>
+                            </select>
+                            <div
+                              *ngIf="
+                                projectForm.get('projectStatus')?.touched &&
+                                projectForm.get('projectStatus')?.invalid
+                              "
+                              class="error"
+                            >
+                              Project Status is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Units #</h5>
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="units"
+                              formControlName="units"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Bathrooms</h5>
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="bathrooms"
+                              formControlName="bathrooms"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Bedrooms</h5>
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="bedrooms"
+                              formControlName="bedrooms"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="mb-3">
+                            <h5 class="f-w-600 mb-2">Square Footage</h5>
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="squareFootage"
+                              formControlName="squareFootage"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                  <!-- Line Items as Grid -->
+                  <div class="row">
+                    <div class="mb-4">
+                      <h5 class="f-w-600 mb-3">Line items</h5>
+                      <div
+                        class="form-check-size mb-4"
+                        *ngFor="
+                          let item of defaultLineItems;
+                          let i = index;
+                          trackBy: trackByFn
+                        "
+                        [ngClass]="{ 'mb-3': i % 2 === 0 }"
+                      >
+                        <div class="text-end icon-state switch-inline">
+                          <label class="switch mb-0">
+                            <input
+                              type="checkbox"
+                              [id]="'itemCheckbox' + i"
+                              [checked]="item.selected"
+                              (change)="onCheckboxChange($event, item)"
+                            />
+                            <span class="switch-state bg-primary"></span>
+                          </label>
+                        </div>
+                        {{ item.name }}
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        (click)="selectAll()"
+                        class="btn btn-outline-primary me-3"
+                      >
+                        Select All
+                      </button>
+                      <button
+                        type="button"
+                        (click)="clearAll()"
+                        class="btn btn-outline-primary"
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit and Cancel Buttons -->
+              <div class="row">
+                <div class="col">
+                  <div class="text-end">
+                    <button type="submit" class="btn btn-primary me-3">
+                      <app-feather-icon
+                        [icon]="projectId ? 'edit' : 'edit'"
+                      ></app-feather-icon>
+                      {{ projectId ? 'Update' : 'Create' }} Project
+                    </button>
+                    <button
+                      [routerLink]="['/project/list']"
+                      class="btn btn-secondary"
+                    >
+                      <app-feather-icon [icon]="'x'"></app-feather-icon> Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

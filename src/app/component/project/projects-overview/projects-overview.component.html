@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-overview">
+      <div class="card">
+        <div class="card-body text-end">
+          <button (click)="openDialog(projectId)" class="btn btn-primary me-3">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon> Add
+            Line Item
+          </button>
+          <button
+            (click)="openAddMaterialDialog()"
+            class="btn btn-primary me-3"
+          >
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon> Add New
+            Material
+          </button>
+          <a class="btn btn-primary" [routerLink]="['/project/create']">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Create New Project
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 project-overview">
+      <div class="card">
+        <div class="card-body">
+          <span
+            class="badge mb-3"
+            [ngClass]="{
+              'badge-danger': !project.finished,
+              'badge-success': project.finished
+            }"
+          >
+            {{ project.finished ? 'Done' : 'In Progress' }}
+          </span>
+          <h2 class="mb-3">
+            <span class="fs-3 f-w-700 text-primary">{{ project.name }}</span>
+          </h2>
+          <h5>
+            <span class="f-w-300 me-1">Starting Date:</span>
+            {{ project.startDate | date : 'shortDate' }} -
+            <span class="f-w-300 me-1">Ending Date:</span>
+            {{ project.finishDate | date : 'shortDate' }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row project-cards">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="mb-3">Project Details</h2>
+          <ng-container>
+            <h5 *matCellDef="let project">
+              Project Owner: {{ project.owner }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Units:</span> {{ project.units }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Bedrooms:</span> {{ project.bedrooms }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Bathrooms:</span>
+              {{ project.bathrooms }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Square Footage:</span>
+              {{ project.squareFootage }}
+            </h5>
+            <h5 *matCellDef="let project">
+              <span class="f-w-300 me-1">Contacts:</span>
+              <span *ngFor="let contact of project.contacts"
+                >{{ contact.name }} - {{ contact.number }} -
+                {{ contact.email }}</span
+              >
+            </h5>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="mb-3">Project Location</h2>
+          <ng-container>
+            <h5>
+              <span class="f-w-300 me-1">Street:</span> {{ project.address1 }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Suite/Unit/Apt:</span>
+              {{ project.address2 }}
+            </h5>
+            <h5><span class="f-w-300 me-1">City:</span> {{ project.city }}</h5>
+            <h5>
+              <span class="f-w-300 me-1">State:</span> {{ project.state }}
+            </h5>
+            <h5>
+              <span class="f-w-300 me-1">Zip Code:</span> {{ project.zipCode }}
+            </h5>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-line-items></app-line-items>
+  <app-material-list></app-material-list>
+  <div class="row project-cards">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row me-3">
+            <div class="col-md-12">
+              <div class="text-end">
+                <button
+                  (click)="editProject(project.id)"
+                  class="btn btn-primary me-3"
+                >
+                  <app-feather-icon [icon]="'edit'"></app-feather-icon> Edit
+                  Project
+                </button>
+                <button
+                  type="button"
+                  (click)="onArchive()"
+                  *ngIf="projectId"
+                  class="btn btn-secondary"
+                >
+                  <app-feather-icon [icon]="'archive'"></app-feather-icon>
+                  Archive Project
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

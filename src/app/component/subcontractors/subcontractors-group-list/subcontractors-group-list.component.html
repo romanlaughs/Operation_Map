@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div
+          *ngIf="subcontractorGroups.length === 0"
+          role="alert"
+          class="alert alert-light-warning text-center"
+        >
+          There are no groups available.
+        </div>
+        <div *ngIf="subcontractorGroups.length > 0">
+          <div class="col-md-12">
+            <div class="card">
+              <!-- List of filtered subcontractor groups -->
+              <div class="table-responsive card-body text-center">
+                <h3 class="mb-5">Group Directory</h3>
+                <table class="table table-borderless mb-3">
+                  <thead>
+                    <tr>
+                      <th class="f-w-300 text-center"><h4>Name</h4></th>
+                      <th class="f-w-300 text-center">
+                        <h4>Expertise / Field</h4>
+                      </th>
+                      <th class="f-w-300 text-center"><h4>City</h4></th>
+                      <th class="f-w-300 text-center"><h4>State</h4></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let group of subcontractorGroups">
+                      <td class="f-w-700 text-center">
+                        <a
+                          [routerLink]="[
+                            '/subcontractors/groupdetails',
+                            group._id
+                          ]"
+                          >{{ group.groupName }}</a
+                        >
+                      </td>
+                      <td class="f-w-300 text-center">{{ group.groupType }}</td>
+                      <td class="f-w-300 text-center"></td>
+                      <td class="f-w-300 text-center"></td>
+                      <td class="f-w-300 text-center">
+                        <button
+                          (click)="deleteGroup(group)"
+                          class="btn btn-danger"
+                        >
+                          <app-feather-icon
+                            [icon]="'trash-2'"
+                          ></app-feather-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+import{d as t}from"./chunk-BTAUWS6E.js";import"./chunk-7QWU2ZD5.js";import"./chunk-TQY73KEU.js";import"./chunk-R4N7MW4K.js";import"./chunk-GR2IEN4H.js";import"./chunk-NZE57U5H.js";var n=[{path:"",children:[{path:"list",component:t,data:{title:"Line Items",breadcrumb:"Line Items"}}]}];export{n as LineItems};

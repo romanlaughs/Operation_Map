@@ -1,0 +1,106 @@
+<div class="card">
+  <div class="card-body">
+    <div class="grid-item mb-4">
+      <h3 class="me-3">Group Subcontractor</h3>
+    </div>
+    <div class="modal-body text-start">
+      <div class="modal-toggle-wrapper">
+        <div class="row">
+          <form [formGroup]="groupForm">
+            <input formControlName="subcontractorId" type="hidden" />
+            <div class="form theme-form basic-form">
+              <div class="col-mm-4">
+                <div class="row mb-1">
+                  <div class="col-sm-3">
+                    <label class="f-w-500 form-label" for="groupName"
+                      >Name</label
+                    >
+                  </div>
+                  <div class="col-sm-9">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter group name"
+                      id="groupName"
+                      formControlName="groupName"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-3">
+                    <label class="f-w-500 form-label" for="groupCity"
+                      >City</label
+                    >
+                  </div>
+                  <div class="col-sm-9">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter group city"
+                      id="groupCity"
+                      formControlName="groupCity"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-3">
+                    <label class="f-w-500" for="groupType">Type</label>
+                  </div>
+                  <div class="col-sm-9">
+                    <select
+                      class="form-select"
+                      id="groupType"
+                      formControlName="groupType"
+                      (selectionChange)="onGroupTypeChange($event)"
+                    >
+                      <option *ngFor="let type of groupTypes" [value]="type">
+                        {{ type }}
+                      </option>
+                      <option value="addNewType">Add New Type</option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="row mb-4"
+                  *ngIf="groupForm.value.groupType === 'addNewType'"
+                >
+                  <div class="col-sm-3">
+                    <label class="f-w-500" for="newGroupType"
+                      >New Group Type</label
+                    >
+                  </div>
+                  <div class="col-sm-9">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Provide new group type"
+                      id="newGroupType"
+                      formControlName="newGroupType"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item text-end">
+              <button
+                (click)="onAddGroup()"
+                [disabled]="groupForm.invalid"
+                class="btn btn-primary me-3"
+                type="submit"
+              >
+                Add
+              </button>
+              <button
+                (click)="onCancel()"
+                class="btn btn-secondary"
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

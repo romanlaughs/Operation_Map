@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="card-body text-end">
+          <a class="btn btn-primary" [routerLink]="['/project/create']">
+            <app-feather-icon [icon]="'plus-square'"></app-feather-icon>
+            Create New Project
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xxl-4 col-md-6" *ngFor="let project of projects">
+              <div
+                class="project-box font-dark"
+                [ngClass]="{
+                  'bg-light-success': project.finished,
+                  'bg-light-danger': !project.finished
+                }"
+              >
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'badge-danger': !project.finished,
+                    'badge-success': project.finished
+                  }"
+                >
+                  {{ project.finished ? 'Done' : 'In Progress' }}
+                </span>
+                <h5
+                  class="mb-2"
+                  [ngClass]="{
+                    'text-danger': !project.finished,
+                    'text-success': project.finished
+                  }"
+                >
+                  <a
+                    class="fs-2 f-w-700"
+                    [routerLink]="['/project/overview', project.id]"
+                  >
+                    {{ project.name }}
+                  </a>
+                </h5>
+                <div class="row details">
+                  <p>Location: {{ project.city }}</p>
+                  <p>Date: {{ project.startDate | date : 'shortDate' }}</p>
+                </div>
+                <div class="project-status mt-4">
+                  <div class="d-flex align-items-center gap-1 mb-2">
+                    <p>{{ project.completionPercentage }}%</p>
+                    <span>Done</span>
+                  </div>
+                  <div class="progress" style="height: 5px">
+                    <div
+                      class="progress-bar-animated progress-bar-striped"
+                      [ngClass]="{
+                        'bg-danger': !project.finished,
+                        'bg-success': project.finished
+                      }"
+                      role="progressbar"
+                      [style.width]="project.completionPercentage + '%'"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
