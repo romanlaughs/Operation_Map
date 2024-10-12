@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApiService } from '../../../api.service';
 import { SharedService } from '../../../shared.service';
 import { FeathericonComponent } from '../../../shared/component/feathericon/feathericon.component';
@@ -19,6 +19,7 @@ import { MaterialListComponent } from '../../materials/material-list/material-li
   imports: [
     CommonModule,
     MatTableModule,
+    MatSnackBarModule, // Ensure SnackBar module is added here
     RouterModule,
     MatDialogModule,
     FeathericonComponent,
@@ -29,6 +30,8 @@ import { MaterialListComponent } from '../../materials/material-list/material-li
   styleUrls: ['./projects-overview.component.scss'],
 })
 export class ProjectsOverviewComponent implements OnInit {
+  public active = 1;
+  public openTab: string = 'lineitems';
   projectId: string;
   project: Project = {
     id: '',
@@ -39,7 +42,11 @@ export class ProjectsOverviewComponent implements OnInit {
     projectStatus: 0,
   };
   dataSource: Project[] = [];
-  userEmail: string = SharedService.getEmail();
+  userEmail: string = SharedService.getEmail(); // Check if this method is static
+
+  public tabbed(val: string) {
+    this.openTab = val;
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -94,7 +101,6 @@ export class ProjectsOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // Refresh the page after the dialog is closed
       window.location.reload();
     });
   }
@@ -106,7 +112,6 @@ export class ProjectsOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // Refresh the page after the dialog is closed
       window.location.reload();
     });
   }

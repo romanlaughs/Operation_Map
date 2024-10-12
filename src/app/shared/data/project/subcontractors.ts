@@ -1,4 +1,4 @@
-import { Contact } from './../project/project-list';
+import { Contact } from './project-list';
 
 export interface Subcontractor {
   id: string;
@@ -35,4 +35,5 @@ export interface Subcontractor {
   materialCost?: number;
   totalCost?: number;
   selectedBid?: boolean;
+  contacts?: Contact[];
 }

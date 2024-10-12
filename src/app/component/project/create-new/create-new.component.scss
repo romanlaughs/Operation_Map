@@ -1,0 +1,42 @@
+/* Style for error messages */
+.error {
+  color: red;
+  font-size: 0.9em;
+}
+
+/* Style for invalid form inputs */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.line-item-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.line-item-container .form-check-input {
+  margin-right: 10px;
+}
+
+.line-item-container .form-control-sm {
+  margin-right: 10px;
+}
+
+.line-item-container .price-field {
+  width: 100px;
+}
+
+.line-item-container .notes-field {
+  width: 200px;
+}
+
+.progress {
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  background-color: var(--theme-default);
+}

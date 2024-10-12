@@ -1,67 +1,258 @@
-<div class="row project-cards">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="mb-3">Line Items</h2>
-        <div class="table-responsive">
-          <div
-            *ngIf="lineItems.length === 0"
-            role="alert"
-            class="alert alert-light-warning text-center"
-          >
-            There are no List Items available.
-          </div>
-          <table
-            class="table table-borderless mb-3"
-            *ngIf="lineItems.length > 0"
-          >
-            <thead>
-              <tr>
-                <th class="f-w-300 text-center">
-                  <h4>Name</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>My Bid/Budget</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Subcontractor Cost</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Profit Margin</h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container
-                *ngFor="
-                  let item of lineItems
-                    | paginate
-                      : { itemsPerPage: 10, currentPage: pageLineItems }
-                "
-              >
-                <tr>
-                  <td class="f-w-300 text-center">{{ item.lineItemName }}</td>
-                  <td class="f-w-300 text-center">
-                    {{ item.budget | currency }}
-                  </td>
-                  <td class="f-w-300 text-center">
-                    {{ item.subcontractorCost | currency }}
-                  </td>
-                  <td class="f-w-300 text-center">
-                    {{ calculateProfitMargin(item) | currency }}
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-          <pagination-controls
-            (pageChange)="pageLineItems = $event"
-            [maxSize]="5"
-            [directionLinks]="true"
-            [autoHide]="true"
-          ></pagination-controls>
-        </div>
-      </div>
-    </div>
+<h2 class="mb-3">Line Items</h2>
+<div class="table-responsive">
+  <div
+    *ngIf="lineItems.length === 0"
+    role="alert"
+    class="alert alert-light-warning text-center"
+  >
+    There are no Line Items available.
   </div>
+
+  <table class="table table-borderless mb-3" *ngIf="lineItems.length > 0">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="text-center">
+          <h4>Name</h4>
+        </th>
+        <th class="text-center">
+          <h4>My Bid/Budget</h4>
+        </th>
+        <th class="text-center">
+          <h4>Subcontractor Cost</h4>
+        </th>
+        <th class="text-center">
+          <h4>Profit Margin</h4>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngFor="
+          let item of lineItems
+            | paginate : { itemsPerPage: 10, currentPage: pageLineItems }
+        "
+      >
+        <tr>
+          <td class="text-center">
+            <button
+              type="button"
+              class="btn btn-link"
+              (click)="onToggleEditMode(item)"
+              aria-label="Edit Line Item"
+              [disabled]="item.editMode"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-link text-danger"
+              (click)="confirmRemoveLineItem(item)"
+              aria-label="Remove Line Item"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-link"
+              (click)="openSubLineItemDialog(item)"
+              aria-label="Add Sub-Line Item"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
+          </td>
+
+          <td class="text-center">
+            <ng-container *ngIf="!item.editMode; else editName">
+              {{ item?.lineItemName }}
+            </ng-container>
+            <ng-template #editName>
+              <select
+                [(ngModel)]="item.lineItemName"
+                class="form-select"
+                required
+              >
+                <option
+                  *ngFor="let lineItem of availableLineItems"
+                  [value]="lineItem.value"
+                >
+                  {{ lineItem.label }}
+                </option>
+              </select>
+            </ng-template>
+          </td>
+
+          <td class="text-center">
+            <ng-container *ngIf="!item.editMode; else editBudget">
+              {{ item?.budget | currency }}
+            </ng-container>
+            <ng-template #editBudget>
+              <input
+                [(ngModel)]="item.budget"
+                class="form-control"
+                type="number"
+                min="0"
+                required
+              />
+            </ng-template>
+          </td>
+
+          <td class="text-center">
+            <ng-container *ngIf="!item.editMode; else editCost">
+              {{
+                item?.subcontractorCost !== undefined
+                  ? (item.subcontractorCost | currency)
+                  : 'N/A'
+              }}
+            </ng-container>
+            <ng-template #editCost>
+              <input
+                [(ngModel)]="item.subcontractorCost"
+                class="form-control"
+                type="number"
+                min="0"
+                required
+              />
+            </ng-template>
+          </td>
+
+          <td class="text-center">
+            {{ calculateProfitMargin(item) | currency : 'USD' : true }}
+          </td>
+
+          <td class="text-center" *ngIf="item">
+            <button
+              *ngIf="item.editMode"
+              class="btn btn-success me-2"
+              (click)="onSaveLineItem(item)"
+              [disabled]="
+                !item.lineItemName ||
+                item.budget === undefined ||
+                item.budget <= 0 ||
+                item.subcontractorCost === undefined ||
+                item.subcontractorCost === null ||
+                item.subcontractorCost <= 0
+              "
+            >
+              Save
+            </button>
+            <button
+              *ngIf="item.editMode"
+              class="btn btn-secondary"
+              (click)="onCancelEditMode(item)"
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+
+        <!-- Subline Items Row -->
+        <tr *ngFor="let subItem of item.subLineItems" class="table-light">
+          <td class="text-center">
+            <button
+              type="button"
+              class="btn btn-link"
+              (click)="onToggleSublineItemEditMode(subItem)"
+              aria-label="Edit Sub-Line Item"
+              [disabled]="subItem.editMode"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-link text-danger"
+              (click)="confirmRemoveSublineItem(subItem)"
+              aria-label="Remove Sub-Line Item"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="!subItem.editMode; else editSubName">
+              {{ subItem?.lineItemName }}
+            </ng-container>
+            <ng-template #editSubName>
+              <input
+                [(ngModel)]="subItem.lineItemName"
+                class="form-control"
+                type="text"
+                required
+              />
+            </ng-template>
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="!subItem.editMode; else editSubBudget">
+              {{ subItem?.budget | currency }}
+            </ng-container>
+            <ng-template #editSubBudget>
+              <input
+                [(ngModel)]="subItem.budget"
+                class="form-control"
+                type="number"
+                min="0"
+                required
+              />
+            </ng-template>
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="!subItem.editMode; else editSubCost">
+              {{
+                subItem?.subcontractorCost !== undefined
+                  ? (subItem.subcontractorCost | currency)
+                  : 'N/A'
+              }}
+            </ng-container>
+            <ng-template #editSubCost>
+              <input
+                [(ngModel)]="subItem.subcontractorCost"
+                class="form-control"
+                type="number"
+                min="0"
+                required
+              />
+            </ng-template>
+          </td>
+          <td class="text-center">
+            {{
+              calculateSublineItemProfitMargin(subItem)
+                | currency : 'USD' : true
+            }}
+          </td>
+          <td class="text-center" *ngIf="subItem">
+            <button
+              *ngIf="subItem.editMode"
+              class="btn btn-success me-2"
+              (click)="onSaveLineItem(item)"
+              [disabled]="
+                !item.lineItemName ||
+                item.budget === undefined ||
+                item.budget <= 0 ||
+                item.subcontractorCost === undefined ||
+                item.subcontractorCost === null ||
+                item.subcontractorCost <= 0
+              "
+            >
+              Save
+            </button>
+            <button
+              *ngIf="subItem.editMode"
+              class="btn btn-secondary"
+              (click)="onCancelSublineItemEditMode(subItem)"
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <pagination-controls
+    (pageChange)="pageLineItems = $event"
+    [maxSize]="5"
+    [directionLinks]="true"
+    [autoHide]="true"
+  ></pagination-controls>
 </div>

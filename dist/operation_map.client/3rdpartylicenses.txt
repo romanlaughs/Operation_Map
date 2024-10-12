@@ -40,12 +40,12 @@ License: "SEE LICENSE IN LICENSE"
 
 
 --------------------------------------------------------------------------------
-Package: @ng-bootstrap/ng-bootstrap
+Package: @angular/material
 License: "MIT"
 
-The MIT License (MIT)
+The MIT License
 
-Copyright (c) 2015-2018 Angular ng-bootstrap team
+Copyright (c) 2024 Google LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -66,12 +66,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-Package: @angular/material
+Package: @ng-bootstrap/ng-bootstrap
 License: "MIT"
 
-The MIT License
+The MIT License (MIT)
 
-Copyright (c) 2024 Google LLC.
+Copyright (c) 2015-2018 Angular ng-bootstrap team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -120,11 +120,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-Package: ngx-dropzone-wrapper
-License: "MIT"
-
-
---------------------------------------------------------------------------------
 Package: @angular/cdk
 License: "MIT"
 
@@ -149,6 +144,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+Package: ngx-dropzone-wrapper
+License: "MIT"
+
 
 --------------------------------------------------------------------------------
 Package: ngx-pagination

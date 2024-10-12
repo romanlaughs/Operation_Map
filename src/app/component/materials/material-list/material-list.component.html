@@ -1,87 +1,79 @@
-<div class="row project-cards">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="mb-3">Materials</h2>
-        <div class="table-responsive">
-          <div
-            *ngIf="materials && materials.length === 0"
-            role="alert"
-            class="alert alert-light-warning text-center"
-          >
-            There are no Materials available.
-          </div>
-          <table class="table table-borderless" *ngIf="materials.length > 0">
-            <thead>
-              <tr>
-                <th class="f-w-300 text-center">
-                  <h4>Name</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Purchase Date</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Purchase Place</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Item Number</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Notes</h4>
-                </th>
-                <th class="f-w-300 text-center">
-                  <h4>Assets</h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let material of materials">
-                <tr>
-                  <td class="f-w-300 text-center">
-                    {{ material.nameDescription }}
-                  </td>
-                  <td class="f-w-300 text-center">
-                    {{ material.datePurchased | date }}
-                  </td>
-                  <td class="f-w-300 text-center">
-                    {{ material.placePurchased }}
-                  </td>
-                  <td class="f-w-300 text-center">
-                    {{ material.itemNumber }}
-                  </td>
-                  <td class="f-w-300 text-center">{{ material.notes }}</td>
-                  <td class="f-w-300 text-center">
-                    <div
-                      *ngIf="
-                        materialFiles[material.id] &&
-                          materialFiles[material.id].length > 0;
-                        else uploadButton
-                      "
-                    >
-                      <img
-                        [src]="materialFiles[material.id][0]"
-                        alt="Thumbnail"
-                        (click)="openFile(materialFiles[material.id][0])"
-                        style="width: 100px; height: 100px; cursor: pointer"
-                      />
-                    </div>
-                    <ng-template #uploadButton>
-                      <button
-                        class="btn btn-outline-primary"
-                        mat-button
-                        (click)="openUploadDialog(material.id)"
-                      >
-                        <app-feather-icon [icon]="'upload'"></app-feather-icon>
-                        Upload Photo
-                      </button>
-                    </ng-template>
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+<h2 class="mb-3">Materials</h2>
+<div class="table-responsive">
+  <div
+    *ngIf="materials && materials.length === 0"
+    role="alert"
+    class="alert alert-light-warning text-center"
+  >
+    There are no Materials available.
   </div>
+  <table class="table table-borderless" *ngIf="materials.length > 0">
+    <thead>
+      <tr>
+        <th class="f-w-300 text-center">
+          <h4>Name</h4>
+        </th>
+        <th class="f-w-300 text-center">
+          <h4>Purchase Date</h4>
+        </th>
+        <th class="f-w-300 text-center">
+          <h4>Purchase Place</h4>
+        </th>
+        <th class="f-w-300 text-center">
+          <h4>Item Number</h4>
+        </th>
+        <th class="f-w-300 text-center">
+          <h4>Notes</h4>
+        </th>
+        <th class="f-w-300 text-center">
+          <h4>Assets</h4>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let material of materials">
+        <tr>
+          <td class="f-w-300 text-center">
+            {{ material.nameDescription }}
+          </td>
+          <td class="f-w-300 text-center">
+            {{ material.datePurchased | date }}
+          </td>
+          <td class="f-w-300 text-center">
+            {{ material.placePurchased }}
+          </td>
+          <td class="f-w-300 text-center">
+            {{ material.itemNumber }}
+          </td>
+          <td class="f-w-300 text-center">{{ material.notes }}</td>
+          <td class="f-w-300 text-center">
+            <div
+              *ngIf="
+                materialFiles[material.id] &&
+                  materialFiles[material.id].length > 0;
+                else uploadButton
+              "
+            >
+              <img
+                [src]="materialFiles[material.id][0]"
+                alt="Thumbnail"
+                (click)="openFile(materialFiles[material.id][0])"
+                style="width: 100px; height: 100px; cursor: pointer"
+              />
+            </div>
+            <ng-template #uploadButton>
+              <button
+                class="btn btn-outline-primary"
+                mat-button
+                (click)="openUploadDialog(material.id)"
+              >
+                <app-feather-icon [icon]="'upload'"></app-feather-icon>
+                Upload Photo
+              </button>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
 </div>

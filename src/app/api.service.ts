@@ -14,6 +14,7 @@ import { Subcontractor } from './shared/data/project/subcontractors';
 import { SubcontractorGroup } from './shared/data/project/subcontractorgroup';
 import { Material } from './shared/data/project/material';
 import { LineItem } from './shared/data/project/line-item';
+import { SubLineItem } from './shared/data/project/subline-item';
 import { Invoice } from './shared/data/invoice/invoice';
 
 @Injectable({
@@ -347,9 +348,11 @@ export class ApiService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    const url = `${this.apiUrl}/lineitems?userEmail=${encodeURIComponent(
-      userEmail
-    )}&projectId=${encodeURIComponent(projectId)}`;
+    const url = `${
+      this.apiUrl
+    }/lineitems?userEmail=${userEmail}&projectId=${encodeURIComponent(
+      projectId
+    )}`;
     return this.http.post<LineItem>(url, lineItem, { headers });
   }
 
@@ -394,9 +397,22 @@ export class ApiService {
   ): Observable<void> {
     const url = `${
       this.apiUrl
-    }/lineitems/${lineItemId}?userEmail=${encodeURIComponent(
-      userEmail
-    )}&projectId=${encodeURIComponent(projectId)}`;
+    }/lineitems/${lineItemId}?userEmail=${userEmail}&projectId=${encodeURIComponent(
+      projectId
+    )}`;
+    return this.http.delete<void>(url);
+  }
+
+  deleteSublineItem(
+    userEmail: string,
+    projectId: string,
+    sublineItemId: string
+  ): Observable<void> {
+    const url = `${
+      this.apiUrl
+    }/sublineitems/${sublineItemId}?userEmail=${userEmail}&projectId=${encodeURIComponent(
+      projectId
+    )}`;
     return this.http.delete<void>(url);
   }
 
@@ -419,6 +435,19 @@ export class ApiService {
       body: subcontractor,
     };
     return this.http.delete<void>(url, options);
+  }
+
+  // SubLine Item Methods
+  saveSubLineItem(
+    userEmail: string,
+    projectId: string,
+    sublineItemId: string,
+    subLineItem: SubLineItem // Correct parameter type for sub-line item
+  ): Observable<SubLineItem> {
+    const url = `${this.apiUrl}/sublineitems/${sublineItemId}?userEmail=${userEmail}&projectId=${projectId}`;
+    return this.http.post<SubLineItem>(url, subLineItem, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   getInvoices(

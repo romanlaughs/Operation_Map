@@ -1,427 +1,611 @@
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container-fluid form theme-form basic-form">
+    <!-- Progress Bar -->
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [style.width.%]="progress"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
+
+    <!-- Step 1: Basic Info -->
+    <div class="row" *ngIf="currentStep === 1">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
-            <div class="form theme-form basic-form">
-              <div class="row">
-                <div class="col-lg-10" style="padding-right: 80px">
-                  <div class="row">
-                    <!-- Project Title -->
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Project Title</h5>
-                            <input
-                              class="form-control"
-                              type="text"
-                              placeholder="Project name *"
-                              id="name"
-                              formControlName="name"
-                            />
-                            <div
-                              *ngIf="
-                                projectForm.get('name')?.touched &&
-                                projectForm.get('name')?.invalid
-                              "
-                              class="error"
-                            >
-                              Project name is required.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Address Details -->
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Address</h5>
-                            <input
-                              class="form-control"
-                              type="text"
-                              placeholder="Enter address"
-                              id="address1"
-                              formControlName="address1"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Address 2</h5>
-                            <input
-                              class="form-control"
-                              type="text"
-                              placeholder="Enter Suite/Unit/Apt"
-                              id="address2"
-                              formControlName="address2"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">City</h5>
-                            <input
-                              class="form-control"
-                              type="text"
-                              placeholder="Enter city"
-                              id="city"
-                              formControlName="city"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">State</h5>
-                            <select
-                              class="form-select"
-                              id="state"
-                              formControlName="state"
-                            >
-                              <option>Alabama</option>
-                              <option>Alaska</option>
-                              <option>Arizona</option>
-                              <option>Arkansas</option>
-                              <option>California</option>
-                              <option>Colorado</option>
-                              <option>Connecticut</option>
-                              <option>Delaware</option>
-                              <option>Florida</option>
-                              <option>Georgia</option>
-                              <option>Hawaii</option>
-                              <option>Idaho</option>
-                              <option>Illinois</option>
-                              <option>Indiana</option>
-                              <option>Iowa</option>
-                              <option>Kansas</option>
-                              <option>Kentucky</option>
-                              <option>Louisiana</option>
-                              <option>Maine</option>
-                              <option>Maryland</option>
-                              <option>Massachusetts</option>
-                              <option>Michigan</option>
-                              <option>Minnesota</option>
-                              <option>Mississippi</option>
-                              <option>Missouri</option>
-                              <option>Montana</option>
-                              <option>Nebraska</option>
-                              <option>Nevada</option>
-                              <option>New Hampshire</option>
-                              <option>New Jersey</option>
-                              <option>New Mexico</option>
-                              <option>New York</option>
-                              <option>North Carolina</option>
-                              <option>North Dakota</option>
-                              <option>Ohio</option>
-                              <option>Oklahoma</option>
-                              <option>Oregon</option>
-                              <option>Pennsylvania</option>
-                              <option>Rhode Island</option>
-                              <option>South Carolina</option>
-                              <option>South Dakota</option>
-                              <option>Tennessee</option>
-                              <option>Texas</option>
-                              <option>Utah</option>
-                              <option>Vermont</option>
-                              <option>Virginia</option>
-                              <option>Washington</option>
-                              <option>West Virginia</option>
-                              <option>Wisconsin</option>
-                              <option>Wyoming</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Zip Code</h5>
-                            <input
-                              class="form-control"
-                              type="text"
-                              placeholder="Enter zip code"
-                              id="zipCode"
-                              formControlName="zipCode"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Date and Status -->
-                      <div class="row">
-                        <div class="col-sm-8">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Start Date</h5>
-                            <div class="input-group position-relative">
-                              <input
-                                class="form-control"
-                                type="date"
-                                placeholder="Enter project starting date"
-                                id="startDate"
-                                formControlName="startDate"
-                                #startDateInput
-                              />
-                              <button
-                                class="btn btn-primary calendar"
-                                type="button"
-                                (click)="startDateInput.focus()"
-                                style="
-                                  position: absolute;
-                                  right: 10px;
-                                  top: 50%;
-                                  transform: translateY(-50%);
-                                  pointer-events: none;
-                                "
-                              >
-                                <app-feather-icon
-                                  [icon]="'calendar'"
-                                ></app-feather-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-4">
-                          <h5 class="f-w-600 mb-2">&nbsp;</h5>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input primary"
-                              id="finished"
-                              type="checkbox"
-                              formControlName="finished"
-                            />
-                            <label class="form-check-label" for="finished"
-                              >Is started?</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-8">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Due Date</h5>
-                            <div class="input-group position-relative">
-                              <input
-                                class="form-control"
-                                type="date"
-                                placeholder="Enter project due date"
-                                id="finishDate"
-                                formControlName="finishDate"
-                                #startDateInput
-                              />
-                              <button
-                                class="btn btn-primary calendar"
-                                type="button"
-                                (click)="startDateInput.focus()"
-                                style="
-                                  position: absolute;
-                                  right: 10px;
-                                  top: 50%;
-                                  transform: translateY(-50%);
-                                  pointer-events: none;
-                                "
-                              >
-                                <app-feather-icon
-                                  [icon]="'calendar'"
-                                ></app-feather-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-4">
-                          <h5 class="f-w-600 mb-2">&nbsp;</h5>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input primary"
-                              id="started"
-                              type="checkbox"
-                              formControlName="started"
-                            />
-                            <label class="form-check-label" for="started"
-                              >Is finished?</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Completion %</h5>
-                            <input
-                              class="form-control"
-                              type="number"
-                              id="completionPercentage"
-                              formControlName="completionPercentage"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Additional Info -->
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Project Email</h5>
-                            <input
-                              class="form-control"
-                              type="email"
-                              id="projectEmail"
-                              formControlName="projectEmail"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Project Status</h5>
-                            <select
-                              class="form-select"
-                              id="projectStatus"
-                              formControlName="projectStatus"
-                            >
-                              <option [value]="0">Bidding</option>
-                              <option [value]="1">In Progress</option>
-                              <option [value]="-1">Archived</option>
-                            </select>
-                            <div
-                              *ngIf="
-                                projectForm.get('projectStatus')?.touched &&
-                                projectForm.get('projectStatus')?.invalid
-                              "
-                              class="error"
-                            >
-                              Project Status is required.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="row">
-                        <div class="col-sm-2">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Units #</h5>
-                            <input
-                              class="form-control"
-                              type="number"
-                              id="units"
-                              formControlName="units"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Bathrooms</h5>
-                            <input
-                              class="form-control"
-                              type="number"
-                              id="bathrooms"
-                              formControlName="bathrooms"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Bedrooms</h5>
-                            <input
-                              class="form-control"
-                              type="number"
-                              id="bedrooms"
-                              formControlName="bedrooms"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <div class="mb-3">
-                            <h5 class="f-w-600 mb-2">Square Footage</h5>
-                            <input
-                              class="form-control"
-                              type="number"
-                              id="squareFootage"
-                              formControlName="squareFootage"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 mb-4">
-                  <!-- Line Items as Grid -->
-                  <div class="row">
-                    <div class="mb-4">
-                      <h5 class="f-w-600 mb-3">Line items</h5>
-                      <div
-                        class="form-check-size mb-4"
-                        *ngFor="
-                          let item of defaultLineItems;
-                          let i = index;
-                          trackBy: trackByFn
-                        "
-                        [ngClass]="{ 'mb-3': i % 2 === 0 }"
-                      >
-                        <div class="text-end icon-state switch-inline">
-                          <label class="switch mb-0">
-                            <input
-                              type="checkbox"
-                              [id]="'itemCheckbox' + i"
-                              [checked]="item.selected"
-                              (change)="onCheckboxChange($event, item)"
-                            />
-                            <span class="switch-state bg-primary"></span>
-                          </label>
-                        </div>
-                        {{ item.name }}
-                      </div>
-                    </div>
-                    <div>
-                      <button
-                        type="button"
-                        (click)="selectAll()"
-                        class="btn btn-outline-primary me-3"
-                      >
-                        Select All
-                      </button>
-                      <button
-                        type="button"
-                        (click)="clearAll()"
-                        class="btn btn-outline-primary"
-                      >
-                        Clear All
-                      </button>
-                    </div>
-                  </div>
+            <div class="row">
+              <!-- Project Title -->
+              <div class="col-lg-3 mb-3">
+                <h5 class="f-w-600 mb-2">Project Title</h5>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Project name *"
+                  id="name"
+                  formControlName="name"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('name')?.touched &&
+                    projectForm.get('name')?.invalid
+                  "
+                  class="error"
+                >
+                  Project name is required.
                 </div>
               </div>
-
-              <!-- Submit and Cancel Buttons -->
-              <div class="row">
-                <div class="col">
-                  <div class="text-end">
-                    <button type="submit" class="btn btn-primary me-3">
-                      <app-feather-icon
-                        [icon]="projectId ? 'edit' : 'edit'"
-                      ></app-feather-icon>
-                      {{ projectId ? 'Update' : 'Create' }} Project
-                    </button>
-                    <button
-                      [routerLink]="['/project/list']"
-                      class="btn btn-secondary"
+              <!-- Project Email -->
+              <div class="col-lg-3 mb-3">
+                <h5 class="f-w-600 mb-2">Email</h5>
+                <input
+                  class="form-control"
+                  type="email"
+                  placeholder="Enter email address"
+                  id="projectEmail"
+                  formControlName="projectEmail"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('projectEmail')?.touched &&
+                    projectForm.get('projectEmail')?.invalid
+                  "
+                  class="error"
+                >
+                  Email address is required.
+                </div>
+              </div>
+            </div>
+            <!-- Address, City, State, Zip Code -->
+            <div class="row">
+              <div class="col-lg-3 mb-3">
+                <h5 class="f-w-600 mb-2">Address</h5>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Enter address"
+                  id="address1"
+                  formControlName="address1"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('address1')?.touched &&
+                    projectForm.get('address1')?.invalid
+                  "
+                  class="error"
+                >
+                  Address is required.
+                </div>
+              </div>
+              <div class="col-lg-3 mb-3">
+                <h5 class="f-w-600 mb-2">Address 2</h5>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Enter Suite/Unit/Apt"
+                  id="address2"
+                  formControlName="address2"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">City</h5>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Enter city"
+                  id="city"
+                  formControlName="city"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('city')?.touched &&
+                    projectForm.get('city')?.invalid
+                  "
+                  class="error"
+                >
+                  City is required.
+                </div>
+              </div>
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">State</h5>
+                <select class="form-select" formControlName="state">
+                  <option value="">Select State</option>
+                  <option>Alabama</option>
+                  <option>Alaska</option>
+                  <option>Arizona</option>
+                  <option>Arkansas</option>
+                  <option>California</option>
+                  <option>Colorado</option>
+                  <option>Connecticut</option>
+                  <option>Delaware</option>
+                  <option>Florida</option>
+                  <option>Georgia</option>
+                  <option>Hawaii</option>
+                  <option>Idaho</option>
+                  <option>Illinois</option>
+                  <option>Indiana</option>
+                  <option>Iowa</option>
+                  <option>Kansas</option>
+                  <option>Kentucky</option>
+                  <option>Louisiana</option>
+                  <option>Maine</option>
+                  <option>Maryland</option>
+                  <option>Massachusetts</option>
+                  <option>Michigan</option>
+                  <option>Minnesota</option>
+                  <option>Mississippi</option>
+                  <option>Missouri</option>
+                  <option>Montana</option>
+                  <option>Nebraska</option>
+                  <option>Nevada</option>
+                  <option>New Hampshire</option>
+                  <option>New Jersey</option>
+                  <option>New Mexico</option>
+                  <option>New York</option>
+                  <option>North Carolina</option>
+                  <option>North Dakota</option>
+                  <option>Ohio</option>
+                  <option>Oklahoma</option>
+                  <option>Oregon</option>
+                  <option>Pennsylvania</option>
+                  <option>Rhode Island</option>
+                  <option>South Carolina</option>
+                  <option>South Dakota</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Utah</option>
+                  <option>Vermont</option>
+                  <option>Virginia</option>
+                  <option>Washington</option>
+                  <option>West Virginia</option>
+                  <option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+                <div
+                  *ngIf="
+                    projectForm.get('state')?.touched &&
+                    projectForm.get('state')?.invalid
+                  "
+                  class="error"
+                >
+                  State is required.
+                </div>
+              </div>
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Zip Code</h5>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Enter zip code"
+                  id="zipCode"
+                  formControlName="zipCode"
+                  maxlength="5"
+                  inputmode="numeric"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('zipCode')?.touched &&
+                    projectForm.get('zipCode')?.invalid
+                  "
+                  class="error"
+                >
+                  Zip code is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Start and Due Date -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-5 mb-3">
+                <h5 class="f-w-600 mb-2">Start Date</h5>
+                <div class="input-group position-relative">
+                  <input
+                    class="form-control"
+                    type="date"
+                    placeholder="Enter project starting date"
+                    id="startDate"
+                    formControlName="startDate"
+                    #startDateInput
+                  />
+                  <button
+                    class="btn btn-primary calendar"
+                    type="button"
+                    (click)="startDateInput.focus()"
+                    style="
+                      position: absolute;
+                      right: 10px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      pointer-events: none;
+                    "
+                  >
+                    <app-feather-icon [icon]="'calendar'"></app-feather-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-1 mb-3">
+                <h5 class="f-w-600 mb-2">&nbsp;</h5>
+                <div class="form-check">
+                  <input
+                    class="form-check-input primary"
+                    id="started"
+                    type="checkbox"
+                    formControlName="started"
+                  />
+                  <label class="form-check-label mb-3" for="started">
+                    Is started?
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5 mb-3">
+                <h5 class="f-w-600 mb-2">Due Date</h5>
+                <div class="input-group position-relative">
+                  <input
+                    class="form-control"
+                    type="date"
+                    placeholder="Enter project due date"
+                    id="finishDate"
+                    formControlName="finishDate"
+                    #finishDateInput
+                  />
+                  <button
+                    class="btn btn-primary calendar"
+                    type="button"
+                    (click)="finishDateInput.focus()"
+                    style="
+                      position: absolute;
+                      right: 10px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      pointer-events: none;
+                    "
+                  >
+                    <app-feather-icon [icon]="'calendar'"></app-feather-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-1 mb-3">
+                <h5 class="f-w-600 mb-2">&nbsp;</h5>
+                <div class="form-check">
+                  <input
+                    class="form-check-input primary"
+                    id="finished"
+                    type="checkbox"
+                    formControlName="finished"
+                  />
+                  <label class="form-check-label mb-3" for="finished">
+                    Is finished?
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Work Completed (%)</h5>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="completionPercentage"
+                  formControlName="completionPercentage"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('completionPercentage')?.touched &&
+                    projectForm.get('completionPercentage')?.invalid
+                  "
+                  class="error"
+                >
+                  Enter a value between 0 and 100.
+                </div>
+              </div>
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Project Status</h5>
+                <select
+                  class="form-select"
+                  id="projectStatus"
+                  formControlName="projectStatus"
+                >
+                  <option [value]="0">Bidding</option>
+                  <option [value]="1">In Progress</option>
+                  <option [value]="-1">Archived</option>
+                </select>
+                <div
+                  *ngIf="
+                    projectForm.get('projectStatus')?.touched &&
+                    projectForm.get('projectStatus')?.invalid
+                  "
+                  class="error"
+                >
+                  Please select a status.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Units, etc. -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Number of Units</h5>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="units"
+                  formControlName="units"
+                  maxlength="4"
+                  required
+                  oninput="this.value = this.value.slice(0, 4);"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('units')?.touched &&
+                    projectForm.get('units')?.invalid
+                  "
+                  class="error"
+                >
+                  Enter the number of units.
+                </div>
+              </div>
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Number of Bathrooms</h5>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="bathrooms"
+                  formControlName="bathrooms"
+                  maxlength="4"
+                  required
+                  oninput="this.value = this.value.slice(0, 4);"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('bathrooms')?.touched &&
+                    projectForm.get('bathrooms')?.invalid
+                  "
+                  class="error"
+                >
+                  Specify the number of bathrooms.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Number of Bedrooms</h5>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="bedrooms"
+                  formControlName="bedrooms"
+                  maxlength="4"
+                  required
+                  oninput="this.value = this.value.slice(0, 4);"
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('bedrooms')?.touched &&
+                    projectForm.get('bedrooms')?.invalid
+                  "
+                  class="error"
+                >
+                  Specify the number of bathrooms.
+                </div>
+              </div>
+              <div class="col-lg-2 mb-3">
+                <h5 class="f-w-600 mb-2">Square Footage</h5>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="squareFootage"
+                  formControlName="squareFootage"
+                  required
+                />
+                <div
+                  *ngIf="
+                    projectForm.get('squareFootage')?.touched &&
+                    projectForm.get('squareFootage')?.invalid
+                  "
+                  class="error"
+                >
+                  Please provide the square footage.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <!-- Next Button -->
+            <div class="text-end">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="goToNextStep()"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Conditionally show line items only if not in edit mode -->
+    <div *ngIf="!isEditMode && currentStep === 2">
+      <!-- Step 2: Line Items -->
+      <div class="row" *ngIf="currentStep === 2">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="f-w-600 mb-4">Line Items</h3>
+              <form [formGroup]="lineItemsForm">
+                <div formArrayName="lineItems">
+                  <div class="row">
+                    <div
+                      class="col-lg-4 col-md-6 col-sm-12 mb-4 line-item-container"
+                      *ngFor="
+                        let item of lineItems.controls;
+                        let i = index;
+                        trackBy: trackByFn
+                      "
                     >
-                      <app-feather-icon [icon]="'x'"></app-feather-icon> Cancel
-                    </button>
+                      <div [formGroupName]="i">
+                        <div class="row">
+                          <div class="form-check form-switch me-3">
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              [id]="'itemCheckbox' + i"
+                              formControlName="selected"
+                              (change)="onCheckboxChange($event, i)"
+                              class="form-check-input me-2"
+                            />
+                            <label
+                              class="form-check-label"
+                              [for]="'itemCheckbox' + i"
+                            >
+                              {{ item.get('lineItemName')?.value }}
+                            </label>
+                          </div>
+                        </div>
+
+                        <div
+                          class="row mt-2"
+                          *ngIf="item.get('showAdditionalFields')?.value"
+                        >
+                          <div class="mt-2 me-3">
+                            <input
+                              type="number"
+                              [id]="'price' + i"
+                              formControlName="budget"
+                              class="form-control form-control-sm"
+                              placeholder="Budget"
+                              min="0"
+                              step="0.01"
+                            />
+                          </div>
+                          <div class="mt-2">
+                            <textarea
+                              [id]="'notes' + i"
+                              formControlName="notes"
+                              class="form-control form-control-sm"
+                              placeholder="Notes"
+                              rows="1"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </form>
+            </div>
+            <!--
+          <div class="text-center mt-3">
+            <button
+              type="button"
+              (click)="selectAll()"
+              class="btn btn-outline-primary me-3"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              (click)="clearAll()"
+              class="btn btn-outline-primary"
+            >
+              Clear All
+            </button>
+          </div>
+        -->
+          </div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-end">
+                <!-- Previous Button -->
+                <button
+                  type="button"
+                  class="btn btn-secondary me-3"
+                  (click)="goToPreviousStep()"
+                >
+                  Previous
+                </button>
+                <!-- Next Button -->
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="goToNextStep()"
+                >
+                  Next
+                </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Conditionally hide line items only if not in edit mode -->
+    <div
+      *ngIf="
+        (isEditMode && currentStep === 2) || (!isEditMode && currentStep === 3)
+      "
+    >
+      <!-- Step 3: About the Project -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="mb-3">
+                <h5 class="f-w-600 mb-2">Project Description</h5>
+                <textarea
+                  id="projectDescription"
+                  formControlName="projectDescription"
+                  class="form-control"
+                  placeholder="Write a detailed project description"
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation Buttons -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-end">
+              <button
+                type="button"
+                class="btn btn-secondary me-3"
+                (click)="goToPreviousStep()"
+              >
+                Previous
+              </button>
+              <button type="submit" class="btn btn-primary">
+                {{ projectId ? 'Update' : 'Create' }} Project
+              </button>
             </div>
           </div>
         </div>

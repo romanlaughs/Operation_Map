@@ -5,28 +5,31 @@
         <div class="modal-header row mb-3">
           <h3>Add New Line Item</h3>
         </div>
-        <ng-container *ngIf="lineItemOptions.length < 1; else dropdownTemplate"
-          ><div class="row mb-1">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Line Item Name"
-              formControlName="lineItemName"
-              required
-            /></div
-        ></ng-container>
-        <ng-template #dropdownTemplate
-          ><div class="row mb-1">
-            <select class="form-select" formControlName="lineItemName" required>
-              <option
-                *ngFor="let option of lineItemOptions"
-                [value]="option.name"
-              >
-                {{ option.name }}
-              </option>
-            </select>
-          </div></ng-template
-        >
+
+        <div class="row mb-1">
+          <select
+            class="form-select"
+            formControlName="lineItemName"
+            required
+            aria-label="Select Line Item"
+          >
+            <option value="">Select Line Item</option>
+            <option *ngFor="let item of defaultLineItems">
+              {{ item.lineItemName }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              lineItemForm.get('lineItemName')?.invalid &&
+              (lineItemForm.get('lineItemName')?.touched ||
+                lineItemForm.get('lineItemName')?.dirty)
+            "
+            class="text-danger"
+          >
+            Line item is required.
+          </div>
+        </div>
+
         <div class="row mb-1">
           <input
             class="form-control"
@@ -34,15 +37,29 @@
             placeholder="Budget"
             formControlName="budget"
             required
+            aria-label="Budget"
           />
+          <div
+            *ngIf="
+              lineItemForm.get('budget')?.invalid &&
+              (lineItemForm.get('budget')?.touched ||
+                lineItemForm.get('budget')?.dirty)
+            "
+            class="text-danger"
+          >
+            Budget is required.
+          </div>
         </div>
+
         <div class="row mb-4">
           <textarea
             class="form-control"
             placeholder="Notes"
             formControlName="notes"
+            aria-label="Notes"
           ></textarea>
         </div>
+
         <div class="modal-footer">
           <button
             class="btn btn-secondary me-3"

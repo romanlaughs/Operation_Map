@@ -1,0 +1,78 @@
+<form [formGroup]="SublineItemForm">
+  <div class="card">
+    <div class="card-body">
+      <div class="form theme-form basic-form">
+        <div class="modal-header row mb-3">
+          <h3>Add New Sub Item</h3>
+        </div>
+        <div class="row mb-1">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lineItemName"
+            required
+            aria-label="Select Line Item"
+          />
+          <div
+            *ngIf="
+              SublineItemForm.get('lineItemName')?.invalid &&
+              (SublineItemForm.get('lineItemName')?.touched ||
+                SublineItemForm.get('lineItemName')?.dirty)
+            "
+            class="text-danger"
+          >
+            Line item is required.
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Budget"
+            formControlName="budget"
+            required
+            aria-label="Budget"
+          />
+          <div
+            *ngIf="
+              SublineItemForm.get('budget')?.invalid &&
+              (SublineItemForm.get('budget')?.touched ||
+                SublineItemForm.get('budget')?.dirty)
+            "
+            class="text-danger"
+          >
+            Budget is required.
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <textarea
+            class="form-control"
+            placeholder="Notes"
+            formControlName="notes"
+            aria-label="Notes"
+          ></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary me-3"
+            mat-button
+            (click)="onNoClick()"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            mat-button
+            [disabled]="!SublineItemForm.valid"
+            (click)="onSaveClick()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
