@@ -1,0 +1,30 @@
+<div>
+  <h2>Suppliers</h2>
+  <button (click)="addSupplier()">Add Supplier</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Company Name</th>
+        <th>Select</th>
+        <th>Salesperson Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let supplier of suppliers">
+        <td>{{ supplier.companyName }}</td>
+        <td><input type="checkbox" (change)="toggleSupplierSelection(supplier.id)"></td>
+        <td>{{ supplier.salespersonName }}</td>
+        <td>{{ supplier.phone }}</td>
+        <td>{{ supplier.email }}</td>
+        <td>
+          <button (click)="editSupplier(supplier.id)">Edit</button>
+          <button (click)="deleteSupplier(supplier.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="bulkDeleteSuppliers()">Delete Selected</button>
+</div>

@@ -12,5 +12,6 @@ namespace Operation_Map.Server.Models
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
+        public string? Relationship { get; set; }  // neighbor, inspector, other
     }
 }

@@ -15,6 +15,8 @@ namespace Operation_Map.Server.Models
         public List<Project>? Projects { get; set; }
         public List<Subcontractor> Subcontractors { get; set; } = new List<Subcontractor>();
         public List<SubcontractorGroup>? SubcontractorGroups { get; set; }
+        public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
+        public List<SupplierGroup>? SupplierGroups { get; set; }
     }
 
 
