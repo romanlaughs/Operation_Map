@@ -1,0 +1,35 @@
+<div>
+  <h2>Accounting Materials</h2>
+  <button (click)="addMaterial()">Add Material</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Material Type</th>
+        <th>Supplier/Store</th>
+        <th>Item Number</th>
+        <th>Date Purchased</th>
+        <th>Price</th>
+        <th>Additional Order</th>
+        <th>Total</th>
+        <th>Payments Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of materials">
+        <td>{{ material.materialType }}</td>
+        <td>{{ material.supplierOrStore }}</td>
+        <td>{{ material.itemNumber }}</td>
+        <td>{{ material.datePurchased | date }}</td>
+        <td>${{ material.price | number:'1.2-2' }}</td>
+        <td>${{ material.additionalOrder | number:'1.2-2' }}</td>
+        <td>${{ calculateTotal(material) | number:'1.2-2' }}</td>
+        <td>${{ calculatePaymentsTotal(material) | number:'1.2-2' }}</td>
+        <td>
+          <button (click)="editMaterial(material.id)">Edit</button>
+          <button (click)="deleteMaterial(material.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

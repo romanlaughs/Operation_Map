@@ -1,0 +1,72 @@
+<div>
+  <h2>{{ materialId ? 'Edit' : 'Add' }} Accounting Material</h2>
+  <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="materialType">Material Type *</label>
+      <input id="materialType" formControlName="materialType" required>
+      <div *ngIf="materialForm.get('materialType')?.invalid && materialForm.get('materialType')?.touched">
+        Material Type is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="supplierOrStore">Supplier/Store *</label>
+      <input id="supplierOrStore" formControlName="supplierOrStore" required>
+      <div *ngIf="materialForm.get('supplierOrStore')?.invalid && materialForm.get('supplierOrStore')?.touched">
+        Supplier/Store is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="itemNumber">Item Number</label>
+      <input id="itemNumber" formControlName="itemNumber">
+    </div>
+
+    <div>
+      <label for="datePurchased">Date Purchased</label>
+      <input id="datePurchased" type="date" formControlName="datePurchased">
+    </div>
+
+    <div>
+      <label for="price">Price *</label>
+      <input id="price" type="number" step="0.01" formControlName="price" required>
+      <div *ngIf="materialForm.get('price')?.invalid && materialForm.get('price')?.touched">
+        A valid Price is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="additionalOrder">Additional Order</label>
+      <input id="additionalOrder" type="number" step="0.01" formControlName="additionalOrder">
+    </div>
+
+    <h3>Payments</h3>
+    <div formArrayName="payments">
+      <div *ngFor="let payment of payments.controls; let i = index" [formGroupName]="i">
+        <h4>Payment {{ i + 1 }}</h4>
+        <div>
+          <label>Description *</label>
+          <input formControlName="description" placeholder="e.g., First load, Second load">
+        </div>
+        <div>
+          <label>Amount *</label>
+          <input type="number" step="0.01" formControlName="amount">
+        </div>
+        <div>
+          <label>Date Paid</label>
+          <input type="date" formControlName="datePaid">
+        </div>
+        <div>
+          <label>Invoice URL</label>
+          <input formControlName="invoiceURL">
+        </div>
+        <button type="button" (click)="removePayment(i)">Remove Payment</button>
+      </div>
+    </div>
+    <button type="button" (click)="addPayment()">Add Payment</button>
+
+    <div>
+      <button type="submit">{{ materialId ? 'Update' : 'Add' }} Material</button>
+    </div>
+  </form>
+</div>

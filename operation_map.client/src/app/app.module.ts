@@ -21,7 +21,9 @@ import { ProjectsArchiveComponent } from './projects-archive/projects-archive.co
 import { SubcontractorsComponent } from './subcontractors/subcontractors.component';
 import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
-import { SupplierFormComponent } from './supplier-form/supplier-form.component'; 
+import { SupplierFormComponent } from './supplier-form/supplier-form.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { MaterialFormComponent } from './material-form/material-form.component'; 
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SupplierFormComponent } from './supplier-form/supplier-form.component';
     SubcontractorsComponent,
     SubcontractorFormComponent,
     SuppliersComponent,
-    SupplierFormComponent
+    SupplierFormComponent,
+    MaterialsComponent,
+    MaterialFormComponent
   ],
   imports: [
     FormsModule,
@@ -57,6 +61,8 @@ import { SupplierFormComponent } from './supplier-form/supplier-form.component';
       { path: 'subcontractor-form', component: SubcontractorFormComponent , canActivate: [AuthGuard] },
       { path: 'suppliers', component: SuppliersComponent, canActivate: [AuthGuard] },
       { path: 'supplier-form', component: SupplierFormComponent, canActivate: [AuthGuard] },
+      { path: 'materials', component: MaterialsComponent, canActivate: [AuthGuard] },
+      { path: 'material-form', component: MaterialFormComponent, canActivate: [AuthGuard] },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     ]),
     AuthModule.forRoot({
