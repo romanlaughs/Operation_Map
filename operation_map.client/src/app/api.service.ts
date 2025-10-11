@@ -7,6 +7,9 @@ import { User } from './models/user.model';
 import { Project } from './models/project.model';
 import { Subcontractor } from './models/subcontractor.model';
 import { SubcontractorGroup } from './models/subcontractorgroup.model';
+import { Supplier } from './models/supplier.model';
+import { SupplierGroup } from './models/suppliergroup.model';
+import { AccountingMaterial } from './models/accounting-material.model';
 
 @Injectable({
   providedIn: 'root'
@@ -161,5 +164,64 @@ export class ApiService {
   addToGroup(userEmail: string, group: SubcontractorGroup): Observable<void> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<void>(`${this.apiUrl}/subcontractor/${userEmail}/subcontractorGroups`, group, { headers });
+  }
+
+  // Supplier methods
+  getSuppliers(userEmail: string): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(`${this.apiUrl}/supplier/${userEmail}/suppliers`);
+  }
+
+  getSupplierById(userEmail: string, supplierId: string): Observable<Supplier> {
+    const url = `${this.apiUrl}/supplier/${userEmail}/suppliers/${supplierId}`;
+    return this.http.get<Supplier>(url);
+  }
+
+  createSupplier(userEmail: string, supplier: Supplier): Observable<void> {
+    const url = `${this.apiUrl}/supplier/${userEmail}/suppliers`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<void>(url, supplier, { headers });
+  }
+
+  updateSupplier(userEmail: string, supplierId: string, supplier: Supplier): Observable<void> {
+    const url = `${this.apiUrl}/supplier/${userEmail}/suppliers/${supplierId}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(url, supplier, { headers });
+  }
+
+  deleteSupplier(userEmail: string, supplierId: string): Observable<void> {
+    const url = `${this.apiUrl}/supplier/${userEmail}/suppliers/${supplierId}`;
+    return this.http.delete<void>(url);
+  }
+
+  bulkDeleteSuppliers(userEmail: string, supplierIds: string[]): Observable<void> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.request<void>('delete', `${this.apiUrl}/supplier/${userEmail}/suppliers`, { body: supplierIds, headers });
+  }
+
+  // Accounting Material methods
+  getAccountingMaterials(userEmail: string, projectId: string): Observable<AccountingMaterial[]> {
+    return this.http.get<AccountingMaterial[]>(`${this.apiUrl}/material/${userEmail}/projects/${projectId}/accounting-materials`);
+  }
+
+  getAccountingMaterialById(userEmail: string, projectId: string, materialId: string): Observable<AccountingMaterial> {
+    const url = `${this.apiUrl}/material/${userEmail}/projects/${projectId}/accounting-materials/${materialId}`;
+    return this.http.get<AccountingMaterial>(url);
+  }
+
+  createAccountingMaterial(userEmail: string, projectId: string, material: AccountingMaterial): Observable<void> {
+    const url = `${this.apiUrl}/material/${userEmail}/projects/${projectId}/accounting-materials`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<void>(url, material, { headers });
+  }
+
+  updateAccountingMaterial(userEmail: string, projectId: string, materialId: string, material: AccountingMaterial): Observable<void> {
+    const url = `${this.apiUrl}/material/${userEmail}/projects/${projectId}/accounting-materials/${materialId}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<void>(url, material, { headers });
+  }
+
+  deleteAccountingMaterial(userEmail: string, projectId: string, materialId: string): Observable<void> {
+    const url = `${this.apiUrl}/material/${userEmail}/projects/${projectId}/accounting-materials/${materialId}`;
+    return this.http.delete<void>(url);
   }
 }

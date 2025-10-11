@@ -40,6 +40,10 @@ export class NavigationComponent implements OnInit{
     this.router.navigate(['/subcontractors']);
   }
 
+  goToSuppliers() {
+    this.router.navigate(['/suppliers']);
+  }
+
   logout() {
     console.log('Logout button clicked');
     this.auth.logout({ logoutParams: { returnTo: window.location.origin, federated: true } });

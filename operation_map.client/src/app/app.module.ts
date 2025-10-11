@@ -19,7 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsBiddingComponent } from './projects-bidding/projects-bidding.component';
 import { ProjectsArchiveComponent } from './projects-archive/projects-archive.component';
 import { SubcontractorsComponent } from './subcontractors/subcontractors.component';
-import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component'; 
+import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-form.component';
+import { SuppliersComponent } from './suppliers/suppliers.component';
+import { SupplierFormComponent } from './supplier-form/supplier-form.component'; 
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-f
     ProjectsBiddingComponent,
     ProjectsArchiveComponent,
     SubcontractorsComponent,
-    SubcontractorFormComponent
+    SubcontractorFormComponent,
+    SuppliersComponent,
+    SupplierFormComponent
   ],
   imports: [
     FormsModule,
@@ -51,6 +55,8 @@ import { SubcontractorFormComponent } from './subcontractor-form/subcontractor-f
       { path: 'projects-archive', component: ProjectsArchiveComponent, canActivate: [AuthGuard] },
       { path: 'subcontractors', component: SubcontractorsComponent, canActivate: [AuthGuard] },
       { path: 'subcontractor-form', component: SubcontractorFormComponent , canActivate: [AuthGuard] },
+      { path: 'suppliers', component: SuppliersComponent, canActivate: [AuthGuard] },
+      { path: 'supplier-form', component: SupplierFormComponent, canActivate: [AuthGuard] },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     ]),
     AuthModule.forRoot({

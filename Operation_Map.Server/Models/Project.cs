@@ -30,6 +30,7 @@ namespace Operation_Map.Server.Models
         public string? ProjectEmail { get; set; }
         public List<LineItem>? LineItems { get; set; }
         public List<Material>? Materials { get; set; }
+        public List<AccountingMaterial>? AccountingMaterials { get; set; }
         public int? ProjectStatus { get; set; }
         public int? Bathrooms { get; set; }
         public int? SquareFootage { get; set; }
