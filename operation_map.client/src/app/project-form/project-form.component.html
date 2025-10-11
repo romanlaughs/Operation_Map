@@ -65,4 +65,10 @@
     <button type="submit">{{ projectId ? 'Update' : 'Create' }} Project</button>
     <button type="button" (click)="onArchive()" *ngIf="projectId">Archive Project</button>
   </form>
+
+  <div *ngIf="projectId" class="project-management-links">
+    <h3>Project Management</h3>
+    <button type="button" (click)="goToMaterials()">Manage Accounting Materials</button>
+    <p><em>Manage materials for accounting - track purchases, suppliers, and payments</em></p>
+  </div>
 </div>

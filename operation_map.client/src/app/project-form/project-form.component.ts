@@ -113,4 +113,10 @@ export class ProjectFormComponent implements OnInit {
     }
     alert(`The following fields are required: ${invalidControls.join(', ')}`);
   }
+
+  goToMaterials(): void {
+    if (this.projectId) {
+      this.router.navigate(['/materials', { projectId: this.projectId }]);
+    }
+  }
 }
